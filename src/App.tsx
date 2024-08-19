@@ -25,7 +25,7 @@ function App() {
     <LanguageProvider>
       <Router>
         <div>
-          <Header onLogoutSuccess={handleLoginSuccess} />
+          {isAuthenticated && <Header onLogoutSuccess={handleLoginSuccess} />}
           <Routes>
             <Route path="/login" element={<Login onLoginSuccess={handleLoginSuccess} />} />
             {isAuthenticated ? (
