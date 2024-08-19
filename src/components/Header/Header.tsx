@@ -6,6 +6,7 @@ import { texts } from '../LanguageProvider/languages';
 import { useState } from 'react';
 import { handleLogout } from '../../api/UserService';
 import { IHeaderProps } from '../../interfaces/Users';
+import logo from '../../assets/logo.svg';
 const Header: React.FC<IHeaderProps> = ({ onLogoutSuccess }) => {
   const { language, toggleLanguage } = useLanguage();
   const [errorMessage, setErrorMessage] = useState<string | undefined>(undefined)
@@ -17,7 +18,7 @@ const Header: React.FC<IHeaderProps> = ({ onLogoutSuccess }) => {
     <nav className={styles.header}>
       {errorMessage && <Alert message={errorMessage} type="error" showIcon />}
       <img
-        src='../../src/assets/logo.svg'
+        src={logo}
         className={styles.header__logo}
       />
       <div className={styles.header__justifyDiv}>
