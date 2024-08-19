@@ -28,18 +28,18 @@ function App() {
     <LanguageProvider>
       <Router>
         <div>
-
-          <>
-            <Header onLogoutSuccess={handleLoginSuccess} />
-            <Routes>
-              <Route path="/" element={<Main />} />
-              <Route path="/about" element={<Settings />} />
-              <Route path="/contact" element={<History />} />
-              <Route path="/login" element={<Login onLoginSuccess={handleLoginSuccess} />} />
-            </Routes>
-          </>
-
-
+          {isAuthenticated ? (
+            <>
+              <Header onLogoutSuccess={handleLoginSuccess} />
+              <Routes>
+                <Route path="/" element={<Main />} />
+                <Route path="/about" element={<Settings />} />
+                <Route path="/contact" element={<History />} />
+              </Routes>
+            </>
+          ) : (
+            <Login onLoginSuccess={handleLoginSuccess} />
+          )}
         </div>
       </Router>
     </LanguageProvider>
