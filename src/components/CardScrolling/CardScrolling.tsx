@@ -7,7 +7,7 @@ import { Alert } from 'antd';
 
 const CardScrolling = () => {
     const { language } = useLanguage();
-    const { filters, loading, error } = useFilters('https://localhost:8000/api/v1/filters/get_filters/'); // Замените на свой endpoint
+    const { filters, loading, error } = useFilters('https://localhost:8000/api/v1/filters/get_filters'); // Замените на свой endpoint
     useEffect(() => {
         console.log(filters, loading, error);
 
