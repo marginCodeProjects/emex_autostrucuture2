@@ -25,7 +25,7 @@ function App() {
 
   if (isLoading) {
     // Можно вернуть спиннер или просто пустой div во время загрузки
-    return <div>Loading...</div>;
+    return <></>;
   }
 
   return (
