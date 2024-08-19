@@ -4,17 +4,17 @@ FROM node:18-slim AS build
 # Устанавливаем рабочую директорию
 WORKDIR /app
 
-# Копируем package.json и yarn.lock / package-lock.json
-COPY package.json yarn.lock ./
+# Копируем package.json и package-lock.json в контейнер
+COPY package.json package-lock.json ./
 
 # Устанавливаем зависимости
-RUN yarn install
+RUN npm install
 
 # Копируем весь исходный код
 COPY . .
 
 # Сборка приложения
-RUN yarn build
+RUN npm run build
 
 # Этап 2: Сборка финального образа
 FROM nginx:alpine
