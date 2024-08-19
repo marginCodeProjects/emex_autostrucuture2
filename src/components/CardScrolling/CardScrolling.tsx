@@ -22,7 +22,7 @@ const CardScrolling = () => {
                         return (
                             <div className={styles.Card} key={filter.id}>
                                 <div className={styles.Card__topPart}>
-                                    <p className={`${styles.inter__medium} ${styles.Card__topPart_title} `}>Название</p>
+                                    <p className={`${styles.inter__medium} ${styles.Card__topPart_title} `}>{filter.title}</p>
                                 </div>
                                 <div className={styles.Cart_bottomPart}>
                                     <p className={`${styles.Card__bottomPart_texts} ${styles.inter__medium}`}>{`${texts[language].filterCardLogo} ${filter.logo}`}</p>
