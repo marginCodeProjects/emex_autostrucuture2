@@ -26,7 +26,7 @@ export async function UserLogin(
 ): Promise<{ success: boolean; message: string }> {
 	try {
 		const response = await fetch(
-			'https://localhost:8000/api/v1/users/login',
+			'https://api.forprojectstests.ru/v1/users/login',
 			{
 				method: 'POST',
 				body: JSON.stringify({
@@ -84,7 +84,7 @@ export async function UserLogout(): Promise<{
 }> {
 	try {
 		const response = await fetch(
-			'https://localhost:8000/api/v1/users/logout',
+			'https://api.forprojectstests.ru/v1/users/logout',
 			{
 				method: 'GET',
 				headers: {

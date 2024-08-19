@@ -1,13 +1,13 @@
 import { useEffect } from 'react';
 import useFilters from '../../hooks/UserHooks/filtersHooks';
-import {  useLanguage } from '../LanguageProvider/LanguageProvider'
+import { useLanguage } from '../LanguageProvider/LanguageProvider'
 import { texts } from '../LanguageProvider/languages'
 import styles from './CardScrolling.module.css'
 import { Alert } from 'antd';
 
 const CardScrolling = () => {
     const { language } = useLanguage();
-    const { filters, loading, error } = useFilters('https://localhost:8000/api/v1/filters/get_filters/'); // Замените на свой endpoint
+    const { filters, loading, error } = useFilters('https://api.forprojectstests.ru/v1/filters/get_filters/'); // Замените на свой endpoint
     useEffect(() => {
         console.log(filters, loading, error);
 
