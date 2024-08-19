@@ -1,6 +1,6 @@
 import { useEffect } from 'react';
 import useFilters from '../../hooks/UserHooks/filtersHooks';
-import { LanguageProvider, useLanguage } from '../LanguageProvider/LanguageProvider'
+import {  useLanguage } from '../LanguageProvider/LanguageProvider'
 import { texts } from '../LanguageProvider/languages'
 import styles from './CardScrolling.module.css'
 import { Alert } from 'antd';
