@@ -1,0 +1,53 @@
+:root {
+	line-height: 1.1;
+	font-weight: 500;
+	color: #000;
+	text-rendering: optimizeLegibility;
+	-webkit-font-smoothing: antialiased;
+	-moz-osx-font-smoothing: grayscale;
+}
+
+* {
+  box-sizing: border-box;
+	padding-inline-start: 0px;
+	padding-inline-end: 0px;
+	margin: 0px;text-decoration: none;
+	padding: 0px;
+	margin-block-start: 0px;
+	margin-block-end: 0px;
+	margin-inline-start: 0px;
+	margin-inline-end: 0px;
+}
+a:visited{color: inherit;}
+button {
+	all: unset; /* Сбрасывает все стили, возвращая их к исходному значению */
+	display: inline-block; /* Восстанавливает поведение как у кнопки */
+	cursor: pointer; /* Устанавливает курсор указателя при наведении */
+  }
+  
+  button {
+	font: inherit; /* Наследует шрифт от родителя */
+	color: inherit; /* Наследует цвет текста */
+	background: none; /* Убирает фон */
+	border: none; /* Убирает границу */
+	padding: 0; /* Убирает внутренние отступы */
+	margin: 0; 
+  }
+.inter-medium {
+	font-family: 'Inter', sans-serif;
+	font-optical-sizing: auto;
+	font-weight: 500;
+	font-style: normal;
+}
+.inter-semibold {
+	font-family: 'Inter', sans-serif;
+	font-optical-sizing: auto;
+	font-weight: 600;
+	font-style: normal;
+}
+.inter-bold {
+	font-family: 'Inter', sans-serif;
+	font-optical-sizing: auto;
+	font-weight: 700;
+	font-style: normal;
+}

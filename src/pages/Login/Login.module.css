@@ -1,0 +1,44 @@
+.login__div {
+    display: flex;
+    flex-direction: column;
+    justify-content: center; /* Центрирует по вертикали */
+    align-items: center; /* Центрирует по горизонтали */
+    height: 100vh; /* Высота на весь экран */
+    padding: 20px; /* Отступы вокруг содержимого */
+    box-sizing: border-box; /* Чтобы padding не увеличивал высоту элемента */
+    font-family: 'Inter', sans-serif; /* Применение шрифта Inter ко всем элементам внутри */
+    font-weight: 500; /* Применение толщины 500 ко всем элементам внутри */
+}
+
+.inter_semibold {
+    font-size: 32px;
+    margin-bottom: 20px; /* Уменьшено для лучшего отображения */
+}
+
+.ant-form-item {
+    width: 100%;
+}
+
+.ant-form-item-label {
+    text-align: left;
+    font-weight: 500; /* Толщина шрифта для меток формы */
+}
+
+.ant-form-item-control-input-content {
+    text-align: left;
+}
+
+.ant-input, .ant-input-password {
+    border-color: #335AE6; /* Цвет границы для полей ввода */
+}
+
+.ant-btn-primary {
+    background-color: #335AE6; /* Цвет фона кнопки */
+    border-color: #335AE6; /* Цвет границы кнопки */
+    font-weight: 500; /* Толщина шрифта для текста кнопки */
+}
+
+.ant-btn-primary:hover {
+    background-color: #2545D1; /* Немного измененный цвет при наведении */
+    border-color: #2545D1; /* Немного измененный цвет границы при наведении */
+}
