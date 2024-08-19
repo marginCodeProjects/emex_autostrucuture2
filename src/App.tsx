@@ -11,6 +11,7 @@ import Login from "./pages/Login/Login";
 
 function App() {
   const [isAuthenticated, setIsAuthenticated] = useState<boolean>(false);
+  const [isLoading, setIsLoading] = useState<boolean>(true); // Состояние загрузки
 
   const handleLoginSuccess = (isSuccess: boolean) => {
     setIsAuthenticated(isSuccess);
@@ -19,7 +20,13 @@ function App() {
   useEffect(() => {
     const token = getCookie('access_token');
     setIsAuthenticated(!!token);
+    setIsLoading(false); // Завершаем загрузку после проверки токена
   }, []);
+
+  if (isLoading) {
+    // Можно вернуть спиннер или просто пустой div во время загрузки
+    return <div>Loading...</div>;
+  }
 
   return (
     <LanguageProvider>
