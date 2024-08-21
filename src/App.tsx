@@ -6,19 +6,21 @@ import Main from "./pages/Main/Main";
 import History from "./pages/History/History";
 import { LanguageProvider } from "./components/LanguageProvider/LanguageProvider";
 import { useEffect, useState } from "react";
-import { getCookie } from "./utils/cookies";
+import { getCookie } from "./utils/utils";
 import Login from "./pages/Login/Login";
-import { AuthState } from "./interfaces/Users";
+import { AuthState } from "./interfaces/Main";
 
 
 function App() {
   const [authState, setAuthState] = useState<AuthState>({ isAuthenticated: false, username: "" });
   const [isLoading, setIsLoading] = useState<boolean>(true); // Состояние загрузки
-
+  const [CheckesAuth, setCheckesAuth] = useState(1)
   const handleLoginSuccess = (isSuccess: boolean, username: string) => {
     setAuthState({ isAuthenticated: isSuccess, username });
   };
-
+  setInterval(() => {
+    setCheckesAuth((prev) => prev += 1)
+  }, 10000);
   useEffect(() => {
     const token = getCookie('access_token');
     const username = localStorage.getItem('username')
@@ -26,7 +28,7 @@ function App() {
       setAuthState({ isAuthenticated: true, username: username });
     }
     setIsLoading(false); // Завершаем загрузку после проверки токена
-  }, []);
+  }, [CheckesAuth]);
 
   if (isLoading) {
     // Можно вернуть спиннер или просто пустой div во время загрузки

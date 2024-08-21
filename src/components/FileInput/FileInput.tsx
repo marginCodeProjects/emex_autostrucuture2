@@ -1,13 +1,13 @@
-import React from 'react';
 import type { UploadProps } from 'antd';
 import { message, Upload } from 'antd';
 import { texts } from '../LanguageProvider/languages';
 import { useLanguage } from '../LanguageProvider/LanguageProvider';
 import icon from '../../assets/UploadDataIcon.svg'
 import styles from './FileInput.module.css'
+import { IFileUploadPageProps } from '../../interfaces/Main';
 const { Dragger } = Upload;
 
-const FileUploadPage: React.FC = () => {
+const FileUploadPage: React.FC<IFileUploadPageProps> = ({ setFile }) => {
     const { language } = useLanguage(); // Вызов хука для получения языка
 
     const props: UploadProps = {
@@ -17,9 +17,11 @@ const FileUploadPage: React.FC = () => {
         action: 'https://api.forprojectstests.ru/v1/files/upload_file',
         onChange(info) {
             const { status } = info.file;
+            console.log(info);
 
             if (status === 'done') {
                 message.success("Файл успешно загружен");
+                setFile(info.file.name)
             } else if (status === 'error') {
                 message.error(`Файл не соответствует шаблону`);
             }

@@ -5,9 +5,9 @@ import { useLanguage } from '../LanguageProvider/LanguageProvider';
 import { texts } from '../LanguageProvider/languages';
 import { useState } from 'react';
 import { handleLogout } from '../../api/UserService';
-import { IHeaderProps } from '../../interfaces/Users';
+import { IHeaderProps } from '../../interfaces/Main';
 import logo from '../../assets/logo.svg';
-const Header: React.FC<IHeaderProps> = ({ onLogoutSuccess,username }) => {
+const Header: React.FC<IHeaderProps> = ({ onLogoutSuccess, username }) => {
   const { language, toggleLanguage } = useLanguage();
   const [errorMessage, setErrorMessage] = useState<string | undefined>(undefined)
 

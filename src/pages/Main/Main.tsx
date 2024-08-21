@@ -9,15 +9,16 @@ import ProcessManagement from "../../components/ProcessManagement/ProcessManagem
 const Main = () => {
   const { language } = useLanguage();
   const [selectedCardId, setSelectedCardId] = useState<string | null>(null)
+  const [file, setFile] = useState("")
   return (
     <div className={styles.Main__container}>
 
       <PagePartTitle num="1." label={texts[language].selectFilter} />
       <CardScrolling selectedCardId={selectedCardId} setSelectedCardId={setSelectedCardId} />
       <PagePartTitle num="2." label={texts[language].uploadingData} />
-      <FileInput />
+      <FileInput setFile={setFile} />
       <PagePartTitle num="3." label={texts[language].processManagement} />
-      <ProcessManagement/>
+      <ProcessManagement file={file} setFile={setFile} />
     </div>
   )
 }

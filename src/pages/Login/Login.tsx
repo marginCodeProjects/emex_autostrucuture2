@@ -3,7 +3,7 @@ import { useNavigate } from 'react-router-dom';
 import styles from './Login.module.css';
 import { Button, Form, Input, Alert } from 'antd';
 import { onFinish, onFinishFailed, } from '../../api/UserService';
-import { ILoginProps, IUserLogin } from '../../interfaces/Users';
+import { ILoginProps, IUserLogin } from '../../interfaces/Main';
 
 const Login: React.FC<ILoginProps> = ({ onLoginSuccess }) => {
     const navigate = useNavigate();

@@ -1,6 +1,6 @@
 import { FormProps } from 'antd';
 import { NavigateFunction } from 'react-router-dom';
-import { IUserLogin } from '../../interfaces/Users'
+import { IUserLogin } from '../../interfaces/Main'
 
 
 export async function handleLogout(
