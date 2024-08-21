@@ -18,7 +18,7 @@ const ProcessManagement: React.FC<IProcessManagementProps> = ({ file, setFile })
     return (
         <div>
             <p>{status}</p>
-            <div className={styles.ProcessDiv}>
+          {file && <div className={styles.ProcessDiv}>
                 <img src={startIcon} className={styles.ProcessDiv__StartButton} />
                 <div className={styles.ProcessDiv__group}>
                     <div className={styles.texts__div}>
@@ -49,7 +49,7 @@ const ProcessManagement: React.FC<IProcessManagementProps> = ({ file, setFile })
                         {`${percentBannedList}%`}
                     </p>
                 </div>
-            </div>
+            </div>}
         </div>
     );
 };

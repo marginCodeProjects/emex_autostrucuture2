@@ -32,32 +32,30 @@ function App() {
 
   if (isLoading) {
     // Можно вернуть спиннер или просто пустой div во время загрузки
-    return <></>
+    return <></>;
   }
-  if (!isLoading) {
 
-    return (
-      <LanguageProvider>
-        <Router>
-          <div>
-            {authState.isAuthenticated && <Header username={authState.username} onLogoutSuccess={() => handleLoginSuccess(false, "")} />}
-            <Routes>
-              <Route path="/login" element={<Login onLoginSuccess={handleLoginSuccess} />} />
-              {authState.isAuthenticated && isLoading ? (
-                <>
-                  <Route path="/" element={<Main />} />
-                  <Route path="/about" element={<Settings />} />
-                  <Route path="/contact" element={<History />} />
-                </>
-              ) : (
-                <Route path="*" element={<Navigate to="/login" replace />} />
-              )}
-            </Routes>
-          </div>
-        </Router>
-      </LanguageProvider>
-    );
-  }
+  return (
+    <LanguageProvider>
+      <Router>
+        <div>
+          {authState.isAuthenticated && <Header username={authState.username} onLogoutSuccess={() => handleLoginSuccess(false, "")} />}
+          <Routes>
+            <Route path="/login" element={<Login onLoginSuccess={handleLoginSuccess} />} />
+            {authState.isAuthenticated ? (
+              <>
+                <Route path="/" element={<Main />} />
+                <Route path="/about" element={<Settings />} />
+                <Route path="/contact" element={<History />} />
+              </>
+            ) : (
+              <Route path="*" element={<Navigate to="/login" replace />} />
+            )}
+          </Routes>
+        </div>
+      </Router>
+    </LanguageProvider>
+  );
 }
 
 export default App;
