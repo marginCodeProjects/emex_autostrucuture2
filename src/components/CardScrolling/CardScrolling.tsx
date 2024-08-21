@@ -1,17 +1,17 @@
-import { useEffect } from 'react';
+import { SetStateAction } from 'react';
 import useFilters from '../../hooks/UserHooks/filtersHooks';
 import { useLanguage } from '../LanguageProvider/LanguageProvider'
 import { texts } from '../LanguageProvider/languages'
 import styles from './CardScrolling.module.css'
 import { Alert } from 'antd';
-
-const CardScrolling = () => {
+interface ICardScrollingProps {
+    setSelectedCardId: React.Dispatch<SetStateAction<string | null>>
+    selectedCardId: string | null
+}
+const CardScrolling: React.FC<ICardScrollingProps> = ({ setSelectedCardId, selectedCardId }) => {
     const { language } = useLanguage();
-    const { filters, loading, error } = useFilters('https://api.forprojectstests.ru/v1/filters/get_filters'); // Замените на свой endpoint
-    useEffect(() => {
-        console.log(filters, loading, error);
+    const { filters, loading, error } = useFilters('https://api.forprojectstests.ru/v1/filters/get_filters');
 
-    }, [filters])
 
     return (
         <>
@@ -20,7 +20,7 @@ const CardScrolling = () => {
                 {!loading &&
                     filters.map((filter) => {
                         return (
-                            <div className={styles.Card} key={filter.id}>
+                            <div className={`${styles.Card} ${selectedCardId === filter.id ? styles.Card__active : ''}`} key={filter.id} onClick={() => setSelectedCardId(filter.id)}>
                                 <div className={styles.Card__topPart}>
                                     <p className={`${styles.inter__medium} ${styles.Card__topPart_title} `}>{filter.title}</p>
                                 </div>

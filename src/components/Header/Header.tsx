@@ -7,7 +7,7 @@ import { useState } from 'react';
 import { handleLogout } from '../../api/UserService';
 import { IHeaderProps } from '../../interfaces/Users';
 import logo from '../../assets/logo.svg';
-const Header: React.FC<IHeaderProps> = ({ onLogoutSuccess }) => {
+const Header: React.FC<IHeaderProps> = ({ onLogoutSuccess,username }) => {
   const { language, toggleLanguage } = useLanguage();
   const [errorMessage, setErrorMessage] = useState<string | undefined>(undefined)
 
@@ -71,7 +71,7 @@ const Header: React.FC<IHeaderProps> = ({ onLogoutSuccess }) => {
           <p
             className={`${styles.header__controlPanel__item}  ${styles.inter_semibold}`}
           >
-            ROOT
+            {username}
           </p>
           <button
             className={`${styles.header__controlPanel__item}  ${styles.inter__medium}`}

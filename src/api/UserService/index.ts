@@ -3,15 +3,14 @@ import { NavigateFunction } from 'react-router-dom';
 import { IUserLogin } from '../../interfaces/Users'
 
 
-
 export async function handleLogout(
     setErrorMessage: React.Dispatch<React.SetStateAction<string | undefined>>,
-	onLogoutSuccess: (isSuccess:boolean) => void
+	onLogoutSuccess: (isSuccess:boolean,username:string) => void
 ) {
     try {
         const { success, message } = await UserLogout()
         if (success) {
-            onLogoutSuccess(false)
+            onLogoutSuccess(false,'')
         } else {
             setErrorMessage(message)
         }
@@ -23,7 +22,7 @@ export async function handleLogout(
 
 export async function UserLogin(
 	data: IUserLogin
-): Promise<{ success: boolean; message: string }> {
+): Promise<{ success: boolean; message: string,username:string }> {
 	try {
 		const response = await fetch(
 			'https://api.forprojectstests.ru/v1/users/login',
@@ -41,7 +40,10 @@ export async function UserLogin(
 		)
 
 		if (response.ok) {
-			return { success: true, message: 'Успешный вход' }
+			const userInfo = await response.json()
+		
+			
+			return { success: true, message: 'Успешный вход',username: userInfo.username }
 		} else {
 			let errorMessage = 'Ошибка входа'
 
@@ -51,23 +53,25 @@ export async function UserLogin(
 				errorMessage = 'Доступ запрещен'
 			}
 
-			return { success: false, message: errorMessage }
+			return { success: false, message: errorMessage ,username:''}
 		}
 	} catch (error) {
-		return { success: false, message: 'Ошибка сети или сервера' }
+		return { success: false, message: 'Ошибка сети или сервера',username:'' }
 	}
 }
 
 // Функция onFinish
 export const onFinish = (
-  onLoginSuccess: (status: boolean) => void,
+  onLoginSuccess: (status: boolean,username:string) => void,
   navigate: NavigateFunction,
   setErrorMessage: (message: string | null) => void
 ): FormProps<IUserLogin>['onFinish'] => async (values) => {
   const result = await UserLogin(values);
 
   if (result.success) {
-    onLoginSuccess(true);
+	
+	localStorage.setItem('username',result.username)
+    onLoginSuccess(true,result.username);
     navigate('/'); // Перенаправление после успешного логина
   } else {
     setErrorMessage(result.message);

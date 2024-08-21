@@ -1,0 +1,23 @@
+.inter__medium {
+	font-family: 'Inter', sans-serif;
+	font-optical-sizing: auto;
+	font-weight: 500;
+	font-style: normal;
+}
+.icon {
+	margin-bottom: 13px;
+	margin-top: 12px;
+	width: 65px;
+	height: 53px;
+}
+.hintText {
+	font-size: 15px;
+}
+.downloadTemplate {
+	font-size: 16px;
+	text-align: left;
+	display: block;
+	text-decoration: underline;
+	color: #335ae6;
+	margin-bottom: 40px;
+}

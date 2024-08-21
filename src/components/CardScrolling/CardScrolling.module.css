@@ -13,12 +13,13 @@
 	display: flex;
 	overflow-x: scroll;
 	overflow-y: hidden;
-	scrollbar-width: none; /* Скрывает полосу прокрутки в Firefox */
+	scrollbar-width: none; 
+	margin-bottom: 40px;
 }
-/* Скрытие полос прокрутки, но сохранение возможности прокрутки */
+
 
 .OutlineDiv::-webkit-scrollbar {
-	display: none; /* Скрывает полосу прокрутки в WebKit-браузерах */
+	display: none; 
 }
 .Card {
 	min-width: 207px;
@@ -42,9 +43,13 @@
 }
 .Cart_bottomPart {
 	height: 75px;
-	padding: 10px 12px;width: 205px;
+	padding: 10px 12px;
+	width: 205px;
 }
 .Card__bottomPart_texts {
 	font-size: 15px;
 	text-align: left;
+}
+.Card__active {
+	border: 3px solid #335ae6;
 }

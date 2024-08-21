@@ -8,18 +8,23 @@ import { LanguageProvider } from "./components/LanguageProvider/LanguageProvider
 import { useEffect, useState } from "react";
 import { getCookie } from "./utils/cookies";
 import Login from "./pages/Login/Login";
+import { AuthState } from "./interfaces/Users";
+
 
 function App() {
-  const [isAuthenticated, setIsAuthenticated] = useState<boolean>(false);
+  const [authState, setAuthState] = useState<AuthState>({ isAuthenticated: false, username: "" });
   const [isLoading, setIsLoading] = useState<boolean>(true); // Состояние загрузки
 
-  const handleLoginSuccess = (isSuccess: boolean) => {
-    setIsAuthenticated(isSuccess);
+  const handleLoginSuccess = (isSuccess: boolean, username: string) => {
+    setAuthState({ isAuthenticated: isSuccess, username });
   };
 
   useEffect(() => {
     const token = getCookie('access_token');
-    setIsAuthenticated(!!token);
+    const username = localStorage.getItem('username')
+    if (token && username) {
+      setAuthState({ isAuthenticated: true, username: username });
+    }
     setIsLoading(false); // Завершаем загрузку после проверки токена
   }, []);
 
@@ -32,10 +37,10 @@ function App() {
     <LanguageProvider>
       <Router>
         <div>
-          {isAuthenticated && <Header onLogoutSuccess={handleLoginSuccess} />}
+          {authState.isAuthenticated && <Header username={authState.username} onLogoutSuccess={() => handleLoginSuccess(false, "")} />}
           <Routes>
             <Route path="/login" element={<Login onLoginSuccess={handleLoginSuccess} />} />
-            {isAuthenticated ? (
+            {authState.isAuthenticated ? (
               <>
                 <Route path="/" element={<Main />} />
                 <Route path="/about" element={<Settings />} />
