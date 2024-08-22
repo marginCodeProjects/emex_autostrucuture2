@@ -11,6 +11,8 @@ const ProcessManagement: React.FC<IProcessManagementProps> = ({ file, setFile, f
     const { status, inputPercent, percentBannedList } = useWebSocket({ setFile });
     const [marginPercent, setMarginPercent] = useState<number>(-10);
     const handler = () => {
+        console.log("работаю");
+        
         const answer = ParserStart(filterId)
         console.log(answer);
 
