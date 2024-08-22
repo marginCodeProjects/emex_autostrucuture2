@@ -14,7 +14,7 @@ const FileUploadPage: React.FC<IFileUploadPageProps> = ({ setFile }) => {
         name: 'file',
         multiple: false,
         withCredentials: true, showUploadList: false,
-        action: 'https://api.forprojectstests.ru/v1/files/upload_file',
+        action: 'https://forprojectstests.ru/v1/files/upload_file',
         onChange(info) {
             const { status } = info.file;
             console.log(info);
@@ -35,7 +35,7 @@ const FileUploadPage: React.FC<IFileUploadPageProps> = ({ setFile }) => {
                 <img src={icon} className={styles.icon} />
                 <p className={`${styles.inter__medium} ${styles.hintText}`} dangerouslySetInnerHTML={{ __html: texts[language].dragAndDropInput }} />
             </Dragger>
-            <a href='https://api.forprojectstests.ru/v1/files/get_shablon' className={`${styles.inter__medium} ${styles.downloadTemplate}`}>{texts[language].downloadTemplate}</a>
+            <a href='https://forprojectstests.ru/v1/files/get_shablon' className={`${styles.inter__medium} ${styles.downloadTemplate}`}>{texts[language].downloadTemplate}</a>
         </>
     );
 };
