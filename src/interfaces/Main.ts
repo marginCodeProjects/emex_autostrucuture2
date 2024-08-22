@@ -20,6 +20,7 @@ export interface IHeaderProps {
 export interface IProcessManagementProps{
    setFile:React.Dispatch<React.SetStateAction<string>>
     file:string
+    filterId:string|null
 }
 export interface IFileUploadPageProps {
     setFile: React.Dispatch<React.SetStateAction<string>>

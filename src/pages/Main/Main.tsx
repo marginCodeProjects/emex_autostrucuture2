@@ -18,7 +18,7 @@ const Main = () => {
       <PagePartTitle num="2." label={texts[language].uploadingData} />
       <FileInput setFile={setFile} />
       <PagePartTitle num="3." label={texts[language].processManagement} />
-      <ProcessManagement file={file} setFile={setFile} />
+      <ProcessManagement file={file} setFile={setFile} filterId={selectedCardId} />
     </div>
   )
 }

@@ -5,11 +5,16 @@ import { IProcessManagementProps } from '../../interfaces/Main';
 import { useWebSocket } from '../../hooks/UserHooks/socketHooks';
 import { useEffect, useState } from 'react';
 import { calculateMarginPercent } from '../../utils/utils';
+import { ParserStart } from '../../api/ParserService';
 
-const ProcessManagement: React.FC<IProcessManagementProps> = ({ file, setFile }) => {
+const ProcessManagement: React.FC<IProcessManagementProps> = ({ file, setFile, filterId }) => {
     const { status, inputPercent, percentBannedList } = useWebSocket({ setFile });
     const [marginPercent, setMarginPercent] = useState<number>(-10);
+    const handler = () => {
+        const answer = ParserStart(filterId)
+        console.log(answer);
 
+    }
 
     useEffect(() => {
         setMarginPercent(calculateMarginPercent(inputPercent));
@@ -18,8 +23,8 @@ const ProcessManagement: React.FC<IProcessManagementProps> = ({ file, setFile })
     return (
         <div>
             <p>{status}</p>
-          {file && <div className={styles.ProcessDiv}>
-                <img src={startIcon} className={styles.ProcessDiv__StartButton} />
+            {file && <div className={styles.ProcessDiv}>
+                <img src={startIcon} onClick={() => handler()} className={styles.ProcessDiv__StartButton} />
                 <div className={styles.ProcessDiv__group}>
                     <div className={styles.texts__div}>
                         <p className={`${styles.inter__medium}${styles.texts}`}>
