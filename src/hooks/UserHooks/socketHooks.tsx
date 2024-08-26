@@ -11,13 +11,13 @@ export const useWebSocket = ({ setFile }: UseWebSocketProps) => {
     const [percentBannedList, setPercentBannedList] = useState<number>(0);
 
     useEffect(() => {
-        const wsStatus = new WebSocket("wss://forprojectstests.ru/v1/new_parser/websocket_status");
+        const wsStatus = new WebSocket("wss://api.forprojectstests.ru/v1/new_parser/websocket_status");
         wsStatus.onmessage = (event: MessageEvent) => {
             const data: StatusMessage = JSON.parse(event.data);
             setStatus(data.status);
         };
 
-        const wsPercent = new WebSocket("wss://forprojectstests.ru/v1/new_parser/websocket_percent");
+        const wsPercent = new WebSocket("wss://api.forprojectstests.ru/v1/new_parser/websocket_percent");
         wsPercent.onmessage = (event: MessageEvent) => {
             const data: PercentMessage = JSON.parse(event.data);
             if (data.Start_file != null) {

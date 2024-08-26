@@ -10,7 +10,7 @@ interface ICardScrollingProps {
 }
 const CardScrolling: React.FC<ICardScrollingProps> = ({ setSelectedCardId, selectedCardId }) => {
     const { language } = useLanguage();
-    const { filters, loading, error } = useFilters('https://forprojectstests.ru/v1/filters/get_filters');
+    const { filters, loading, error } = useFilters('https://api.forprojectstests.ru/v1/filters/get_filters');
 
 
     return (
