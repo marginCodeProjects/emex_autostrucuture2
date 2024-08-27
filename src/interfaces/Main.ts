@@ -26,7 +26,7 @@ export interface IFileUploadPageProps {
     setFile: React.Dispatch<React.SetStateAction<string>>
 }
 export interface StatusMessage {
-    status: "Парсер не запущен" | "Товары спаршены, подождите, идет сохранение" | "Все прокси забанены, подождите, идет редактирование" | "Парсер не запущен | Данные сохранены" | "Парсер работает";
+    Status: "Парсер не запущен" | "Товары спаршены, подождите, идет сохранение" | "Все прокси забанены, подождите, идет редактирование" | "Парсер не запущен | Данные сохранены" | "Парсер работает";
 
 }
 
@@ -35,3 +35,7 @@ export interface PercentMessage {
     Percent_banned_list: number;
     Percent_parsing_goods: number;
 }
+export type StatusMessageKeys = 'PARSING_COMPLETED' | 'ALL_PROXIES_BANNED' | 'PARSER_NOT_STARTED_DATA_SAVED' | 'PARSER_RUNNING';
+export interface StatusMessagesType {
+    [key: string]: string; // Используем строковые ключи
+  }

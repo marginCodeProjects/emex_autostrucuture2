@@ -1,3 +1,6 @@
+import { StatusMessagesType } from "../../interfaces/Main";
+
+
 export const texts = {
     RU: {
       home: 'Главная',
@@ -13,7 +16,8 @@ export const texts = {
       uploadingData:'ЗАГРУЗКА ДАННЫХ',
       dragAndDropInput:`Щелкните или перетащите файл в эту область<br/> для загрузки.<br/>Загружаемый файл должен быть в формате xlsx.<br/>Файл будет автоматически загружен в систему.`,
       downloadTemplate:'Скачать шаблон',
-      processManagement:"УПРАВЛЕНИЕ ПРОЦЕССОМ"
+      processManagement:"УПРАВЛЕНИЕ ПРОЦЕССОМ",
+      blocked:"Заблокировано"
     },
     EN: {
       home: 'Home',
@@ -29,6 +33,24 @@ export const texts = {
       uploadingData:'UPLOADING DATA',
       dragAndDropInput:"Click or drag the file to this area to upload.<br/>The uploaded file must be in xlsx format. The file will<br/> be automatically uploaded to the system.",
       downloadTemplate:'Download template',
-      processManagement:"PROCESS MANAGEMENT"
+      processManagement:"PROCESS MANAGEMENT",
+      blocked:"Blocked"
     },
+  };
+ 
+ 
+  
+  export const statusMessages: { [language in 'RU' | 'EN']: StatusMessagesType } = {
+    RU: {
+      PARSING_COMPLETED: "Товары спаршены, подождите, идет сохранение",
+      ALL_PROXIES_BANNED: "Все прокси забанены, подождите, идет редактирование",
+      PARSER_NOT_STARTED_DATA_SAVED: "Парсер не запущен | Данные сохранены",
+      PARSER_RUNNING: "Парсер работает"
+    },
+    EN: {
+      PARSING_COMPLETED: "Items parsed, please wait, saving in progress",
+      ALL_PROXIES_BANNED: "All proxies banned, please wait, editing in progress",
+      PARSER_NOT_STARTED_DATA_SAVED: "Parser not started | Data saved",
+      PARSER_RUNNING: "Parser is running"
+    }
   };

@@ -6,18 +6,23 @@ interface UseWebSocketProps {
 }
 
 export const useWebSocket = ({ setFile }: UseWebSocketProps) => {
-    const [status, setStatus] = useState<string>('');
-    const [inputPercent, setInputPercent] = useState<number>(0);
-    const [percentBannedList, setPercentBannedList] = useState<number>(0);
+    const [status, setStatus] = useState<string>(''); // Изначально пустая строка
+    const [inputPercent, setInputPercent] = useState<number>(0); // Изначально 0
+    const [percentBannedList, setPercentBannedList] = useState<number>(0); // Изначально 0
 
     useEffect(() => {
-        const wsStatus = new WebSocket("wss://api.forprojectstests.ru/v1/new_parser/websocket_status");
+        const wsStatus = new WebSocket("wss://127.0.0.1:8000/v1/new_parser/websocket_status");
+       
         wsStatus.onmessage = (event: MessageEvent) => {
             const data: StatusMessage = JSON.parse(event.data);
-            setStatus(data.status);
+            setStatus(data.Status);
         };
+        
 
-        const wsPercent = new WebSocket("wss://api.forprojectstests.ru/v1/new_parser/websocket_percent");
+        const wsPercent = new WebSocket("wss://127.0.0.1:8000/v1/new_parser/websocket_percent");
+        wsPercent.onopen = () => {
+            console.log('wsPercent connected');
+        };
         wsPercent.onmessage = (event: MessageEvent) => {
             const data: PercentMessage = JSON.parse(event.data);
             if (data.Start_file != null) {
@@ -25,6 +30,9 @@ export const useWebSocket = ({ setFile }: UseWebSocketProps) => {
             }
             setInputPercent(data.Percent_parsing_goods);
             setPercentBannedList(data.Percent_banned_list);
+        };
+        wsPercent.onerror = (error) => {
+            console.error("WebSocket Percent Error: ", error);
         };
 
         return () => {
