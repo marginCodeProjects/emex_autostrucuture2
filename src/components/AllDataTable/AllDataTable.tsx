@@ -1,12 +1,12 @@
 import { useState, useEffect } from 'react'; // Импортируем хуки React
-import { useLanguage } from '../Other/LanguageProvider/LanguageProvider';
+import { useLanguage } from '../Other/LanguageProvider/useLanguage';
 import styles from './AllDataTable.module.css';
 import { historyTexts } from '../../components/Other/LanguageProvider/languages';
-import { GetFiles} from '../../api/FilesService';
-import { useAuth } from '../Other/authContext/authContext';
+import { GetFiles } from '../../api/FilesService';
+import { useAuth } from '../Other/authContext/useAuth';
 import { Alert } from 'antd';
 import { Files } from '../../interfaces/Main';
-import { handleDownloadFile } from '../../utils/utils';
+
 const AllDataTable = () => {
     const { token } = useAuth();
     const { language } = useLanguage();
@@ -27,7 +27,7 @@ const AllDataTable = () => {
 
     useEffect(() => {
         get_files_handler();
-    }, []);
+    },);
 
     return (
         <>
@@ -50,7 +50,7 @@ const AllDataTable = () => {
 
                             <p className={`${styles.table__texts} ${styles.inter__medium}`}>{file.date.slice(0, 10)}</p>
                             <p className={`${styles.table__texts} ${styles.inter__medium}`}>{file.new_filter_id}</p>
-                            <a href={`https://127.0.0.1:8000/v1/files/download_file/before_parsing/${file.id}`}className={`${styles.table__texts} ${styles.inter__medium}`} >{file.before_parsing_filename}</a>
+                            <a href={`https://127.0.0.1:8000/v1/files/download_file/before_parsing/${file.id}`} className={`${styles.table__texts} ${styles.inter__medium}`} >{file.before_parsing_filename}</a>
                             <a href={`https://127.0.0.1:8000/v1/files/download_file/after_parsing/${file.id}`} className={`${styles.table__texts} ${styles.inter__medium}`} >{file.after_parsing_filename}</a>
 
                         </div>

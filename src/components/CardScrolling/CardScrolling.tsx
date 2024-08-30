@@ -1,10 +1,10 @@
 import { SetStateAction } from 'react';
-import useFilters from '../../hooks/UserHooks/filtersHooks';
+import useFilters from '../../hooks/UserHooks/FiltersHooks';
 import { useLanguage } from '../Other/LanguageProvider/LanguageProvider'
 import { texts } from '../Other/LanguageProvider/languages'
 import styles from './CardScrolling.module.css'
 import { Alert } from 'antd';
-import { useAuth } from '../Other/authContext/authContext';
+import { useAuth } from '../Other/authContext/AuthProvider';
 interface ICardScrollingProps {
     setSelectedCardId: React.Dispatch<SetStateAction<string | null>>
     selectedCardId: string | null

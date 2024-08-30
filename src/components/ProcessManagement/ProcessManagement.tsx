@@ -2,13 +2,13 @@ import styles from './ProcessManagement.module.css';
 import startIcon from '../../assets/startButtonIcon.svg';
 import smallProcessIcon from '../../assets/smallProcessArrow.svg';
 import { IProcessManagementProps } from '../../interfaces/Main';
-import { useWebSocket } from '../../hooks/UserHooks/socketHooks';
+import useWebSocket from '../../hooks/UserHooks/SocketHooks';
 import { useEffect, useState } from 'react';
 import { calculateMarginPercent } from '../../utils/utils';
 import { ParserStart } from '../../api/ParserService';
-import { useLanguage } from '../Other/LanguageProvider/LanguageProvider'
+import { useLanguage } from '../Other/LanguageProvider/useLanguage';
 import { texts, statusMessages } from '../Other/LanguageProvider/languages';
-import { useAuth } from '../Other/authContext/authContext';
+import { useAuth } from '../Other/authContext/useAuth';
 const ProcessManagement: React.FC<IProcessManagementProps> = ({ file, setFile, filterId }) => {
     const { language } = useLanguage();
     const { status, inputPercent, percentBannedList } = useWebSocket({ setFile });

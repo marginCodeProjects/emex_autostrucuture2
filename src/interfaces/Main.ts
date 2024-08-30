@@ -53,3 +53,12 @@ export interface Files{
     user_id:number
     id:number
 }
+export interface AuthContextType {
+    authState: AuthState;
+    token: string | null;
+    isLoading: boolean;
+    isAdmin: boolean;
+    login: (username: string, token: string, isAdmin: boolean) => void;
+    logout: () => void;
+  }
+  

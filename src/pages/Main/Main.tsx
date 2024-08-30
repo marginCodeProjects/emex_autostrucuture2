@@ -1,6 +1,6 @@
 import { useState } from "react";
 import CardScrolling from "../../components/CardScrolling/CardScrolling";
-import { useLanguage } from "../../components/Other/LanguageProvider/LanguageProvider";
+import { useLanguage } from "../../components/Other/LanguageProvider/useLanguage"
 import { texts } from "../../components/Other/LanguageProvider/languages";
 import styles from "./Main.module.css"
 import FileInput from "../../components/FileInput/FileInput";

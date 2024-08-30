@@ -1,19 +1,13 @@
 // src/components/Other/authContext/authContext.tsx
-import React, { createContext, useContext, useEffect, useState } from "react";
+
+import React, {   useEffect, useState } from "react";
 import { AuthState } from "../../../interfaces/Main";
+import { AuthContext } from "./AuthContext";
 
-interface AuthContextType {
-  authState: AuthState;
-  token: string | null;
-  isLoading: boolean;
-  isAdmin: boolean;
-  login: (username: string, token: string, isAdmin: boolean) => void; // Исправленный порядок
-  logout: () => void;
-}
 
-const AuthContext = createContext<AuthContextType | undefined>(undefined);
 
-export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children }) => {
+
+const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children }) => {
   const [authState, setAuthState] = useState<AuthState>({ isAuthenticated: false, username: "" });
   const [token, setToken] = useState<string | null>(null);
   const [isLoading, setIsLoading] = useState<boolean>(true);
@@ -64,10 +58,6 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
   );
 };
 
-export const useAuth = () => {
-  const context = useContext(AuthContext);
-  if (!context) {
-    throw new Error("useAuth must be used within an AuthProvider");
-  }
-  return context;
-};
+
+// Экспортируем по умолчанию объект с необходимыми экспортами
+export default  AuthProvider ;

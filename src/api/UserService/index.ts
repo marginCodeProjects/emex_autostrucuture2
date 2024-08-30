@@ -109,7 +109,7 @@ export async function UserLogout(token:string|null): Promise<{
 			localStorage.removeItem("token")
 			return { success: true }
 		} else {
-			let errorMessage = 'Ошибка выхода'
+			const errorMessage = 'Ошибка выхода'
 
 			return { success: false, message: errorMessage }
 		}

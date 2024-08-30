@@ -22,14 +22,14 @@ interface FiltersState {
 }
 
 // Хук для получения фильтров
-const useFilters = (endpoint: string,token:string|null): FiltersState => {
+const useFilters = (endpoint: string, token: string | null): FiltersState => {
     const [filters, setFilters] = useState<FilterOption[]>([]);
     const [loading, setLoading] = useState<boolean>(true);
     const [error, setError] = useState<string | null>(null);
 
     useEffect(() => {
         const fetchFilters = async () => {
-            
+
             try {
                 setLoading(true);
                 const response = await fetch(endpoint, {
@@ -43,15 +43,19 @@ const useFilters = (endpoint: string,token:string|null): FiltersState => {
                 }
                 const data = await response.json();
                 setFilters(data);
-            } catch (err: any) {
-                setError(err.message || 'Ошибка при загрузке фильтров');
+            } catch (err: unknown) { // Используем unknown вместо any
+                if (err instanceof Error) {
+                    setError(err.message || 'Ошибка при загрузке фильтров');
+                } else {
+                    setError('Неизвестная ошибка');
+                }
             } finally {
                 setLoading(false);
             }
         };
 
         fetchFilters();
-    }, [endpoint]);
+    }, [endpoint, token]);
 
     return { filters, loading, error };
 };

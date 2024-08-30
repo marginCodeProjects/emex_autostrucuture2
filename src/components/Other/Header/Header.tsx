@@ -1,17 +1,18 @@
 import { NavLink } from 'react-router-dom'
 import styles from './Header.module.css'
 import { Alert, Switch } from 'antd'
-import { useLanguage } from '../../Other/LanguageProvider/LanguageProvider'
+import { useLanguage } from '../../Other/LanguageProvider/useLanguage'
 import { texts } from '../../Other/LanguageProvider/languages'
 import { useState } from 'react';
 import { handleLogout } from '../../../api/UserService'
 import { IHeaderProps } from '../../../interfaces/Main';
 import logo from '../../assets/logo.svg';
-import { useAuth } from '../authContext/authContext'
+
+
 const Header: React.FC<IHeaderProps> = ({ onLogoutSuccess, username }) => {
   const { language, toggleLanguage } = useLanguage();
   const [errorMessage, setErrorMessage] = useState<string | undefined>(undefined)
-  const { token, isAdmin } = useAuth();
+
   function logoutHandler() {
     handleLogout(setErrorMessage, token, onLogoutSuccess)
   }

@@ -1,13 +1,13 @@
 import { useState, useEffect } from 'react';
 import { PercentMessage, StatusMessage } from '../../interfaces/Main';
-import { useAuth } from '../../components/Other/authContext/authContext';
+import { useAuth } from '../../components/Other/authContext/AuthProvider';
 
 
 interface UseWebSocketProps {
     setFile: (file: string) => void;
 }
 
-export const useWebSocket = ({ setFile }: UseWebSocketProps) => {
+const useWebSocket = ({ setFile }: UseWebSocketProps) => {
     const [status, setStatus] = useState<string>(''); // Изначально пустая строка
     const [inputPercent, setInputPercent] = useState<number>(0); // Изначально 0
     const [percentBannedList, setPercentBannedList] = useState<number>(0); // Изначально 0
@@ -41,7 +41,8 @@ export const useWebSocket = ({ setFile }: UseWebSocketProps) => {
             wsStatus.close();
             wsPercent.close();
         };
-    }, [setFile]);
+    }, [setFile, token]);
 
     return { status, inputPercent, percentBannedList };
 };
+export default useWebSocket

@@ -24,7 +24,7 @@ export async function ParserStart(
 			
 			return { success: true, message: 'Успешный вход' }
 		} else {
-			let errorMessage = 'Ошибка запуска парсера'
+			const errorMessage = 'Ошибка запуска парсера'
 
 			
 

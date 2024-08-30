@@ -4,10 +4,10 @@ import styles from './Login.module.css';
 import { Button, Form, Input, Alert } from 'antd';
 import { onFinish, onFinishFailed, } from '../../api/UserService';
 import { IUserLogin } from '../../interfaces/Main';
-import { useAuth } from '../../components/Other/authContext/authContext';
+import { useAuth } from '../../components/Other/authContext/AuthProvider';
 
 
-const Login: React.FC = ({ }) => {
+const Login: React.FC = () => {
     const navigate = useNavigate();
     const [errorMessage, setErrorMessage] = useState<string | null>(null);
     const { login } = useAuth();

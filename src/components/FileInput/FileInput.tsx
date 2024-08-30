@@ -5,7 +5,7 @@ import { useLanguage } from '../Other/LanguageProvider/LanguageProvider';
 import icon from '../../assets/UploadDataIcon.svg'
 import styles from './FileInput.module.css'
 import { IFileUploadPageProps } from '../../interfaces/Main';
-import { useAuth } from '../Other/authContext/authContext';
+import { useAuth } from '../Other/authContext/AuthProvider';
 
 const { Dragger } = Upload;
 

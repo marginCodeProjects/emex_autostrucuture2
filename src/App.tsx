@@ -7,8 +7,10 @@ import Main from "./pages/Main/Main";
 import History from "./pages/History/History";
 import { LanguageProvider } from "./components/Other/LanguageProvider/LanguageProvider";
 import Login from "./pages/Login/Login";
-import { AuthProvider, useAuth } from "./components/Other/authContext/authContext";
+import AuthProvider from "./components/Other/authContext/AuthProvider";
+
 import AdminDashboard from "./pages/AdminDashboard/AdminDashboard";
+import { useAuth } from "./components/Other/authContext/useAuth";
 
 function App() {
   return (
