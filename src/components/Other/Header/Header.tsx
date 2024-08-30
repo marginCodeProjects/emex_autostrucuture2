@@ -7,12 +7,12 @@ import { useState } from 'react';
 import { handleLogout } from '../../../api/UserService'
 import { IHeaderProps } from '../../../interfaces/Main';
 import logo from '../../assets/logo.svg';
-
+import { useAuth } from '../authContext/useAuth'
 
 const Header: React.FC<IHeaderProps> = ({ onLogoutSuccess, username }) => {
   const { language, toggleLanguage } = useLanguage();
   const [errorMessage, setErrorMessage] = useState<string | undefined>(undefined)
-
+  const { token, isAdmin } = useAuth();
   function logoutHandler() {
     handleLogout(setErrorMessage, token, onLogoutSuccess)
   }
