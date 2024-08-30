@@ -1,17 +1,17 @@
 import { NavLink } from 'react-router-dom'
 import styles from './Header.module.css'
 import { Alert, Switch } from 'antd'
-import { useLanguage } from '../Other/LanguageProvider/LanguageProvider';
-import { texts } from '../Other/LanguageProvider/languages';
+import { useLanguage } from '../../Other/LanguageProvider/LanguageProvider'
+import { texts } from '../../Other/LanguageProvider/languages'
 import { useState } from 'react';
-import { handleLogout } from '../../api/UserService';
-import { IHeaderProps } from '../../interfaces/Main';
+import { handleLogout } from '../../../api/UserService'
+import { IHeaderProps } from '../../../interfaces/Main';
 import logo from '../../assets/logo.svg';
-import { useAuth } from '../Other/authContext/authContext';
+import { useAuth } from '../authContext/authContext'
 const Header: React.FC<IHeaderProps> = ({ onLogoutSuccess, username }) => {
   const { language, toggleLanguage } = useLanguage();
   const [errorMessage, setErrorMessage] = useState<string | undefined>(undefined)
-  const { token } = useAuth();
+  const { token, isAdmin } = useAuth();
   function logoutHandler() {
     handleLogout(setErrorMessage, token, onLogoutSuccess)
   }
@@ -41,7 +41,7 @@ const Header: React.FC<IHeaderProps> = ({ onLogoutSuccess, username }) => {
             className={`${styles.header__navText} ${styles.inter__medium} `}
           >
             <NavLink
-              to='/history'
+              to='/about'
               className={({ isActive }) =>
                 isActive ? styles.active : ''
               }
@@ -53,7 +53,7 @@ const Header: React.FC<IHeaderProps> = ({ onLogoutSuccess, username }) => {
             className={`${styles.header__navText} ${styles.inter__medium} `}
           >
             <NavLink
-              to='/settings'
+              to='/contact'
               className={({ isActive }) =>
                 isActive ? styles.active : ''
               }
@@ -69,11 +69,11 @@ const Header: React.FC<IHeaderProps> = ({ onLogoutSuccess, username }) => {
             unCheckedChildren='РУС'
             onChange={() => toggleLanguage()}
           />
-          <p
+          {isAdmin ? <NavLink to={'/admin-panel'}
             className={`${styles.header__controlPanel__item}  ${styles.inter_semibold}`}
           >
             {username}
-          </p>
+          </NavLink> : <p className={`${styles.header__controlPanel__item}  ${styles.inter_semibold}`}> {username}</p>}
           <button
             className={`${styles.header__controlPanel__item}  ${styles.inter__medium}`}
             onClick={() => logoutHandler()}

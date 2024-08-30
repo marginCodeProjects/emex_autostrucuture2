@@ -1,10 +1,10 @@
 import { useState } from "react";
 import CardScrolling from "../../components/CardScrolling/CardScrolling";
-import { useLanguage } from "../../components/LanguageProvider/LanguageProvider";
-import { texts } from "../../components/LanguageProvider/languages";
+import { useLanguage } from "../../components/Other/LanguageProvider/LanguageProvider";
+import { texts } from "../../components/Other/LanguageProvider/languages";
 import styles from "./Main.module.css"
 import FileInput from "../../components/FileInput/FileInput";
-import PagePartTitle from "../../components/PagePartTitile/PagePartTitle";
+import PagePartTitle from "../../components/Other/PagePartTitile/PagePartTitle";
 import ProcessManagement from "../../components/ProcessManagement/ProcessManagement";
 const Main = () => {
   const { language } = useLanguage();

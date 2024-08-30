@@ -1,4 +1,4 @@
-import React from "react";
+import React, { ReactNode } from "react";
 
 export interface IUserLogin{
     username:string
@@ -13,7 +13,7 @@ export interface ILoginProps {
     onLoginSuccess: (isSuccess:boolean,username:string) => void;
 }
 export interface IHeaderProps {
-    onLogoutSuccess: (isSuccess:boolean,username:string) => void;
+    onLogoutSuccess: () => void;
     username:string
 }
 
@@ -35,7 +35,21 @@ export interface PercentMessage {
     Percent_banned_list: number;
     Percent_parsing_goods: number;
 }
-export type StatusMessageKeys = 'PARSING_COMPLETED' | 'ALL_PROXIES_BANNED' | 'PARSER_NOT_STARTED_DATA_SAVED' | 'PARSER_RUNNING';
-export interface StatusMessagesType {
-    [key: string]: string; // Используем строковые ключи
-  }
+export type Language = 'RU' | 'EN'
+export interface LanguageContextType {
+	language: Language
+	toggleLanguage: () => void
+}
+export interface LanguageProviderProps {
+	children: ReactNode
+}
+
+export interface Files{
+    before_parsing_filename:string
+    finish_date:string|null
+    new_filter_id:number|null
+    after_parsing_filename:string
+    date:string
+    user_id:number
+    id:number
+}

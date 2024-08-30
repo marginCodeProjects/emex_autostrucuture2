@@ -1,5 +1,7 @@
 import { useState, useEffect } from 'react';
 import { PercentMessage, StatusMessage } from '../../interfaces/Main';
+import { useAuth } from '../../components/Other/authContext/authContext';
+
 
 interface UseWebSocketProps {
     setFile: (file: string) => void;
@@ -9,17 +11,17 @@ export const useWebSocket = ({ setFile }: UseWebSocketProps) => {
     const [status, setStatus] = useState<string>(''); // Изначально пустая строка
     const [inputPercent, setInputPercent] = useState<number>(0); // Изначально 0
     const [percentBannedList, setPercentBannedList] = useState<number>(0); // Изначально 0
-
+    const { token } = useAuth();
     useEffect(() => {
-        const wsStatus = new WebSocket("wss://127.0.0.1:8000/v1/new_parser/websocket_status");
-       
+        const wsStatus = new WebSocket(`wss://127.0.0.1:8000/v1/new_parser/websocket_status/${token}`);
+
         wsStatus.onmessage = (event: MessageEvent) => {
             const data: StatusMessage = JSON.parse(event.data);
             setStatus(data.Status);
         };
-        
 
-        const wsPercent = new WebSocket("wss://127.0.0.1:8000/v1/new_parser/websocket_percent");
+
+        const wsPercent = new WebSocket(`wss://127.0.0.1:8000/v1/new_parser/websocket_percent/${token}`);
         wsPercent.onopen = () => {
             console.log('wsPercent connected');
         };

@@ -1,16 +1,18 @@
 import { SetStateAction } from 'react';
 import useFilters from '../../hooks/UserHooks/filtersHooks';
-import { useLanguage } from '../LanguageProvider/LanguageProvider'
-import { texts } from '../LanguageProvider/languages'
+import { useLanguage } from '../Other/LanguageProvider/LanguageProvider'
+import { texts } from '../Other/LanguageProvider/languages'
 import styles from './CardScrolling.module.css'
 import { Alert } from 'antd';
+import { useAuth } from '../Other/authContext/authContext';
 interface ICardScrollingProps {
     setSelectedCardId: React.Dispatch<SetStateAction<string | null>>
     selectedCardId: string | null
 }
 const CardScrolling: React.FC<ICardScrollingProps> = ({ setSelectedCardId, selectedCardId }) => {
     const { language } = useLanguage();
-    const { filters, loading, error } = useFilters('https://127.0.0.1:8000/v1/filters/get_filters');
+    const { token } = useAuth();
+    const { filters, loading, error } = useFilters('https://127.0.0.1:8000/v1/filters/get_filters', token);
 
 
     return (

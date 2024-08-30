@@ -1,5 +1,6 @@
 import { useState, useEffect } from 'react';
 
+
 // Типы данных для фильтров (адаптируйте под свою структуру данных)
 interface FilterOption {
     id: string;
@@ -21,25 +22,27 @@ interface FiltersState {
 }
 
 // Хук для получения фильтров
-const useFilters = (endpoint: string): FiltersState => {
+const useFilters = (endpoint: string,token:string|null): FiltersState => {
     const [filters, setFilters] = useState<FilterOption[]>([]);
     const [loading, setLoading] = useState<boolean>(true);
     const [error, setError] = useState<string | null>(null);
 
     useEffect(() => {
         const fetchFilters = async () => {
+            
             try {
                 setLoading(true);
                 const response = await fetch(endpoint, {
-                    method: "GET", credentials: 'include', headers: {
+                    method: "GET", headers: {
                         'Content-Type': 'application/json',
+                        'access-token': `${token}`
                     }
                 });
                 if (!response.ok) {
                     throw new Error(`Ошибка: ${response.status}`);
                 }
                 const data = await response.json();
-                setFilters(data); 
+                setFilters(data);
             } catch (err: any) {
                 setError(err.message || 'Ошибка при загрузке фильтров');
             } finally {

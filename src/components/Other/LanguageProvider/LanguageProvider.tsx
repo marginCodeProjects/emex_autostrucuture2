@@ -1,11 +1,5 @@
-import { createContext, useState, useContext, ReactNode } from 'react'
-
-type Language = 'RU' | 'EN'
-
-interface LanguageContextType {
-	language: Language
-	toggleLanguage: () => void
-}
+import { createContext, useState, useContext } from 'react'
+import { Language, LanguageContextType, LanguageProviderProps } from '../../../interfaces/Main'
 
 const LanguageContext = createContext<LanguageContextType | undefined>(
 	undefined
@@ -19,9 +13,6 @@ export const useLanguage = () => {
 	return context
 }
 
-interface LanguageProviderProps {
-	children: ReactNode
-}
 
 export const LanguageProvider: React.FC<LanguageProviderProps> = ({
 	children,

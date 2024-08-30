@@ -1,0 +1,30 @@
+.inter__medium {
+	font-family: 'Inter', sans-serif;
+	font-optical-sizing: auto;
+	font-weight: 600;
+	font-style: normal;
+}
+.table__texts {
+	font-size: 15px;
+	width: 25%;
+	white-space: nowrap; /* Запрещает перенос текста на новую строку */
+	overflow: hidden; /* Прячет текст, который выходит за пределы блока */
+	text-overflow: ellipsis; /* Добавляет троеточие, если текст не помещается */
+}
+.table__container {
+	width: 100%;
+	height: 385px;
+	border: 1px solid #335ae6;
+	border-radius: 4px;
+	display: flex;
+	flex-direction: column;
+}
+.table__line {
+	height: 55px;
+	width: 100%;
+	border-bottom: 1px solid #335ae6;
+	display: flex;
+	justify-content: space-between;
+	padding-top: 15px;
+	
+}

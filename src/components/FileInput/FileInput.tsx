@@ -1,19 +1,22 @@
 import type { UploadProps } from 'antd';
 import { message, Upload } from 'antd';
-import { texts } from '../LanguageProvider/languages';
-import { useLanguage } from '../LanguageProvider/LanguageProvider';
+import { texts } from '../Other/LanguageProvider/languages';
+import { useLanguage } from '../Other/LanguageProvider/LanguageProvider';
 import icon from '../../assets/UploadDataIcon.svg'
 import styles from './FileInput.module.css'
 import { IFileUploadPageProps } from '../../interfaces/Main';
+import { useAuth } from '../Other/authContext/authContext';
+
 const { Dragger } = Upload;
 
 const FileUploadPage: React.FC<IFileUploadPageProps> = ({ setFile }) => {
     const { language } = useLanguage(); // Вызов хука для получения языка
-
+    const { token } = useAuth();
     const props: UploadProps = {
         name: 'file',
         multiple: false,
-        withCredentials: true, showUploadList: false,
+        showUploadList: false,
+        headers: { 'access-token': `${token}` },
         action: 'https://127.0.0.1:8000/v1/files/upload_file',
         onChange(info) {
             const { status } = info.file;

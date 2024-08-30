@@ -3,12 +3,14 @@ import { useNavigate } from 'react-router-dom';
 import styles from './Login.module.css';
 import { Button, Form, Input, Alert } from 'antd';
 import { onFinish, onFinishFailed, } from '../../api/UserService';
-import { ILoginProps, IUserLogin } from '../../interfaces/Main';
+import { IUserLogin } from '../../interfaces/Main';
+import { useAuth } from '../../components/Other/authContext/authContext';
 
-const Login: React.FC<ILoginProps> = ({ onLoginSuccess }) => {
+
+const Login: React.FC = ({ }) => {
     const navigate = useNavigate();
     const [errorMessage, setErrorMessage] = useState<string | null>(null);
-
+    const { login } = useAuth();
 
     return (
         <div className={styles.login__div}>
@@ -19,7 +21,7 @@ const Login: React.FC<ILoginProps> = ({ onLoginSuccess }) => {
                 labelCol={{ span: 24 }}
                 wrapperCol={{ span: 24 }}
                 style={{ maxWidth: 600, width: '100%' }}
-                onFinish={onFinish(onLoginSuccess, navigate, setErrorMessage)}
+                onFinish={onFinish(login, navigate, setErrorMessage)}
                 onFinishFailed={onFinishFailed}
                 autoComplete="off"
             >

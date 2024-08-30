@@ -1,15 +1,20 @@
+
+
+
 export async function ParserStart(
-	filterId:string|null 
+	filterId:string|null ,token:string|null
 ): Promise<{ success: boolean; message: string}> {
 	try {
+		
 		const response = await fetch(
 			`https://127.0.0.1:8000/v1/new_parser/start/${filterId}`,
 			{
 				method: 'GET',
 				headers: {
 					'Content-Type': 'application/json',
+				'access-token':`${token}`
 				},
-				credentials: 'include',
+			
 			}
 		)
 
