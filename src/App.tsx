@@ -1,7 +1,7 @@
 // src/App.tsx
 import "./App.css";
 import { BrowserRouter as Router, Route, Routes, Navigate } from 'react-router-dom';
-import Header from "./components/Header/Header";
+import Header from "./components/Other/Header/Header";
 import Settings from "./pages/Settings/Settings";
 import Main from "./pages/Main/Main";
 import History from "./pages/History/History";
@@ -51,7 +51,7 @@ function AppRoutes() {
         <Route path="/" element={<Main />} />
         <Route path="/history" element={<History />} />
         <Route path="/settings" element={<Settings />} />
-        {isAdmin && <Route path="/admin-panel" element={<AdminDashboard />} />}
+        {isAdmin && <Route path="/dashboard" element={<AdminDashboard />} />}
       </Routes>
     </div>
   );

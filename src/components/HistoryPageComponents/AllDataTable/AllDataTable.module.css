@@ -18,6 +18,8 @@
 	border-radius: 4px;
 	display: flex;
 	flex-direction: column;
+	overflow-y: scroll;
+	margin-bottom: 40px;
 }
 .table__line {
 	height: 55px;
@@ -26,5 +28,4 @@
 	display: flex;
 	justify-content: space-between;
 	padding-top: 15px;
-	
 }

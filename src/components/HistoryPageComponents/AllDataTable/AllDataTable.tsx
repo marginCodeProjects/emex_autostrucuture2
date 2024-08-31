@@ -1,11 +1,11 @@
-import { useState, useEffect } from 'react'; // Импортируем хуки React
-import { useLanguage } from '../Other/LanguageProvider/useLanguage';
+import { useState, useEffect } from 'react';
+import { useLanguage } from '../../Other/LanguageProvider/useLanguage';
 import styles from './AllDataTable.module.css';
-import { historyTexts } from '../../components/Other/LanguageProvider/languages';
-import { GetFiles } from '../../api/FilesService';
-import { useAuth } from '../Other/authContext/useAuth';
+import { historyTexts } from '../../../components/Other/LanguageProvider/languages';
+import { GetFiles } from '../../../api/FilesService';
+import { useAuth } from '../../Other/authContext/useAuth';
 import { Alert } from 'antd';
-import { Files } from '../../interfaces/Main';
+import { Files } from '../../../interfaces/Main';
 
 const AllDataTable = () => {
     const { token } = useAuth();
@@ -27,7 +27,7 @@ const AllDataTable = () => {
 
     useEffect(() => {
         get_files_handler();
-    },);
+    }, []);
 
     return (
         <>

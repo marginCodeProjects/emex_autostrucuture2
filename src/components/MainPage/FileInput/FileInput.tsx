@@ -1,11 +1,11 @@
 import type { UploadProps } from 'antd';
 import { message, Upload } from 'antd';
-import { texts } from '../Other/LanguageProvider/languages';
-import { useLanguage } from '../Other/LanguageProvider/LanguageProvider';
-import icon from '../../assets/UploadDataIcon.svg'
+import { texts } from '../../Other/LanguageProvider/languages';
+import { useLanguage } from '../../Other/LanguageProvider/useLanguage';
+import icon from '../../../assets/UploadDataIcon.svg'
 import styles from './FileInput.module.css'
-import { IFileUploadPageProps } from '../../interfaces/Main';
-import { useAuth } from '../Other/authContext/AuthProvider';
+import { IFileUploadPageProps } from '../../../interfaces/Main';
+import { useAuth } from '../../Other/authContext/useAuth';
 
 const { Dragger } = Upload;
 
@@ -20,11 +20,13 @@ const FileUploadPage: React.FC<IFileUploadPageProps> = ({ setFile }) => {
         action: 'https://127.0.0.1:8000/v1/files/upload_file',
         onChange(info) {
             const { status } = info.file;
-            console.log(info);
 
             if (status === 'done') {
                 message.success("Файл успешно загружен");
-                setFile(info.file.name)
+                if (info.file.name) {
+                    setFile(info.file.name)
+                    localStorage.setItem('fileName', info.file.name)
+                }
             } else if (status === 'error') {
                 message.error(`Файл не соответствует шаблону`);
             }

@@ -1,0 +1,34 @@
+.Table {
+	height: 698px;
+	width: 100%;
+	display: flex;
+	flex-direction: column;
+	border: 1px solid #335ae6;
+}
+
+.TableRow {
+	display: flex;
+	flex-direction: row;
+	height: 77px; /* Высота каждой строки */
+	border-bottom: 1px solid #335ae6; /* Линия между строками */
+}
+
+.TableColumn {
+	flex: 1; /* Все колонки равной ширины */
+	border-right: 1px solid #335ae6; /* Линия между колонками */
+	display: flex;
+	padding: 10px 0px 0px 12px;
+}
+
+/* Последняя колонка не будет иметь правой границы */
+.TableRow .TableColumn:last-child {
+	border-right: none;
+}
+
+/* Последняя строка не будет иметь нижней границы */
+.Table .TableRow:last-child {
+	border-bottom: none;
+}
+.TableRow:first-child {
+	background-color: rgba(178, 193, 246, 0.7);
+}

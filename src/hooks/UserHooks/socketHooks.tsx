@@ -1,13 +1,10 @@
 import { useState, useEffect } from 'react';
 import { PercentMessage, StatusMessage } from '../../interfaces/Main';
-import { useAuth } from '../../components/Other/authContext/AuthProvider';
+import { useAuth } from '../../components/Other/authContext/useAuth';
 
 
-interface UseWebSocketProps {
-    setFile: (file: string) => void;
-}
 
-const useWebSocket = ({ setFile }: UseWebSocketProps) => {
+const useWebSocket = () => {
     const [status, setStatus] = useState<string>(''); // Изначально пустая строка
     const [inputPercent, setInputPercent] = useState<number>(0); // Изначально 0
     const [percentBannedList, setPercentBannedList] = useState<number>(0); // Изначально 0
@@ -27,9 +24,7 @@ const useWebSocket = ({ setFile }: UseWebSocketProps) => {
         };
         wsPercent.onmessage = (event: MessageEvent) => {
             const data: PercentMessage = JSON.parse(event.data);
-            if (data.Start_file != null) {
-                setFile(data.Start_file);
-            }
+
             setInputPercent(data.Percent_parsing_goods);
             setPercentBannedList(data.Percent_banned_list);
         };
@@ -41,7 +36,7 @@ const useWebSocket = ({ setFile }: UseWebSocketProps) => {
             wsStatus.close();
             wsPercent.close();
         };
-    }, [setFile, token]);
+    }, [ token]);
 
     return { status, inputPercent, percentBannedList };
 };

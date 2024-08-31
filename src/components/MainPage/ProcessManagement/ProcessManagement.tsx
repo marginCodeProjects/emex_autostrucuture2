@@ -1,22 +1,31 @@
 import styles from './ProcessManagement.module.css';
-import startIcon from '../../assets/startButtonIcon.svg';
-import smallProcessIcon from '../../assets/smallProcessArrow.svg';
-import { IProcessManagementProps } from '../../interfaces/Main';
-import useWebSocket from '../../hooks/UserHooks/SocketHooks';
+import startIcon from '../../../assets/startButtonIcon.svg';
+import smallProcessIcon from '../../../assets/smallProcessArrow.svg';
+import { IProcessManagementProps } from '../../../interfaces/Main';
+import useWebSocket from '../../../hooks/UserHooks/socketHooks';
 import { useEffect, useState } from 'react';
-import { calculateMarginPercent } from '../../utils/utils';
-import { ParserStart } from '../../api/ParserService';
-import { useLanguage } from '../Other/LanguageProvider/useLanguage';
-import { texts, statusMessages } from '../Other/LanguageProvider/languages';
-import { useAuth } from '../Other/authContext/useAuth';
+import { calculateMarginPercent } from '../../../utils/utils';
+import { ParserStart } from '../../../api/ParserService';
+import { useLanguage } from '../../Other/LanguageProvider/useLanguage';
+import { texts, statusMessages } from '../../Other/LanguageProvider/languages';
+import { useAuth } from '../../Other/authContext/useAuth';
 const ProcessManagement: React.FC<IProcessManagementProps> = ({ file, setFile, filterId }) => {
     const { language } = useLanguage();
-    const { status, inputPercent, percentBannedList } = useWebSocket({ setFile });
+    const { status, inputPercent, percentBannedList } = useWebSocket();
     const [marginPercent, setMarginPercent] = useState<number>(-10);
     const { token } = useAuth();
 
+    useEffect(() => {
+        const fileName = localStorage.getItem('fileName')
+        if (fileName) {
+            setFile(fileName)
+        }
+    }, [])
 
+    useEffect(() => {
+        console.log(file);
 
+    }, [file])
 
 
     const statusMessage = () => {
@@ -47,7 +56,7 @@ const ProcessManagement: React.FC<IProcessManagementProps> = ({ file, setFile, f
     return (
         <div>
 
-            {file && <div className={styles.ProcessDiv}>
+            {<div className={styles.ProcessDiv}>
                 <img src={startIcon} onClick={() => ParserStart(filterId, token)} className={styles.ProcessDiv__StartButton} />
                 <div className={styles.ProcessDiv__group}>
                     <div className={styles.texts__div}>

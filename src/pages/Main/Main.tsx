@@ -1,11 +1,11 @@
 import { useState } from "react";
-import CardScrolling from "../../components/CardScrolling/CardScrolling";
+import CardScrolling from "../../components/MainPage/CardScrolling/CardScrolling";
 import { useLanguage } from "../../components/Other/LanguageProvider/useLanguage"
 import { texts } from "../../components/Other/LanguageProvider/languages";
 import styles from "./Main.module.css"
-import FileInput from "../../components/FileInput/FileInput";
+import FileInput from "../../components/MainPage/FileInput/FileInput";
 import PagePartTitle from "../../components/Other/PagePartTitile/PagePartTitle";
-import ProcessManagement from "../../components/ProcessManagement/ProcessManagement";
+import ProcessManagement from "../../components/MainPage/ProcessManagement/ProcessManagement";
 const Main = () => {
   const { language } = useLanguage();
   const [selectedCardId, setSelectedCardId] = useState<string | null>(null)

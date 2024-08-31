@@ -1,14 +1,13 @@
 import { NavLink } from 'react-router-dom'
 import styles from './Header.module.css'
 import { Alert, Switch } from 'antd'
-import { useLanguage } from '../../Other/LanguageProvider/useLanguage'
-import { texts } from '../../Other/LanguageProvider/languages'
+import { useLanguage } from '../../Other/LanguageProvider/useLanguage';
+import { texts } from '../../Other/LanguageProvider/languages';
 import { useState } from 'react';
-import { handleLogout } from '../../../api/UserService'
+import { handleLogout } from '../../../api/UserService';
 import { IHeaderProps } from '../../../interfaces/Main';
-import logo from '../../assets/logo.svg';
-import { useAuth } from '../authContext/useAuth'
-
+import logo from '../../../assets/logo.svg';
+import { useAuth } from '../../Other/authContext/useAuth';
 const Header: React.FC<IHeaderProps> = ({ onLogoutSuccess, username }) => {
   const { language, toggleLanguage } = useLanguage();
   const [errorMessage, setErrorMessage] = useState<string | undefined>(undefined)
@@ -42,7 +41,7 @@ const Header: React.FC<IHeaderProps> = ({ onLogoutSuccess, username }) => {
             className={`${styles.header__navText} ${styles.inter__medium} `}
           >
             <NavLink
-              to='/about'
+              to='/history'
               className={({ isActive }) =>
                 isActive ? styles.active : ''
               }
@@ -54,7 +53,7 @@ const Header: React.FC<IHeaderProps> = ({ onLogoutSuccess, username }) => {
             className={`${styles.header__navText} ${styles.inter__medium} `}
           >
             <NavLink
-              to='/contact'
+              to='/settings'
               className={({ isActive }) =>
                 isActive ? styles.active : ''
               }
@@ -70,11 +69,11 @@ const Header: React.FC<IHeaderProps> = ({ onLogoutSuccess, username }) => {
             unCheckedChildren='РУС'
             onChange={() => toggleLanguage()}
           />
-          {isAdmin ? <NavLink to={'/admin-panel'}
+          {isAdmin ? <NavLink to={'/dashboard'} className={`${styles.header__controlPanel__item}  ${styles.inter_semibold}`} >{username}</NavLink> : <p
             className={`${styles.header__controlPanel__item}  ${styles.inter_semibold}`}
           >
             {username}
-          </NavLink> : <p className={`${styles.header__controlPanel__item}  ${styles.inter_semibold}`}> {username}</p>}
+          </p>}
           <button
             className={`${styles.header__controlPanel__item}  ${styles.inter__medium}`}
             onClick={() => logoutHandler()}

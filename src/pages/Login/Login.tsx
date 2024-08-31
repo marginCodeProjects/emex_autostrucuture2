@@ -4,7 +4,7 @@ import styles from './Login.module.css';
 import { Button, Form, Input, Alert } from 'antd';
 import { onFinish, onFinishFailed, } from '../../api/UserService';
 import { IUserLogin } from '../../interfaces/Main';
-import { useAuth } from '../../components/Other/authContext/AuthProvider';
+import { useAuth } from '../../components/Other/authContext/useAuth';
 
 
 const Login: React.FC = () => {

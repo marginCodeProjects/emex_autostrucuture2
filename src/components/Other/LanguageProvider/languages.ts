@@ -78,7 +78,16 @@ export const historyTexts = {
 		linesOnPage: 'Lines on the page:',
 	},
 }
-
+export const dashboardTexts = {
+	RU: {
+		
+		edit: 'Редактировать',remove:'Удалить'
+	},
+	EN: {
+	
+		edit: 'Edit',remove:'Remove'
+	},
+}
 export const statusMessages = {
 	RU: {
 		PARSING_COMPLETED: 'Товары спаршены, подождите, идет сохранение',

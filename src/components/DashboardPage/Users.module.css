@@ -1,0 +1,95 @@
+.inter__medium {
+	font-family: 'Inter', sans-serif;
+	font-optical-sizing: auto;
+	font-weight: 600;
+	font-style: normal;
+}
+.inter__trueMedium {
+	font-family: 'Inter', sans-serif;
+	font-optical-sizing: auto;
+	font-weight: 500;
+	font-style: normal;
+}
+.userFirstName {
+	font-size: 14px;
+	color: #000000;
+}
+.userDescription {
+	color: #a2a2a2;
+	font-size: 14;
+}
+.users {
+	width: 56%;
+	height: 384px;
+	border-radius: 10px;
+	border: 1px #335ae6 solid;
+	display: flex;
+	flex-direction: column;
+	justify-content: flex-start;
+}
+.users__userLine {
+	height: 64px;
+	width: 100%;
+	display: flex;
+	position: relative;
+	justify-content: space-between;
+	border-bottom: 1px solid #335ae6;
+	padding: 15px 25px 0px 25px;
+}
+.userLine__userInfo {
+	width: 112px;
+	height: 36px;
+	display: flex;
+	flex-direction: column;
+	text-align: left;
+}
+.userLine__statusIcons {
+	width: 124px;
+	height: 25px;
+	display: flex;
+	margin-top: 5px;
+	grid-gap: 25px;
+	align-items: center;
+}
+.userLine__statusIcon {
+	width: 25px;
+	height: 25px;
+}
+.userLine__statusIconPointer {
+	cursor: pointer;
+}
+.userLine__controlItem {
+	position: absolute;
+	top: 50%;
+	left: calc(100% + 10px);
+	transform: translateY(-50%) scale(0.9); /* начальное состояние с уменьшением */
+	opacity: 0;
+	width: 200px;
+	height: 62px;
+	border-radius: 10px;
+	border: solid 1px #335ae6;
+	background-color: #fff;
+	transition: opacity 0.3s ease, transform 0.3s ease; /* анимация */
+	pointer-events: none; /* Игнорировать события мыши, пока элемент скрыт */
+  }
+  
+  .userLine__controlItem.show {
+	transform: translateY(-50%) scale(1); /* конечное состояние */
+	opacity: 1;
+	pointer-events: auto; /* Включить события мыши, когда элемент видим */
+  }
+  
+  .userLine__controlItemEdit {
+	border: #335ae6 solid 1px;
+	background-color: #bcc9f7;
+	border-radius: 10px;
+	width: 200px;
+	height: 32px;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	position: relative;
+	top: -1px;
+	left: -1px;
+  }
+  .userLine__controlItemRemove{margin: 5px 0px 0px 0px;}
