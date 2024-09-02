@@ -68,11 +68,22 @@ export interface User {
 	fullname: string
 	description: string
 	username: string
-	is_admin: number
+	is_admin: boolean
 	id: number
 	is_parsing: boolean
 }
 export interface IUsersProps {
-	setEditingCardId?: React.Dispatch<React.SetStateAction<number | null>>
-	editingCardId?: null | number
+	setEditingCardId?: React.Dispatch<React.SetStateAction<number | null|true>>
+	editingCardId?: null | number|true
+	users:User[]|undefined
+	setUsers?:React.Dispatch<React.SetStateAction<User[]|undefined>>
   }
+  
+  export interface UserFormValues {
+	fullName: string;
+	description: string;
+	username: string;
+	password?: string;
+	isAdmin: boolean ;
+	isAdmunUI?:string|undefined
+}

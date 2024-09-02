@@ -13,10 +13,14 @@ interface FilterOption {
     date: number,
     user_id: number
 }
-
+interface Proxys {
+    expired_at: string
+    count: number
+}
 // Типы состояния
 interface FiltersState {
-    filters: FilterOption[];
+    filters?: FilterOption[];
+    proxys?: Proxys[];
     loading: boolean;
     error: string | null;
 }
@@ -26,7 +30,7 @@ const useFilters = (endpoint: string, token: string | null): FiltersState => {
     const [filters, setFilters] = useState<FilterOption[]>([]);
     const [loading, setLoading] = useState<boolean>(true);
     const [error, setError] = useState<string | null>(null);
-
+    const [proxys, setProxys] = useState<Proxys[]>([])
     useEffect(() => {
         const fetchFilters = async () => {
 
@@ -42,10 +46,16 @@ const useFilters = (endpoint: string, token: string | null): FiltersState => {
                     throw new Error(`Ошибка: ${response.status}`);
                 }
                 const data = await response.json();
-                setFilters(data);
+                if (endpoint.includes("filters")) {
+                    setFilters(data);
+
+                }
+                else {
+                    setProxys(data)
+                }
             } catch (err: unknown) { // Используем unknown вместо any
                 if (err instanceof Error) {
-                    setError(err.message || 'Ошибка при загрузке фильтров');
+                    setError(err.message || 'Ошибка при загрузке');
                 } else {
                     setError('Неизвестная ошибка');
                 }
@@ -57,7 +67,7 @@ const useFilters = (endpoint: string, token: string | null): FiltersState => {
         fetchFilters();
     }, [endpoint, token]);
 
-    return { filters, loading, error };
+    return { filters, loading, error, proxys };
 };
 
 export default useFilters;

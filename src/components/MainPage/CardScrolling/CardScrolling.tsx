@@ -20,7 +20,7 @@ const CardScrolling: React.FC<ICardScrollingProps> = ({ setSelectedCardId, selec
             {error && <Alert message={error} type="error" showIcon />}
             <div className={styles.OutlineDiv}>
                 {!loading &&
-                    filters.map((filter) => {
+                    filters?.map((filter) => {
                         return (
                             <div className={`${styles.Card} ${selectedCardId === filter.id ? styles.Card__active : ''}`} key={filter.id} onClick={() => setSelectedCardId(filter.id)}>
                                 <div className={styles.Card__topPart}>

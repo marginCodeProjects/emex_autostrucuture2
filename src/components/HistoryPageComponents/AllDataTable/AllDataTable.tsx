@@ -4,16 +4,15 @@ import styles from './AllDataTable.module.css';
 import { historyTexts } from '../../../components/Other/LanguageProvider/languages';
 import { GetFiles } from '../../../api/FilesService';
 import { useAuth } from '../../Other/authContext/useAuth';
-import { Alert } from 'antd';
+import {  message } from 'antd';
 import { Files } from '../../../interfaces/Main';
 
 const AllDataTable = () => {
     const { token } = useAuth();
     const { language } = useLanguage();
     const [files, setFiles] = useState<Files[] | null>(null);
-    const [errorMessage, setErrorMessage] = useState<string | null>(null);
     const [loading, setLoading] = useState<boolean>(false);
-
+    const [messageApi, contextHolder] = message.useMessage();
     const get_files_handler = async () => {
         setLoading(true);
         const { success, files, message } = await GetFiles(token);
@@ -21,17 +20,23 @@ const AllDataTable = () => {
         if (success) {
             setFiles(files || []);
         } else {
-            setErrorMessage(message || 'Неизвестная ошибка');
+            disclamer(message)
         }
     };
-
+    const disclamer = (message: string | undefined) => {
+        messageApi.open({
+            type: "warning",
+            content: message,
+        });
+    };
+   
     useEffect(() => {
         get_files_handler();
     }, []);
 
     return (
         <>
-            {errorMessage && <Alert message={errorMessage} type="error" showIcon />}
+            {contextHolder}
             {loading ? (
                 <div className="spinner__container">
                     <div className="spinner"></div>

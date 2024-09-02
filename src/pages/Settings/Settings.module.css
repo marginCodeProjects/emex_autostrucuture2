@@ -1,0 +1,21 @@
+.inter__medium {
+	font-family: 'Inter', sans-serif;
+	font-optical-sizing: auto;
+	font-weight: 500;
+	font-style: normal;
+}
+.inter_semibold {
+	font-family: 'Inter', sans-serif;
+	font-optical-sizing: auto;
+	font-weight: 600;
+	font-style: normal;
+}
+.inter_bold {
+	font-family: 'Inter', sans-serif;
+	font-optical-sizing: auto;
+	font-weight: 700;
+	font-style: normal;
+}
+.settings__container{
+    padding: 0 25px;max-width: 1135px;margin: 0 auto;
+}

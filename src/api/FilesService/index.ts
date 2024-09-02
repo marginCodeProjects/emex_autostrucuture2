@@ -14,10 +14,12 @@ export async function GetFiles(token: string | null): Promise<{ success: boolean
       // Парсим JSON только если запрос успешен
       const files: Files[] = await response.json();
       return { success: true, files };
-    } else {
-      const errorMessage = 'Ошибка запуска парсера';
-      return { success: false, message: errorMessage };
+    } else if(response.status ==404){
+      
+  
+      return { success: false, message: 'Вы ещё не загружали файлы' };
     }
+    else return { success: false, message: 'Ошибка сети или сервера' };
   } catch (error) {
     return { success: false, message: 'Ошибка сети или сервера' };
   }

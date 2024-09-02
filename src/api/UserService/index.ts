@@ -1,6 +1,6 @@
 import { FormProps, message } from 'antd'
 import { NavigateFunction } from 'react-router-dom'
-import { IUserLogin, User } from '../../interfaces/Main'
+import { IUserLogin, User, UserFormValues } from '../../interfaces/Main'
 
 export async function handleLogout(
 	setErrorMessage: React.Dispatch<React.SetStateAction<string | undefined>>,
@@ -19,9 +19,7 @@ export async function handleLogout(
 	}
 }
 
-export async function UserLogin(
-	data: IUserLogin
-): Promise<{
+export async function UserLogin(data: IUserLogin): Promise<{
 	success: boolean
 	message: string
 	username: string
@@ -179,8 +177,98 @@ export async function DeleteUser(
 
 	if (response.ok) {
 		const usersInfo: User[] = await response.json()
-			return usersInfo
+		return usersInfo
 	} else {
-		return undefined 
+		return undefined
+	}
+}
+export async function EditUser(
+	token: string|null,
+	user_id: number,
+	userInfo: UserFormValues
+): Promise<{
+	status: boolean,Message:string,users?:User[]
+}> {
+	try {
+		const response = await fetch(
+			`https://127.0.0.1:8000/v1/users/edit/${user_id}`,
+			{
+				method: 'PATCH',
+				body: JSON.stringify({
+					fullname: userInfo.fullName,
+					description: userInfo.description,
+					username: userInfo.username,
+					is_admin: userInfo.isAdmin,
+					password: userInfo.password,
+				}),
+				headers: {
+					'Content-Type': 'application/json',
+					'access-token': `${token}`,
+				},
+			}
+		)
+
+		if (response.ok) {
+			const userInfo = await response.json()
+			console.log(userInfo)
+			
+
+			return {
+					status: true,Message:"Данные успешно изменены",users:userInfo
+			}
+		} else {
+			return {
+				status: false,
+				Message:"Произошла ошибка"
+			}
+		}
+	} catch (error) {
+		return {
+			status: false,Message:"Произошла ошибка"
+		}
+	}
+}
+export async function CreateUser(
+	token: string|null,
+	userInfo: UserFormValues
+): Promise<{
+	status: boolean,Message:string,users?:User[]
+}> {
+	try {
+		const response = await fetch(
+			`https://127.0.0.1:8000/v1/users/sign_up`,
+			{
+				method: 'POST',
+				body: JSON.stringify({
+					fullname: userInfo.fullName,
+					description: userInfo.description,
+					username: userInfo.username,
+					is_admin: userInfo.isAdmin,
+					password: userInfo.password,
+				}),
+				headers: {
+					'Content-Type': 'application/json',
+					'access-token': `${token}`,
+				},
+			}
+		)
+
+		if (response.ok) {
+			const userInfo = await response.json()
+			console.log(userInfo)
+			
+
+			return {
+					status: true,Message:"Данные успешно изменены",users:userInfo
+			}
+		} else {
+			return {
+				status: false,Message:"Произошла ошибка"
+			}
+		}
+	} catch (error) {
+		return {
+			status: false,Message:"Произошла ошибка"
+		}
 	}
 }

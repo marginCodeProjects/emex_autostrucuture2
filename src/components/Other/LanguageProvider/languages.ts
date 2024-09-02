@@ -80,14 +80,45 @@ export const historyTexts = {
 }
 export const dashboardTexts = {
 	RU: {
-		
-		edit: 'Редактировать',remove:'Удалить'
+		edit: 'Редактировать',
+		remove: 'Удалить',
+		add: 'Добавить',
+		fullName: 'Фамилия Имя Отчество',
+		description: 'Описание',
+		login: 'Логин',
+		password: 'Пароль',
+		isAdmin: 'Администратор/Пользователь',
+		admin: 'Администратор',
+		simpleUser: 'Пользователь',
+		save: 'Сохранить',
+		cancel: 'Отменить',
+		userData: 'Данные пользователя',
+		newLogin: 'Логин:',
+		newPassword: 'Пароль:',
 	},
 	EN: {
-	
-		edit: 'Edit',remove:'Remove'
+		edit: 'Edit',
+		remove: 'Remove',
+		add: 'Add',
+		fullName: 'Surname Name',
+		description: 'Description',
+		login: 'Login',
+		password: 'Password',
+		isAdmin: 'Administrator/User',
+		admin: 'Administrator',
+		simpleUser: 'User',
+		save: 'Save',
+		cancel: 'Cancel',
+		userData: 'User data',
+		newLogin: 'Login:',
+		newPassword: 'Password:',
 	},
 }
+export const settingsTexts ={
+	RU:{PROXY:"ПРОКСИ",FILTERS:"ФИЛЬТРЫ",proxyInCard:"прокси"},
+	EN:{PROXY:"PROXY",FILTERS:"FILTERS",proxyInCard:"proxy"}
+}
+
 export const statusMessages = {
 	RU: {
 		PARSING_COMPLETED: 'Товары спаршены, подождите, идет сохранение',

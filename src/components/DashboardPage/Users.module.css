@@ -16,16 +16,24 @@
 }
 .userDescription {
 	color: #a2a2a2;
-	font-size: 14;
+	font-size: 14px;
 }
 .users {
 	width: 56%;
+	height: 435px;
+	display: flex;
+	flex-direction: column;
+	margin-bottom: 20px;
+}
+.usersDiv {
+	width: 100%;
 	height: 384px;
 	border-radius: 10px;
 	border: 1px #335ae6 solid;
 	display: flex;
 	flex-direction: column;
 	justify-content: flex-start;
+	margin-bottom: 20px;
 }
 .users__userLine {
 	height: 64px;
@@ -34,10 +42,12 @@
 	position: relative;
 	justify-content: space-between;
 	border-bottom: 1px solid #335ae6;
+
 	padding: 15px 25px 0px 25px;
 }
+.users__userLine:last-child{border-bottom-left-radius: 10px; border-bottom-right-radius: 10px;}
 .userLine__userInfo {
-	width: 112px;
+	width: 255px;
 	height: 36px;
 	display: flex;
 	flex-direction: column;
@@ -71,15 +81,16 @@
 	background-color: #fff;
 	transition: opacity 0.3s ease, transform 0.3s ease; /* анимация */
 	pointer-events: none; /* Игнорировать события мыши, пока элемент скрыт */
-  }
-  
-  .userLine__controlItem.show {
+	z-index: 9999;
+}
+
+.userLine__controlItem.show {
 	transform: translateY(-50%) scale(1); /* конечное состояние */
 	opacity: 1;
 	pointer-events: auto; /* Включить события мыши, когда элемент видим */
-  }
-  
-  .userLine__controlItemEdit {
+}
+
+.userLine__controlItemEdit {
 	border: #335ae6 solid 1px;
 	background-color: #bcc9f7;
 	border-radius: 10px;
@@ -91,5 +102,76 @@
 	position: relative;
 	top: -1px;
 	left: -1px;
-  }
-  .userLine__controlItemRemove{margin: 5px 0px 0px 0px;}
+}
+.userLine__controlItemEdit:hover {
+	cursor: pointer;
+}
+.userLine__controlItemRemove {
+	margin: 5px 0px 0px 0px;
+}
+.userLine__controlItemRemove:hover {
+	cursor: pointer;
+}
+.users__addUserButton {
+	width: 207px;
+	height: 31px;
+	border: 1px solid #335ae6;
+	border-radius: 10px;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+}
+.users__addUserButton:hover {
+	cursor: pointer;
+}
+.userActionsTexts {
+	font-size: 15px;
+	color: #000000;
+}
+.userEdit__div {
+	width: 988px;
+	height: 260px;
+	display: flex;
+	flex-direction: row;
+	align-items: flex-start;
+}
+.userEdit__inputsDiv {
+	width: 474px;
+	height: 100%;
+	border: 1px solid #335ae6;
+	border-radius: 10px;
+	display: flex;
+	flex-direction: column;
+	padding: 12px 20px;
+	margin-right: 40px;
+}
+.userEdit__input {
+	border: 1px #335ae6 solid;
+	border-radius: 10px;
+	height: 31px;
+	margin-bottom: 10px;
+}
+.userEdit__inputSmallBorder {
+	border: 1px #335ae6 solid;
+	border-radius: 7px;
+	margin-bottom: 10px;
+	text-align: left;
+}
+.userEdit__buttonsDiv {
+	display: flex;
+	justify-content: space-between;
+}
+.userEdit__copyNewCredentialsDiv {
+	width: 474px;
+	height: 120px;
+	padding: 10px 20px;
+	border-radius: 10px;
+	border: 1px solid #335ae6;
+	display: flex;
+	flex-direction: column;
+	justify-content: flex-start;
+}
+.userEdit__copyNewCredentialsText {
+	margin-bottom: 10px;
+	text-align: left;
+}
