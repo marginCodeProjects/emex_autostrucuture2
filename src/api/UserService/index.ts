@@ -193,7 +193,7 @@ export async function EditUser(
 		const response = await fetch(
 			`https://api.forprojectstests.ru/v1/users/edit/${user_id}`,
 			{
-				method: 'PATCH',
+				method: 'patch',
 				body: JSON.stringify({
 					fullname: userInfo.fullName,
 					description: userInfo.description,
