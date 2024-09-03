@@ -8,16 +8,16 @@ const Proxy = () => {
     const { language } = useLanguage()
     const { token } = useAuth()
     const [selectedProxyId, setSelectedProxyId] = useState<Number>()
-    const { proxys, loading, error } = useFilters('https://127.0.0.1:8000/v1/proxies/get_proxy_group', token);
+    const { proxys, loading, error } = useFilters('https://api.forprojectstests.ru/v1/proxies/get_proxy_group', token);
     useEffect(() => {
-      console.log(proxys);
-      console.log(loading);
-      console.log(error);
-      
-      
-      
-    }, [proxys,loading,error])
-    
+        console.log(proxys);
+        console.log(loading);
+        console.log(error);
+
+
+
+    }, [proxys, loading, error])
+
     return (
         <div className={styles.Proxy__container}>
 
@@ -26,7 +26,7 @@ const Proxy = () => {
                 {!loading &&
                     proxys?.map((proxy, index) => {
                         console.log(proxy);
-                        
+
                         return (
                             <div className={`${styles.Card} ${selectedProxyId === index ? styles.Card__active : ''}`} onClick={() => setSelectedProxyId(index)}>
                                 <div className={styles.Card__topPart}>
