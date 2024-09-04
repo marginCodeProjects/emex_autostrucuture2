@@ -2,7 +2,7 @@ import { Files } from "../../interfaces/Main";
 
 export async function GetFiles(token: string | null): Promise<{ success: boolean; files?: Files[]; message?: string }> {
   try {
-    const response = await fetch(`https://api.forprojectstests.ru/v1/files/all_files`, {
+    const response = await fetch(`https://127.0.0.1:8000/v1/files/all_files`, {
       method: 'GET',
       headers: {
         'Content-Type': 'application/json',
@@ -27,7 +27,7 @@ export async function GetFiles(token: string | null): Promise<{ success: boolean
 
 export async function GetFilesBeforeParsing(token: string | null,file_id:number): Promise<{  file?: Blob;success?:boolean  }> {
     try {
-      const response = await fetch(`https://api.forprojectstests.ru/v1/files/download_file/before_parsing/${file_id}`, {
+      const response = await fetch(`https://127.0.0.1:8000/v1/files/download_file/before_parsing/${file_id}`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -50,7 +50,7 @@ export async function GetFilesBeforeParsing(token: string | null,file_id:number)
   
   export async function GetFileAfterParsing(token: string | null,file_id:number): Promise<{ file?: Blob;success?:boolean }> {
     try {
-        const response = await fetch(`https://api.forprojectstests.ru/v1/files/download_file/after_parsing/${file_id}`, {
+        const response = await fetch(`https://127.0.0.1:8000/v1/files/download_file/after_parsing/${file_id}`, {
           method: 'POST',
           headers: {
             'Content-Type': 'application/json',
@@ -75,7 +75,7 @@ export async function GetFilesBeforeParsing(token: string | null,file_id:number)
 
   export async function GetFileData(token: string | null,file_id:number): Promise<{ success: boolean; files?: Files[]; message?: string }> {
     try {
-      const response = await fetch(`https://api.forprojectstests.ru/v1/showing/show_data${file_id}`, {
+      const response = await fetch(`https://127.0.0.1:8000/v1/showing/show_data${file_id}`, {
         method: 'GET',
         headers: {
           'Content-Type': 'application/json',

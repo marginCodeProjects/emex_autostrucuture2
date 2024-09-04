@@ -55,8 +55,8 @@ const AllDataTable = () => {
 
                             <p className={`${styles.table__texts} ${styles.inter__medium}`}>{file.date.slice(0, 10)}</p>
                             <p className={`${styles.table__texts} ${styles.inter__medium}`}>{file.new_filter_id}</p>
-                            <a href={`https://api.forprojectstests.ru/v1/files/download_file/before_parsing/${file.id}`} className={`${styles.table__texts} ${styles.inter__medium}`} >{file.before_parsing_filename}</a>
-                            <a href={`https://api.forprojectstests.ru/v1/files/download_file/after_parsing/${file.id}`} className={`${styles.table__texts} ${styles.inter__medium}`} >{file.after_parsing_filename}</a>
+                            <a href={`https://127.0.0.1:8000/v1/files/download_file/before_parsing/${file.id}`} className={`${styles.table__texts} ${styles.inter__medium}`} >{file.before_parsing_filename}</a>
+                            <a href={`https://127.0.0.1:8000/v1/files/download_file/after_parsing/${file.id}`} className={`${styles.table__texts} ${styles.inter__medium}`} >{file.after_parsing_filename}</a>
 
                         </div>
                     ))}

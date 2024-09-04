@@ -87,3 +87,22 @@ export interface IUsersProps {
 	isAdmin: boolean ;
 	isAdmunUI?:string|undefined
 }
+
+export interface ProxyFormValues {
+	date?:string
+	count:number|undefined
+	duration:number|undefined
+}
+export interface Proxys {
+    expired_at: string
+    count: number
+}
+export interface FilterFormValues{
+	deep_filter:number
+	deep_analog:number
+	analog:boolean
+	title:string
+	is_bigger:boolean
+	date:number
+	logo:string
+}

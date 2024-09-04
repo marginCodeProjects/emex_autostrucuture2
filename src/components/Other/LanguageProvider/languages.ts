@@ -114,9 +114,27 @@ export const dashboardTexts = {
 		newPassword: 'Password:',
 	},
 }
-export const settingsTexts ={
-	RU:{PROXY:"ПРОКСИ",FILTERS:"ФИЛЬТРЫ",proxyInCard:"прокси"},
-	EN:{PROXY:"PROXY",FILTERS:"FILTERS",proxyInCard:"proxy"}
+export const settingsTexts = {
+	RU: {
+		PROXY: 'ПРОКСИ',
+		FILTERS: 'ФИЛЬТРЫ',
+		proxyInCard: 'прокси',
+		quantity: 'Количество',
+		duration: 'Длительность аренды',
+		buy: 'Купить',
+		toExtend: 'Продлить',
+		remove: 'Удалить',logo:'Лого -',deliveryTime:'Срок поставки -',original:'Оригинал -',depthOfAnalogueSearch:'Глубина поиска аналога -',depthOfSelectionByTheFirstFilter:'Глубина отбора по первому фильтру -',title:'Заголовок -',save:'Сохранить',contain:"Содержит",notContain:"Не содержит",moreThan:"Больше чем",lessThan:'Меньше чем',originals:"Оригиналы",notOriginals:"Оригиналы и не оригиналы"
+	},
+	EN: {
+		PROXY: 'PROXY',
+		FILTERS: 'FILTERS',
+		proxyInCard: 'proxy',
+		quantity: 'Quantity',
+		duration: 'Duration',
+		buy: 'Buy',
+		toExtend: 'To extend',
+		remove: 'Remove',logo:'Logo -',deliveryTime:'Delivery time -',original:'Original -',depthOfAnalogueSearch:'Depth of analogue search -',depthOfSelectionByTheFirstFilter:'Depth of selection by the first filter -',title:'Title -',save:'Save',contain:"Contain",notContain:"Not contain",moreThan:"More than",lessThan:'Less than',originals:"Originals",notOriginals:"Originals and non-originals"
+	},
 }
 
 export const statusMessages = {

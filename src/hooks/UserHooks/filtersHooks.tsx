@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react';
+import React, { useState, useEffect } from 'react';
 
 
 // Типы данных для фильтров (адаптируйте под свою структуру данных)
@@ -13,31 +13,28 @@ interface FilterOption {
     date: number,
     user_id: number
 }
-interface Proxys {
-    expired_at: string
-    count: number
-}
+
 // Типы состояния
 interface FiltersState {
     filters?: FilterOption[];
-    proxys?: Proxys[];
+    setFilters?: React.Dispatch<React.SetStateAction<FilterOption[]|undefined>>
     loading: boolean;
     error: string | null;
 }
 
 // Хук для получения фильтров
 const useFilters = (endpoint: string, token: string | null): FiltersState => {
-    const [filters, setFilters] = useState<FilterOption[]>([]);
+    const [filters, setFilters] = useState<FilterOption[]|undefined>([]);
     const [loading, setLoading] = useState<boolean>(true);
     const [error, setError] = useState<string | null>(null);
-    const [proxys, setProxys] = useState<Proxys[]>([])
+
     useEffect(() => {
         const fetchFilters = async () => {
-
             try {
                 setLoading(true);
                 const response = await fetch(endpoint, {
-                    method: "GET", headers: {
+                    method: "GET",
+                    headers: {
                         'Content-Type': 'application/json',
                         'access-token': `${token}`
                     }
@@ -46,14 +43,8 @@ const useFilters = (endpoint: string, token: string | null): FiltersState => {
                     throw new Error(`Ошибка: ${response.status}`);
                 }
                 const data = await response.json();
-                if (endpoint.includes("filters")) {
-                    setFilters(data);
-
-                }
-                else {
-                    setProxys(data)
-                }
-            } catch (err: unknown) { // Используем unknown вместо any
+                setFilters(data);
+            } catch (err: unknown) {
                 if (err instanceof Error) {
                     setError(err.message || 'Ошибка при загрузке');
                 } else {
@@ -67,7 +58,8 @@ const useFilters = (endpoint: string, token: string | null): FiltersState => {
         fetchFilters();
     }, [endpoint, token]);
 
-    return { filters, loading, error, proxys };
+    // Возвращаем setFilters для возможности изменения filters извне
+    return { filters, setFilters, loading, error };
 };
 
 export default useFilters;
