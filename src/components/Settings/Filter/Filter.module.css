@@ -38,8 +38,8 @@
 	display: none;
 }
 .SecondInnerDiv {
-	padding: 30px 20px 18px 21px;
-	width: 100%;
+	padding: 30px 0px 18px 21px;
+	width: 73%;
 	height: 360px;
 	display: flex;
 	flex-direction: column;
@@ -81,7 +81,7 @@
 	border: 1px #335ae6 solid;
 	border-radius: 10px;
 	height: 31px;
-	
+
 	width: 281px;
 	margin-right: 20px;
 }
@@ -89,30 +89,34 @@
 	border: 1px #335ae6 solid;
 	border-radius: 7px;
 	height: 31px;
-	
+
 	text-align: left;
 }
 
 .ProxyActions__buttonsDiv {
 	display: flex;
-	justify-content: space-between;
+	flex-direction: column;
+	padding: 30px 20px 0px 21px;
 }
 .ProxyActions__Button {
-	width: 207px;
+	width: 268px;
 	height: 31px;
 	border: 1px solid #335ae6;
 	border-radius: 10px;
 	display: flex;
 	align-items: center;
 	justify-content: center;
+	margin-bottom: 12px;
 }
 .ProxyActions__Button:hover {
 	cursor: pointer;
 }
 .InputsDiv {
 	display: flex;
-	width: 100%;align-items: center;
-	height: 32px;margin-bottom: 20px;
+	width: 100%;
+	align-items: center;
+	height: 32px;
+	margin-bottom: 20px;
 }
 .InputsLineText {
 	width: 135px;

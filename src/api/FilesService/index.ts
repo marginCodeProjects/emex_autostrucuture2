@@ -73,9 +73,9 @@ export async function GetFilesBeforeParsing(token: string | null,file_id:number)
   
     
 
-  export async function GetFileData(token: string | null,file_id:number): Promise<{ success: boolean; files?: Files[]; message?: string }> {
+  export async function GetFileData(token: string | null,file_id:number|undefined,skip:number,limit:number): Promise<{ success: boolean; files?: Files[]; message?: string }> {
     try {
-      const response = await fetch(`https://127.0.0.1:8000/v1/showing/show_data${file_id}`, {
+      const response = await fetch(`https://127.0.0.1:8000/v1/showing/show_data/${file_id}?skip=${skip}&limit=${limit}`, {
         method: 'GET',
         headers: {
           'Content-Type': 'application/json',
@@ -85,7 +85,7 @@ export async function GetFilesBeforeParsing(token: string | null,file_id:number)
   
       if (response.ok) {
         // Парсим JSON только если запрос успешен
-        const files: Files[] = await response.json();
+        const files = await response.json();
         return { success: true, files };
       } else {
         const errorMessage = 'Ошибка запуска парсера';

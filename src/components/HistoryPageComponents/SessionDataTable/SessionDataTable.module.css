@@ -1,10 +1,4 @@
-.Table {
-	height: 698px;
-	width: 100%;
-	display: flex;
-	flex-direction: column;
-	border: 1px solid #335ae6;
-}
+
 
 .TableRow {
 	display: flex;
@@ -12,12 +6,26 @@
 	height: 77px; /* Высота каждой строки */
 	border-bottom: 1px solid #335ae6; /* Линия между строками */
 }
-
-.TableColumn {
-	flex: 1; /* Все колонки равной ширины */
-	border-right: 1px solid #335ae6; /* Линия между колонками */
+.TablePagination {
 	display: flex;
-	padding: 10px 0px 0px 12px;
+	flex-direction: row;
+	height: 80px;
+	align-items: center;
+	justify-content: flex-end;
+	padding: 0px 10px 0px 0px;
+}
+.TableColumn {
+	flex: 1;
+	border-right: 1px solid #335ae6;
+	width: 82px;
+	word-break: break-all;
+	font-family: 'Inter', sans-serif;
+	font-optical-sizing: auto;
+	font-weight: 600;
+	font-style: normal;
+	font-size: 14px;
+	text-align: left;
+	padding: 10px 0px 0px 10px;
 }
 
 /* Последняя колонка не будет иметь правой границы */
@@ -31,4 +39,23 @@
 }
 .TableRow:first-child {
 	background-color: rgba(178, 193, 246, 0.7);
+}
+.TableContainer {
+    display: flex;
+    flex-direction: column;
+    
+    border: 1px solid #335AE6; /* Граница вокруг всей таблицы */
+   
+    border-radius: 4px; /* Закругление углов (опционально) */
+}
+
+.Table {
+    overflow: auto; /* Прокрутка для таблицы */
+}
+
+.PaginationContainer {
+    display: flex;
+    justify-content: flex-end; /* Смещает пагинацию вправо */
+    margin-right: 10px; /* Отступ справа для пагинации */
+height: 77px;align-items: center;
 }

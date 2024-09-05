@@ -1,30 +1,13 @@
-import React, { useState, useEffect } from 'react';
+import  { useState, useEffect } from 'react';
+import { FilterOption, FiltersState } from '../../interfaces/Main';
 
 
 // Типы данных для фильтров (адаптируйте под свою структуру данных)
-interface FilterOption {
-    id: string;
-    title: string;
-    deep_filter: number
-    is_bigger: boolean
-    logo: string
-    deep_analog: number,
-    analog: boolean,
-    date: number,
-    user_id: number
-}
 
-// Типы состояния
-interface FiltersState {
-    filters?: FilterOption[];
-    setFilters?: React.Dispatch<React.SetStateAction<FilterOption[]|undefined>>
-    loading: boolean;
-    error: string | null;
-}
 
 // Хук для получения фильтров
 const useFilters = (endpoint: string, token: string | null): FiltersState => {
-    const [filters, setFilters] = useState<FilterOption[]|undefined>([]);
+    const [filters, setFilters] = useState<FilterOption[] | undefined>([]);
     const [loading, setLoading] = useState<boolean>(true);
     const [error, setError] = useState<string | null>(null);
 

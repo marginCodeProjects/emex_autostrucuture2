@@ -56,7 +56,7 @@ export const historyTexts = {
 		bestPrice: 'Лучшая цена',
 		logo: 'Лого',
 		deliveryTime: 'Срок поставки',
-		linesOnPage: 'Строк на странице:',
+		linesOnPage: 'Строк на странице:',NDS:"НДС"
 	},
 	EN: {
 		history: 'History',
@@ -75,7 +75,7 @@ export const historyTexts = {
 		bestPrice: 'Best price',
 		logo: 'Logo',
 		deliveryTime: 'Delivery time',
-		linesOnPage: 'Lines on the page:',
+		linesOnPage: 'Lines on the page:',NDS:"NDS"
 	},
 }
 export const dashboardTexts = {
@@ -123,7 +123,20 @@ export const settingsTexts = {
 		duration: 'Длительность аренды',
 		buy: 'Купить',
 		toExtend: 'Продлить',
-		remove: 'Удалить',logo:'Лого -',deliveryTime:'Срок поставки -',original:'Оригинал -',depthOfAnalogueSearch:'Глубина поиска аналога -',depthOfSelectionByTheFirstFilter:'Глубина отбора по первому фильтру -',title:'Заголовок -',save:'Сохранить',contain:"Содержит",notContain:"Не содержит",moreThan:"Больше чем",lessThan:'Меньше чем',originals:"Оригиналы",notOriginals:"Оригиналы и не оригиналы"
+		remove: 'Удалить',
+		logo: 'Лого -',
+		deliveryTime: 'Срок поставки -',
+		original: 'Оригинал -',
+		depthOfAnalogueSearch: 'Глубина поиска аналога -',
+		depthOfSelectionByTheFirstFilter: 'Глубина отбора по первому фильтру -',
+		title: 'Заголовок -',
+		save: 'Сохранить',
+		contain: 'Содержит',
+		notContain: 'Не содержит',
+		moreThan: 'Больше чем',
+		lessThan: 'Меньше чем',
+		originals: 'Оригиналы',
+		notOriginals: 'Оригиналы и не оригиналы',
 	},
 	EN: {
 		PROXY: 'PROXY',
@@ -133,7 +146,21 @@ export const settingsTexts = {
 		duration: 'Duration',
 		buy: 'Buy',
 		toExtend: 'To extend',
-		remove: 'Remove',logo:'Logo -',deliveryTime:'Delivery time -',original:'Original -',depthOfAnalogueSearch:'Depth of analogue search -',depthOfSelectionByTheFirstFilter:'Depth of selection by the first filter -',title:'Title -',save:'Save',contain:"Contain",notContain:"Not contain",moreThan:"More than",lessThan:'Less than',originals:"Originals",notOriginals:"Originals and non-originals"
+		remove: 'Remove',
+		logo: 'Logo -',
+		deliveryTime: 'Delivery time -',
+		original: 'Original -',
+		depthOfAnalogueSearch: 'Depth of analogue search -',
+		depthOfSelectionByTheFirstFilter:
+			'Depth of selection by the first filter -',
+		title: 'Title -',
+		save: 'Save',
+		contain: 'Contain',
+		notContain: 'Not contain',
+		moreThan: 'More than',
+		lessThan: 'Less than',
+		originals: 'Originals',
+		notOriginals: 'Originals and non-originals',
 	},
 }
 

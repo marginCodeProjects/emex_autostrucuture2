@@ -73,36 +73,59 @@ export interface User {
 	is_parsing: boolean
 }
 export interface IUsersProps {
-	setEditingCardId?: React.Dispatch<React.SetStateAction<number | null|true>>
-	editingCardId?: null | number|true
-	users:User[]|undefined
-	setUsers?:React.Dispatch<React.SetStateAction<User[]|undefined>>
-  }
-  
-  export interface UserFormValues {
-	fullName: string;
-	description: string;
-	username: string;
-	password?: string;
-	isAdmin: boolean ;
-	isAdmunUI?:string|undefined
+	setEditingCardId?: React.Dispatch<
+		React.SetStateAction<number | null | true>
+	>
+	editingCardId?: null | number | true
+	users: User[] | undefined
+	setUsers?: React.Dispatch<React.SetStateAction<User[] | undefined>>
+}
+
+export interface UserFormValues {
+	fullName: string
+	description: string
+	username: string
+	password?: string
+	isAdmin: boolean
+	isAdmunUI?: string | undefined
 }
 
 export interface ProxyFormValues {
-	date?:string
-	count:number|undefined
-	duration:number|undefined
+	date?: string
+	count: number | undefined
+	duration: number | undefined
 }
 export interface Proxys {
-    expired_at: string
-    count: number
+	expired_at: string
+	count: number
 }
-export interface FilterFormValues{
-	deep_filter:number
-	deep_analog:number
-	analog:boolean
-	title:string
-	is_bigger:boolean
-	date:number
-	logo:string
+export interface FilterFormValues {
+	deep_filter: number
+	deep_analog: number
+	analog: boolean
+	title: string
+	is_bigger: boolean
+	date: number
+	logo: string
+}
+export interface FilterOption {
+	id: string
+	title: string
+	deep_filter: number
+	is_bigger: boolean
+	logo: string
+	deep_analog: number
+	analog: boolean
+	date: number
+	user_id: number
+}
+
+// Типы состояния
+export interface FiltersState {
+	filters?: FilterOption[]
+	setFilters?: React.Dispatch<
+		React.SetStateAction<FilterOption[] | undefined>
+	>
+	loading: boolean
+	error: string | null
 }
