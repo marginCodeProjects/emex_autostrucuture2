@@ -75,11 +75,11 @@ const Proxy = () => {
 
             (async () => {
                 const data = await ExtendProxy(token, formValues);
-                if (data.proxys) {
-                    setProxys(data.proxys);
-                }
-                if (data.status) {
+                if (data.status && data.proxys) {
                     success();
+
+                    setProxys(data.proxys);
+
                 } else if (data.message) {
                     error(data.message);
                 } else {
@@ -90,11 +90,10 @@ const Proxy = () => {
             console.log("не я");
             (async () => {
                 const data = await BuyProxy(token, formValues);
-                if (data.proxys) {
-                    setProxys(data.proxys);
-                }
-                if (data.status) {
+                if (data.status && data.proxys) {
                     success();
+
+                    setProxys(data.proxys);
                 } else if (data.message) {
                     error(data.message);
                 } else {

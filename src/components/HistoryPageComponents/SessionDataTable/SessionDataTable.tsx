@@ -72,7 +72,9 @@ const SessionDataTable: React.FC<SessionDataTableProps> = ({ fileId }) => {
             theme={{
                 components: {
                     Table: {
-                        cellPaddingInline: 14
+                        cellPaddingInline: 14,
+                        borderColor:'#335ae6',
+                        headerBg:"#C9D4F9"
                     },
                 },
             }}

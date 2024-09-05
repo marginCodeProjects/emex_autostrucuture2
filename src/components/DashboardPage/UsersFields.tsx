@@ -192,8 +192,8 @@ const UsersFields: React.FC<IUsersProps> = ({ setEditingCardId, editingCardId, u
                 </div>
                 {newUsername && newPassword && <div className={styles.userEdit__copyNewCredentialsDiv}>
                     <p className={`${styles.inter__trueMedium} ${styles.userFirstName} ${styles.userEdit__copyNewCredentialsText}`}>{dashboardTexts[language].userData}</p>
-                    <Input suffix={<CopyTwoTone onClick={() => navigator.clipboard.writeText(`${newUsername}`)} />} className={`${styles.userEdit__input} ${styles.inter__medium} ${styles.userFirstName}`} value={`${dashboardTexts[language].newLogin} ${newUsername}`} />
-                    <Input suffix={<CopyTwoTone onClick={() => navigator.clipboard.writeText(`${newPassword}`)} />} className={`${styles.userEdit__input} ${styles.inter__medium} ${styles.userFirstName}`} value={`${dashboardTexts[language].newPassword} ${newPassword}`} />
+                    <Input suffix={<CopyTwoTone twoToneColor="#335ae6" onClick={() => navigator.clipboard.writeText(`${newUsername}`)} />} className={`${styles.userEdit__input} ${styles.inter__medium} ${styles.userFirstName}`} value={`${dashboardTexts[language].newLogin} ${newUsername}`} />
+                    <Input suffix={<CopyTwoTone twoToneColor="#335ae6" onClick={() => navigator.clipboard.writeText(`${newPassword}`)} />} className={`${styles.userEdit__input} ${styles.inter__medium} ${styles.userFirstName}`} value={`${dashboardTexts[language].newPassword} ${newPassword}`} />
                 </div>}
             </div>
         );

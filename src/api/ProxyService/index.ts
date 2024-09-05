@@ -1,3 +1,4 @@
+
 import { ProxyFormValues, Proxys } from "../../interfaces/Main"
 
 export async function ExtendProxy(
@@ -18,13 +19,18 @@ export async function ExtendProxy(
 			}
 		)
 
-		if (response.ok) {
+		if (response.status === 200) {
 			const proxys = await response.json()
 			return {
 					status: true,proxys
 			}
-		} else {
-           const proxys = await response.json() 
+		} else if(response.status === 422) {
+         
+			return {
+				status: false,message:"Пожалуйста заполните все поля"
+			}
+		}else{
+			const proxys = await response.json()
 			return {
 				status: false,message:proxys.detail
 			}
@@ -54,13 +60,18 @@ export async function BuyProxy(
 			}
 		)
 
-		if (response.ok) {
+		if (response.status === 200) {
 			const proxys = await response.json()
 			return {
 					status: true,proxys
 			}
-		} else {
-           const proxys = await response.json() 
+		} else if(response.status === 422) {
+         
+			return {
+				status: false,message:"Пожалуйста заполните все поля"
+			}
+		}else{
+			const proxys = await response.json()
 			return {
 				status: false,message:proxys.detail
 			}
