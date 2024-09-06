@@ -1,7 +1,7 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import styles from './Login.module.css';
-import { Button, Form, Input, Alert } from 'antd';
+import { Button, Form, Input, message } from 'antd';
 import { onFinish, onFinishFailed, } from '../../api/UserService';
 import { IUserLogin } from '../../interfaces/Main';
 import { useAuth } from '../../components/Other/authContext/useAuth';
@@ -11,11 +11,23 @@ const Login: React.FC = () => {
     const navigate = useNavigate();
     const [errorMessage, setErrorMessage] = useState<string | null>(null);
     const { login } = useAuth();
+    const [messageApi, contextHolder] = message.useMessage();
+    const error = (message: string) => {
+        messageApi.open({
+            type: 'error',
+            content: message
+        });
+    };
+    useEffect(() => {
+        if (errorMessage) {
+            error(errorMessage)
+        }
+    }, [errorMessage])
 
     return (
         <div className={styles.login__div}>
+            {contextHolder}
             <p className={styles.inter_semibold}>Авторизация</p>
-            {errorMessage && <Alert message={errorMessage} type="error" showIcon />}
             <Form
                 name="basic"
                 labelCol={{ span: 24 }}

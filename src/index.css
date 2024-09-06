@@ -8,31 +8,37 @@
 }
 
 * {
-  box-sizing: border-box;
+	box-sizing: border-box;
 	padding-inline-start: 0px;
 	padding-inline-end: 0px;
-	margin: 0px;text-decoration: none;
+	margin: 0px;
+	text-decoration: none;
 	padding: 0px;
 	margin-block-start: 0px;
 	margin-block-end: 0px;
 	margin-inline-start: 0px;
 	margin-inline-end: 0px;
 }
-a:visited{color: inherit;}
+a:visited {
+	color: inherit;
+}
+a {
+	color: #000;
+}
 button {
 	all: unset; /* Сбрасывает все стили, возвращая их к исходному значению */
 	display: inline-block; /* Восстанавливает поведение как у кнопки */
 	cursor: pointer; /* Устанавливает курсор указателя при наведении */
-  }
-  
-  button {
+}
+
+button {
 	font: inherit; /* Наследует шрифт от родителя */
 	color: inherit; /* Наследует цвет текста */
 	background: none; /* Убирает фон */
 	border: none; /* Убирает границу */
 	padding: 0; /* Убирает внутренние отступы */
-	margin: 0; 
-  }
+	margin: 0;
+}
 .inter-medium {
 	font-family: 'Inter', sans-serif;
 	font-optical-sizing: auto;

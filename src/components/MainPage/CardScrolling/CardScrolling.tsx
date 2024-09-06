@@ -1,9 +1,9 @@
-import { SetStateAction } from 'react';
+import { SetStateAction, useEffect } from 'react';
 import useFilters from '../../../hooks/UserHooks/filtersHooks';
 import { useLanguage } from '../../Other/LanguageProvider/useLanguage'
 import { texts } from '../../Other/LanguageProvider/languages'
 import styles from './CardScrolling.module.css'
-import { Alert } from 'antd';
+import { message } from 'antd';
 import { useAuth } from '../../Other/authContext/useAuth';
 interface ICardScrollingProps {
     setSelectedCardId: React.Dispatch<SetStateAction<string | null>>
@@ -13,12 +13,25 @@ const CardScrolling: React.FC<ICardScrollingProps> = ({ setSelectedCardId, selec
     const { language } = useLanguage();
     const { token } = useAuth();
     const { filters, loading, error } = useFilters('https://127.0.0.1:8000/v1/filters/get_filters', token);
+    const [messageApi, contextHolder] = message.useMessage();
+    const errorMessage = () => {
+        messageApi.open({
+            type: 'error',
+            content: "При загрузке фильтров произошла ошибка"
+        });
+    };
+    useEffect(() => {
+        if (error != null) {
 
+            errorMessage()
+        }
+    }, [error])
 
     return (
         <>
-            {error && <Alert message={error} type="error" showIcon />}
+
             <div className={styles.OutlineDiv}>
+                {contextHolder}
                 {!loading &&
                     filters?.map((filter) => {
                         return (

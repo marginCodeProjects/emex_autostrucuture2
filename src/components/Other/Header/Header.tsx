@@ -1,23 +1,37 @@
 import { NavLink } from 'react-router-dom'
 import styles from './Header.module.css'
-import { Alert, Switch } from 'antd'
+import { message, Switch } from 'antd'
 import { useLanguage } from '../../Other/LanguageProvider/useLanguage';
 import { texts } from '../../Other/LanguageProvider/languages';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { handleLogout } from '../../../api/UserService';
 import { IHeaderProps } from '../../../interfaces/Main';
+
 import logo from '../../../assets/logo.svg';
 import { useAuth } from '../../Other/authContext/useAuth';
 const Header: React.FC<IHeaderProps> = ({ onLogoutSuccess, username }) => {
   const { language, toggleLanguage } = useLanguage();
-  const [errorMessage, setErrorMessage] = useState<string | undefined>(undefined)
   const { token, isAdmin } = useAuth();
+  const [messageApi, contextHolder] = message.useMessage();
+  const [errorMessage, setErrorMessage] = useState<string | undefined>(undefined)
   function logoutHandler() {
     handleLogout(setErrorMessage, token, onLogoutSuccess)
   }
+  const error = (message: string) => {
+    messageApi.open({
+      type: 'error',
+      content: message
+    });
+  };
+  useEffect(() => {
+    if (errorMessage) {
+      error(errorMessage)
+    }
+  }, [errorMessage])
+
   return (
     <nav className={styles.header}>
-      {errorMessage && <Alert message={errorMessage} type="error" showIcon />}
+      {contextHolder}
       <img
         src={logo}
         className={styles.header__logo}
