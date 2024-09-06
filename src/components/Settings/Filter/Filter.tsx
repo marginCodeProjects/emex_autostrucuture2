@@ -23,7 +23,7 @@ const Filter = () => {
         date: 10,
     })
     const { filters, loading, setFilters } = useFilters(
-        'https://127.0.0.1:8000/v1/filters/get_filters',
+        'https://api.forprojectstests.ru/v1/filters/get_filters',
         token
     )
     const success = (message: string) => {
