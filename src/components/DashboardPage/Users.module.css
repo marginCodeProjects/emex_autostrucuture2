@@ -34,6 +34,7 @@
 	flex-direction: column;
 	justify-content: flex-start;
 	margin-bottom: 20px;
+	overflow-y: visible;
 }
 .users__userLine {
 	height: 64px;
@@ -45,7 +46,10 @@
 
 	padding: 15px 25px 0px 25px;
 }
-.users__userLine:last-child{border-bottom-left-radius: 10px; border-bottom-right-radius: 10px;}
+.users__userLine:last-child {
+	border-bottom-left-radius: 10px;
+	border-bottom-right-radius: 10px;
+}
 .userLine__userInfo {
 	width: 255px;
 	height: 36px;
@@ -69,25 +73,22 @@
 	cursor: pointer;
 }
 .userLine__controlItem {
-	position: absolute;
-	top: 50%;
-	left: calc(100% + 10px);
-	transform: translateY(-50%) scale(0.9); /* начальное состояние с уменьшением */
+	position: absolute; /* Изменено на абсолютное позиционирование */
 	opacity: 0;
 	width: 200px;
 	height: 62px;
 	border-radius: 10px;
 	border: solid 1px #335ae6;
 	background-color: #fff;
-	transition: opacity 0.3s ease, transform 0.3s ease; /* анимация */
-	pointer-events: none; /* Игнорировать события мыши, пока элемент скрыт */
+	transition: opacity 0.3s ease, transform 0.3s ease;
+	pointer-events: none;
 	z-index: 9999;
 }
 
 .userLine__controlItem.show {
-	transform: translateY(-50%) scale(1); /* конечное состояние */
 	opacity: 1;
-	pointer-events: auto; /* Включить события мыши, когда элемент видим */
+	pointer-events: auto;
+	z-index: 10000;
 }
 
 .userLine__controlItemEdit {
@@ -175,3 +176,8 @@
 	margin-bottom: 10px;
 	text-align: left;
 }
+.menu-position {
+	left: 100px; /* Смещение на 100px правее кнопки */
+	top: 0; /* Начальная позиция относительно родителя */
+	transform: translateX(100px); /* Дополнительное смещение на 100px */
+  }

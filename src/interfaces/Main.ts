@@ -129,3 +129,29 @@ export interface FiltersState {
 	loading: boolean
 	error: string | null
 }
+
+export interface SessionTableRowData {
+	"article": string
+	"article1": string
+	"price": string
+	"nds": string
+	"logo": string
+	"new_price": string
+	"user_id": number
+	"id": number
+	"name": string
+	"brand": string
+	"quantity": string
+	"batch": string
+	"best_price": string
+	"delivery_time": string
+	"quantity1": string
+	"file_id": number
+}
+export interface SessionTableAPI {
+	total:number
+	rows:SessionTableRowData[]
+}
+export interface SessionDataTableProps {
+    fileId: number | undefined;
+}

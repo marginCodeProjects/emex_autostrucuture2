@@ -1,52 +1,42 @@
 import React, { useEffect, useState } from 'react';
-import { Table, Pagination, PaginationProps, ConfigProvider } from 'antd';
+import { Table, Pagination, PaginationProps, ConfigProvider, message } from 'antd';
 import { historyTexts } from '../../Other/LanguageProvider/languages';
 import { useLanguage } from '../../Other/LanguageProvider/useLanguage';
 import { GetFileData } from '../../../api/FilesService';
 import { useAuth } from '../../Other/authContext/useAuth';
 import styles from './SessionDataTable.module.css';
+import { SessionDataTableProps, SessionTableRowData } from '../../../interfaces/Main';
 
-interface SessionDataTableProps {
-    fileId: number | undefined;
-}
-
-interface DataType {
-    key: React.Key;
-    article: string;
-    name: string;
-    brand: string;
-    article1: string;
-    quantity: number;
-    price: string;
-    batch: string;
-    NDS: string;
-    bestPrice: string;
-    logo: string;
-    deliveryTime: string;
-    newPrice: string;
-}
 
 const SessionDataTable: React.FC<SessionDataTableProps> = ({ fileId }) => {
     const { language } = useLanguage();
     const { token } = useAuth();
-    const [tableData, setTableData] = useState<DataType[]>([]);
+    const [messageApi, contextHolder] = message.useMessage();
+    const [tableData, setTableData] = useState<SessionTableRowData[]>([]);
     const [limit, setLimit] = useState(10);
     const [skip, setSkip] = useState(0);
+    const [rowsLen, setRowsLen] = useState(0)
 
+    const errorMessage = (message: string) => {
+        messageApi.open({
+            type: 'error',
+            content: message
+        });
+    };
     const columns = [
         { title: historyTexts[language].article, dataIndex: 'article', key: 'article' },
         { title: historyTexts[language].name, dataIndex: 'name', key: 'name' },
         { title: historyTexts[language].brand, dataIndex: 'brand', key: 'brand' },
         { title: historyTexts[language].article1, dataIndex: 'article1', key: 'article1' },
-        { title: historyTexts[language].quantity, dataIndex: 'quantity_goods', key: 'quantity' },
+        { title: historyTexts[language].quantity, dataIndex: 'quantity', key: 'quantity' },
         { title: historyTexts[language].price, dataIndex: 'price', key: 'price' },
         { title: historyTexts[language].batch, dataIndex: 'batch', key: 'batch' },
-        { title: historyTexts[language].NDS, dataIndex: 'NDS', key: 'NDS' },
+        { title: historyTexts[language].NDS, dataIndex: 'nds', key: 'NDS' },
         { title: historyTexts[language].bestPrice, dataIndex: 'best_price', key: 'bestPrice' },
         { title: historyTexts[language].logo, dataIndex: 'logo', key: 'logo' },
-        { title: historyTexts[language].deliveryTime, dataIndex: 'delivery', key: 'deliveryTime' },
-        { title: historyTexts[language].quantity, dataIndex: 'quantity_goods', key: 'quantity' },
-        { title: historyTexts[language].newPrice, dataIndex: 'price_with_logo', key: 'newPrice' },
+        { title: historyTexts[language].deliveryTime, dataIndex: 'delivery_time', key: 'deliveryTime' },
+        { title: historyTexts[language].quantity, dataIndex: 'quantity', key: 'quantity' },
+        { title: historyTexts[language].newPrice, dataIndex: 'new_price', key: 'newPrice' },
     ];
 
     const onShowSizeChange: PaginationProps['onShowSizeChange'] = (current, pageSize) => {
@@ -56,12 +46,16 @@ const SessionDataTable: React.FC<SessionDataTableProps> = ({ fileId }) => {
 
     useEffect(() => {
         const GetData = async () => {
-            const data = await GetFileData(token, fileId, skip, limit);
-            if (data.success && data.files) {
-                setTableData(data.files.map((file: any, index: number) => ({
+            const { success, rows, totalRows, message } = await GetFileData(token, fileId, skip, limit);
+            if (success && rows) {
+                setRowsLen(totalRows)
+                setTableData(rows.map((file: any, index: number) => ({
                     key: index,
                     ...file
                 })));
+            } else if (message) {
+                errorMessage(message)
+
             }
         };
         GetData();
@@ -73,13 +67,14 @@ const SessionDataTable: React.FC<SessionDataTableProps> = ({ fileId }) => {
                 components: {
                     Table: {
                         cellPaddingInline: 14,
-                        borderColor:'#335ae6',
-                        headerBg:"#C9D4F9"
+                        borderColor: '#335ae6',
+                        headerBg: "#C9D4F9",
+                        fontFamily:'Inter',headerBorderRadius:8
                     },
                 },
             }}
         >
-
+            {contextHolder}
             <div className={styles.TableContainer}>
                 <Table
                     columns={columns}
@@ -94,7 +89,7 @@ const SessionDataTable: React.FC<SessionDataTableProps> = ({ fileId }) => {
                         onShowSizeChange={onShowSizeChange}
                         onChange={onShowSizeChange}
                         defaultCurrent={1}
-                        total={1000}
+                        total={rowsLen}
                         pageSize={limit}
                     />
                 </div>

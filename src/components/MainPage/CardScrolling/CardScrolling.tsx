@@ -40,9 +40,11 @@ const CardScrolling: React.FC<ICardScrollingProps> = ({ setSelectedCardId, selec
                                     <p className={`${styles.inter__medium} ${styles.Card__topPart_title} `}>{filter.title}</p>
                                 </div>
                                 <div className={styles.Cart_bottomPart}>
-                                    <p className={`${styles.Card__bottomPart_texts} ${styles.inter__medium}`}>{`${texts[language].filterCardLogo} ${filter.logo}`}</p>
-                                    <p className={`${styles.Card__bottomPart_texts} ${styles.inter__medium}`}>{`${texts[language].filterCardDeliveryTime} ${filter.date}`}</p>
-                                    <p className={`${styles.Card__bottomPart_texts} ${styles.inter__medium}`}>{`${texts[language].filterCardIsOriginal} ${filter.analog}`}</p>
+                                    {filter.logo === null ?
+                                        <p className={`${styles.Card__bottomPart_texts} ${styles.inter__medium}`}>{`${texts[language].filterCardLogo} ${texts[language].logoIsNotUsed}`}</p>
+                                        : <p className={`${styles.Card__bottomPart_texts} ${styles.inter__medium}`}>{`${texts[language].filterCardLogo} - ${filter.logo}`}</p>}
+                                    <p className={`${styles.Card__bottomPart_texts} ${styles.inter__medium}`}>{filter.is_bigger?`${texts[language].filterCardDeliveryTime} > ${filter.date}`:`${texts[language].filterCardDeliveryTime} < ${filter.date}`}</p>
+                                    <p className={`${styles.Card__bottomPart_texts} ${styles.inter__medium}`}>{filter.analog ? `${texts[language].filterCardIsNotOriginal}` : `${texts[language].filterCardIsOriginal}`}</p>
                                 </div>
                             </div>
                         )

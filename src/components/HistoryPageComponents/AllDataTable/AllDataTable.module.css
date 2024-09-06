@@ -17,10 +17,12 @@
 	white-space: nowrap; /* Запрещает перенос текста на новую строку */
 	overflow: hidden; /* Прячет текст, который выходит за пределы блока */
 	text-overflow: ellipsis; /* Добавляет троеточие, если текст не помещается */
+	cursor: pointer;
 }
-.table__textsForLinks:visited {
-	color: rgb(0, 0, 238);
+.table__textsForLinks:hover {
+	color: #69b1ff;
 }
+
 .table__container {
 	width: 100%;
 	max-height: 385px;
@@ -33,7 +35,7 @@
 	margin-bottom: 40px;
 }
 .table__line {
-	height: 55px;
+	min-height: 55px;
 	width: 100%;
 	border-bottom: 1px solid #335ae6;
 	display: flex;

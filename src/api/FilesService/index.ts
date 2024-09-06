@@ -1,4 +1,4 @@
-import { Files } from "../../interfaces/Main";
+import { Files, SessionTableAPI, SessionTableRowData } from "../../interfaces/Main";
 
 export async function GetFiles(token: string | null): Promise<{ success: boolean; files?: Files[]; message?: string }> {
   try {
@@ -73,7 +73,7 @@ export async function GetFilesBeforeParsing(token: string | null,file_id:number)
   
     
 
-  export async function GetFileData(token: string | null,file_id:number|undefined,skip:number,limit:number): Promise<{ success: boolean; files?: Files[]; message?: string }> {
+  export async function GetFileData(token: string | null,file_id:number|undefined,skip:number,limit:number): Promise<{ success: boolean; rows?: SessionTableRowData[];totalRows:number; message?: string }> {
     try {
       const response = await fetch(`https://127.0.0.1:8000/v1/showing/show_data/${file_id}?skip=${skip}&limit=${limit}`, {
         method: 'GET',
@@ -85,13 +85,12 @@ export async function GetFilesBeforeParsing(token: string | null,file_id:number)
   
       if (response.ok) {
         // Парсим JSON только если запрос успешен
-        const files = await response.json();
-        return { success: true, files };
+        const data:SessionTableAPI = await response.json();
+        return { success: true, rows:data.rows,totalRows:data.total };
       } else {
-        const errorMessage = 'Ошибка запуска парсера';
-        return { success: false, message: errorMessage };
+        return { success: false, message: 'Ошибка загрузки таблицы',rows:[],totalRows:0 };
       }
     } catch (error) {
-      return { success: false, message: 'Ошибка сети или сервера' };
+      return { success: false, message: 'Ошибка сети или сервера',rows:[],totalRows:0  };
     }
   }

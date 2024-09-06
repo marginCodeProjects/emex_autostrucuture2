@@ -17,8 +17,22 @@ const Users: React.FC<IUsersProps> = ({ setEditingCardId, users, setUsers }) => 
   const { language } = useLanguage()
   const [isVisible, setIsVisible] = useState<number | null>(null);
   const [messageApi, contextHolder] = message.useMessage();
-  const toggleControlItem = (index: number) => {
+  const [card, setCard] = useState<number | null | true>(null)
+  const [menuPosition, setMenuPosition] = useState<{ left: number; top: number }>({ left: 0, top: 0 });
+
+  const toggleControlItem = (index: number, event: React.MouseEvent) => {
+    setCard(index);
     setIsVisible(isVisible === index ? null : index);
+
+    // Получаем координаты кнопки
+    const button = event.currentTarget as HTMLElement;
+    const buttonRect = button.getBoundingClientRect();
+
+    // Устанавливаем координаты меню на 100px правее кнопки
+    setMenuPosition({
+      left: buttonRect.right + 50,
+      top: buttonRect.top - 20
+    });
   };
   const success = () => {
     messageApi.open({
@@ -51,69 +65,73 @@ const Users: React.FC<IUsersProps> = ({ setEditingCardId, users, setUsers }) => 
   return (
     <div className={styles.users}>
       {contextHolder}
+      <div>
 
-      <div className={styles.usersDiv}>
-        {users &&
-          users.map((user) => {
-            return (
-              <div key={user.id}>
-                <div className={styles.users__userLine}>
-                  <div className={styles.userLine__userInfo}>
-                    <p
-                      className={`${styles.inter__medium} ${styles.userFirstName}`}
-                    >
-                      {user.fullname}
-                    </p>
-                    <p
-                      className={`${styles.inter__medium} ${styles.userDescription}`}
-                    >
-                      {user.description}
-                    </p>
-                  </div>
-                  <div className={styles.userLine__statusIcons}>
-                    <img
-                      src={
-                        user.is_admin
-                          ? isAdmin
-                          : isAdminGrey
-                      }
-                      className={styles.userLine__statusIcon}
-                      alt=''
-                    />
-                    <img
-                      src={
-                        user.is_parsing
-                          ? parsingInProcess
-                          : parsingInProcessGrey
-                      }
-                      className={styles.userLine__statusIcon}
-                      alt=''
-                    />
-                    <img
-                      src={menu}
-                      className={styles.userLine__statusIconPointer}
-                      onClick={() => toggleControlItem(user.id)}
-                      alt=''
-                    />
-                    <div
-                      className={`${styles.userLine__controlItem} ${isVisible === user.id ? styles.show : ''}`}
-                    >
-                      <div onClick={() => setEditingCardId && setEditingCardId(user.id)}
-                        className={`${styles.userLine__controlItemEdit} ${styles.inter__trueMedium} ${styles.userActionsTexts}`}
+        <div className={styles.usersDiv}>
+          {users &&
+            users.map((user) => {
+              return (
+                <div key={user.id}>
+                  <div className={styles.users__userLine}>
+                    <div className={styles.userLine__userInfo}>
+                      <p
+                        className={`${styles.inter__medium} ${styles.userFirstName}`}
                       >
-                        {dashboardTexts[language].edit}
-                      </div>
-                      <div onClick={() => userDeleteHandler(user.id)}
-                        className={`${styles.inter__trueMedium} ${styles.userActionsTexts} ${styles.userLine__controlItemRemove}`}
+                        {user.fullname}
+                      </p>
+                      <p
+                        className={`${styles.inter__medium} ${styles.userDescription}`}
                       >
-                        {dashboardTexts[language].remove}
-                      </div>
+                        {user.description}
+                      </p>
+                    </div>
+                    <div className={styles.userLine__statusIcons}>
+                      <img
+                        src={
+                          user.is_admin
+                            ? isAdmin
+                            : isAdminGrey
+                        }
+                        className={styles.userLine__statusIcon}
+                        alt=''
+                      />
+                      <img
+                        src={
+                          user.is_parsing
+                            ? parsingInProcess
+                            : parsingInProcessGrey
+                        }
+                        className={styles.userLine__statusIcon}
+                        alt=''
+                      />
+                      <img
+                        src={menu}
+                        className={styles.userLine__statusIconPointer}
+                        onClick={(e) => toggleControlItem(user.id, e)}
+                        alt=''
+                      />
+
                     </div>
                   </div>
                 </div>
-              </div>
-            )
-          })}
+              )
+            })}
+        </div>
+        <div
+          className={`${styles.userLine__controlItem} ${isVisible === card ? styles.show : ''}`}
+          style={{ left: `${menuPosition.left}px`, top: `${menuPosition.top}px` }} // Устанавливаем координаты стиля динамически
+        >
+          <div onClick={() => setEditingCardId && setEditingCardId(card)}
+            className={`${styles.userLine__controlItemEdit} ${styles.inter__trueMedium} ${styles.userActionsTexts}`}
+          >
+            {dashboardTexts[language].edit}
+          </div>
+          <div onClick={() => typeof card === 'number' && userDeleteHandler(card)}
+            className={`${styles.inter__trueMedium} ${styles.userActionsTexts} ${styles.userLine__controlItemRemove}`}
+          >
+            {dashboardTexts[language].remove}
+          </div>
+        </div>
       </div>
       <div className={`${styles.users__addUserButton} ${styles.inter__trueMedium}  ${styles.userActionsTexts} `} onClick={() => setEditingCardId && setEditingCardId(true)}>{dashboardTexts[language].add}</div>
     </div>

@@ -5,9 +5,10 @@ export const texts = {
 		settings: 'Настройки',
 		logout: 'Выйти',
 		selectFilter: 'ВЫБОР ФИЛЬТРОВ',
-		filterCardLogo: 'Лого -',
-		filterCardIsOriginal: 'Оригинал - ',
-		filterCardDeliveryTime: 'Срок поставки - ',
+		filterCardLogo: 'Лого',
+		filterCardIsOriginal: 'Только оригиналы',
+		filterCardIsNotOriginal:'Оригиналы и аналоги',
+		filterCardDeliveryTime: 'Срок поставки',
 		filterCardDepthAnalogueSearch: 'Глубина поиска аналога',
 		filterCardDepthSelectionByTheFirstFilter:
 			'Глубина отбора по первому фильтру',
@@ -15,7 +16,8 @@ export const texts = {
 		dragAndDropInput: `Щелкните или перетащите файл в эту область<br/> для загрузки.<br/>Загружаемый файл должен быть в формате xlsx.<br/>Файл будет автоматически загружен в систему.`,
 		downloadTemplate: 'Скачать шаблон',
 		processManagement: 'УПРАВЛЕНИЕ ПРОЦЕССОМ',
-		blocked: 'Заблокировано',
+		blocked: 'Заблокировано',logoIsNotUsed:'не используется'
+
 	},
 	EN: {
 		home: 'Home',
@@ -23,9 +25,10 @@ export const texts = {
 		settings: 'Settings',
 		logout: 'Logout',
 		selectFilter: 'FILTER SELECTION',
-		filterCardLogo: 'Logo - ',
-		filterCardIsOriginal: 'Original - ',
-		filterCardDeliveryTime: 'Delivery time - ',
+		filterCardLogo: 'Logo',
+		filterCardIsOriginal: 'Originals only',
+		filterCardIsNotOriginal:'Originals and analogs',
+		filterCardDeliveryTime: 'Delivery time',
 		filterCardDepthAnalogueSearch: 'Depth of analogue search',
 		filterCardDepthSelectionByTheFirstFilter:
 			'Depth of selection by the first filter',
@@ -34,7 +37,7 @@ export const texts = {
 			'Click or drag the file to this area to upload.<br/>The uploaded file must be in xlsx format. The file will<br/> be automatically uploaded to the system.',
 		downloadTemplate: 'Download template',
 		processManagement: 'PROCESS MANAGEMENT',
-		blocked: 'Blocked',
+		blocked: 'Blocked',logoIsNotUsed:'is not used'
 	},
 }
 
