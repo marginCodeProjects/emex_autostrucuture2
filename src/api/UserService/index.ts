@@ -29,6 +29,7 @@ export async function UserLogin(data: IUserLogin): Promise<{
 	try {
 		const response = await fetch('https://api.forprojectstests.ru/v1/users/login', {
 			method: 'POST',
+			credentials: 'include',
 			body: JSON.stringify({
 				username: data.username,
 				password: data.password,
