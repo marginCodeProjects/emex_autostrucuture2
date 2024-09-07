@@ -12,7 +12,7 @@ interface ICardScrollingProps {
 const CardScrolling: React.FC<ICardScrollingProps> = ({ setSelectedCardId, selectedCardId }) => {
     const { language } = useLanguage();
     const { token } = useAuth();
-    const { filters, loading, error } = useFilters('https://127.0.0.1:8000/v1/filters/get_filters', token);
+    const { filters, loading, error } = useFilters('https://api.forprojectstests.ru/v1/filters/get_filters', token);
     const [messageApi, contextHolder] = message.useMessage();
     const errorMessage = () => {
         messageApi.open({
@@ -43,7 +43,7 @@ const CardScrolling: React.FC<ICardScrollingProps> = ({ setSelectedCardId, selec
                                     {filter.logo === null ?
                                         <p className={`${styles.Card__bottomPart_texts} ${styles.inter__medium}`}>{`${texts[language].filterCardLogo} ${texts[language].logoIsNotUsed}`}</p>
                                         : <p className={`${styles.Card__bottomPart_texts} ${styles.inter__medium}`}>{`${texts[language].filterCardLogo} - ${filter.logo}`}</p>}
-                                    <p className={`${styles.Card__bottomPart_texts} ${styles.inter__medium}`}>{filter.is_bigger?`${texts[language].filterCardDeliveryTime} > ${filter.date}`:`${texts[language].filterCardDeliveryTime} < ${filter.date}`}</p>
+                                    <p className={`${styles.Card__bottomPart_texts} ${styles.inter__medium}`}>{filter.is_bigger ? `${texts[language].filterCardDeliveryTime} > ${filter.date}` : `${texts[language].filterCardDeliveryTime} < ${filter.date}`}</p>
                                     <p className={`${styles.Card__bottomPart_texts} ${styles.inter__medium}`}>{filter.analog ? `${texts[language].filterCardIsNotOriginal}` : `${texts[language].filterCardIsOriginal}`}</p>
                                 </div>
                             </div>

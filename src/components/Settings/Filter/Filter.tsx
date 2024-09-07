@@ -23,7 +23,7 @@ const Filter = () => {
         date: 10,
     })
     const { filters, loading, setFilters } = useFilters(
-        'https://127.0.0.1:8000/v1/filters/get_filters',
+        'https://api.forprojectstests.ru/v1/filters/get_filters',
         token
     )
     const success = (message: string) => {
@@ -110,7 +110,7 @@ const Filter = () => {
                                     {filter.logo === null ?
                                         <p className={`${styles.Card__bottomPart_texts} ${styles.inter__medium}`}>{`${texts[language].filterCardLogo} ${texts[language].logoIsNotUsed}`}</p>
                                         : <p className={`${styles.Card__bottomPart_texts} ${styles.inter__medium}`}>{`${texts[language].filterCardLogo} - ${filter.logo}`}</p>}
-                                    <p className={`${styles.Card__bottomPart_texts} ${styles.inter__medium}`}>{filter.is_bigger?`${texts[language].filterCardDeliveryTime} > ${filter.date}`:`${texts[language].filterCardDeliveryTime} < ${filter.date}`}</p>
+                                    <p className={`${styles.Card__bottomPart_texts} ${styles.inter__medium}`}>{filter.is_bigger ? `${texts[language].filterCardDeliveryTime} > ${filter.date}` : `${texts[language].filterCardDeliveryTime} < ${filter.date}`}</p>
                                     <p className={`${styles.Card__bottomPart_texts} ${styles.inter__medium}`}>{filter.analog ? `${texts[language].filterCardIsNotOriginal}` : `${texts[language].filterCardIsOriginal}`}</p>
                                 </div>
                             </div>

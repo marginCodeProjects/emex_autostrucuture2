@@ -9,7 +9,7 @@ export async function ExtendProxy(
 }> {
 	try {
 		const response = await fetch(
-			`https://127.0.0.1:8000/v1/proxies/prolong_proxy?date=${formValues.date}&count=${formValues.count}&duration=${formValues.duration}`,
+			`https://api.forprojectstests.ru/v1/proxies/prolong_proxy?date=${formValues.date}&count=${formValues.count}&duration=${formValues.duration}`,
 			{
 				method: 'GET',
 				headers: {
@@ -50,7 +50,7 @@ export async function BuyProxy(
 }> {
 	try {
 		const response = await fetch(
-			`https://127.0.0.1:8000/v1/proxies/buy_proxy?count=${formValues.count}&duration=${formValues.duration}`,
+			`https://api.forprojectstests.ru/v1/proxies/buy_proxy?count=${formValues.count}&duration=${formValues.duration}`,
 			{
 				method: 'GET',
 				headers: {
@@ -90,7 +90,7 @@ export async function GetProxy(
 }> {
 	try {
 		const response = await fetch(
-			`https://127.0.0.1:8000/v1/proxies/get_proxy_group`,
+			`https://api.forprojectstests.ru/v1/proxies/get_proxy_group`,
 			{
 				method: 'GET',
 				headers: {
