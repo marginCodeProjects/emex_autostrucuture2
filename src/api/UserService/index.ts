@@ -1,25 +1,28 @@
-import { FormProps, message } from 'antd'
+import { FormProps } from 'antd'
 import { NavigateFunction } from 'react-router-dom'
 import { IUserLogin, User, UserFormValues } from '../../interfaces/Main'
 
 export async function handleLogout(
 	setErrorMessage: React.Dispatch<React.SetStateAction<string | undefined>>,
 	token: string | null,
-	onLogoutSuccess: () => void
+	onLogoutSuccess: () => void,
+	language: 'EN' | 'RU'
 ) {
 	try {
-		const { success, message } = await UserLogout(token)
+		const { success, message } = await UserLogout(token, language)
 		if (success) {
 			onLogoutSuccess()
 		} else {
 			setErrorMessage(message)
 		}
 	} catch (error) {
-		setErrorMessage('Произошла ошибка')
+		setErrorMessage(
+			language === 'RU' ? 'Произошла ошибка' : 'There was an error'
+		)
 	}
 }
 
-export async function UserLogin(data: IUserLogin): Promise<{
+export async function UserLogin(data: IUserLogin,language:"RU"|"EN"): Promise<{
 	success: boolean
 	message: string
 	username: string
@@ -27,7 +30,7 @@ export async function UserLogin(data: IUserLogin): Promise<{
 	is_admin: boolean
 }> {
 	try {
-		const response = await fetch('https://api.forprojectstests.ru/v1/users/login', {
+		const response = await fetch('https://127.0.0.1:8000/v1/users/login', {
 			method: 'POST',
 			body: JSON.stringify({
 				username: data.username,
@@ -44,18 +47,18 @@ export async function UserLogin(data: IUserLogin): Promise<{
 
 			return {
 				success: true,
-				message: 'Успешный вход',
+				message:language==="RU"? 'Успешный вход':'Successful entry',
 				username: userInfo.username,
 				token: userInfo.access_token,
 				is_admin: userInfo.is_admin,
 			}
 		} else {
-			let errorMessage = 'Ошибка входа'
+			let errorMessage = language==="RU"? 'Ошибка входа':'Login error'
 
 			if (response.status === 404) {
-				errorMessage = 'Неправильный логин'
+				errorMessage = language==="RU"? 'Неправильный логин':'Incorrect login'
 			} else if (response.status === 401) {
-				errorMessage = 'Доступ запрещен'
+				errorMessage = language==="RU"? 'Доступ запрещен':'Access denied'
 			}
 
 			return {
@@ -69,7 +72,7 @@ export async function UserLogin(data: IUserLogin): Promise<{
 	} catch (error) {
 		return {
 			success: false,
-			message: 'Ошибка сети или сервера',
+			message:language==="RU"? 'Ошибка сети или сервера':'Network or server error',
 			username: '',
 			token: '',
 			is_admin: false,
@@ -82,10 +85,10 @@ export const onFinish =
 	(
 		login: (username: string, token: string, isAdmin: boolean) => void,
 		navigate: NavigateFunction,
-		setErrorMessage: (message: string | null) => void
+		setErrorMessage: (message: string | null) => void,language:"RU"|"EN"
 	): FormProps<IUserLogin>['onFinish'] =>
 	async (values) => {
-		const result = await UserLogin(values)
+		const result = await UserLogin(values,language)
 
 		if (result.success) {
 			login(result.username, result.token, result.is_admin)
@@ -100,12 +103,15 @@ export const onFinishFailed =
 	(): FormProps<IUserLogin>['onFinishFailed'] => (errorInfo) => {
 		console.log('Failed:', errorInfo)
 	}
-export async function UserLogout(token: string | null): Promise<{
+export async function UserLogout(
+	token: string | null,
+	language: 'EN' | 'RU'
+): Promise<{
 	success: boolean
 	message?: string
 }> {
 	try {
-		const response = await fetch('https://api.forprojectstests.ru/v1/users/logout', {
+		const response = await fetch('https://127.0.0.1:8000/v1/users/logout', {
 			method: 'GET',
 			headers: {
 				'Content-Type': 'application/json',
@@ -117,12 +123,19 @@ export async function UserLogout(token: string | null): Promise<{
 			localStorage.removeItem('token')
 			return { success: true }
 		} else {
-			const errorMessage = 'Ошибка выхода'
-
-			return { success: false, message: errorMessage }
+			return {
+				success: false,
+				message: language === 'RU' ? 'Ошибка выхода' : 'Exit error',
+			}
 		}
 	} catch (error) {
-		return { success: false, message: 'Ошибка сети или сервера' }
+		return {
+			success: false,
+			message:
+				language === 'RU'
+					? 'Ошибка сети или сервера'
+					: 'Network or server error',
+		}
 	}
 }
 
@@ -131,7 +144,7 @@ export async function GetAllUsers(
 ): Promise<User[] | undefined> {
 	try {
 		const response = await fetch(
-			'https://api.forprojectstests.ru/v1/users/show_all',
+			'https://127.0.0.1:8000/v1/users/show_all',
 			{
 				method: 'GET',
 
@@ -150,11 +163,7 @@ export async function GetAllUsers(
 		}
 	} catch (error) {
 		// Приводим error к типу, совместимому с message.error
-		if (error instanceof Error) {
-			message.error(error.message) // Теперь используем error.message
-		} else {
-			message.error('Произошла неизвестная ошибка') // На случай, если error не является экземпляром Error
-		}
+	
 		return undefined // Возвращаем undefined в случае ошибки
 	}
 }
@@ -164,7 +173,7 @@ export async function DeleteUser(
 	user_id: number
 ): Promise<User[] | undefined> {
 	const response = await fetch(
-		`https://api.forprojectstests.ru/v1/users/delete/${user_id}`,
+		`https://127.0.0.1:8000/v1/users/delete/${user_id}`,
 		{
 			method: 'DELETE',
 
@@ -183,15 +192,18 @@ export async function DeleteUser(
 	}
 }
 export async function EditUser(
-	token: string|null,
+	token: string | null,
 	user_id: number,
-	userInfo: UserFormValues
+	userInfo: UserFormValues,
+	language: 'EN' | 'RU'
 ): Promise<{
-	status: boolean,Message:string,users?:User[]
+	status: boolean
+	Message: string
+	users?: User[]
 }> {
 	try {
 		const response = await fetch(
-			`https://api.forprojectstests.ru/v1/users/edit/${user_id}`,
+			`https://127.0.0.1:8000/v1/users/edit/${user_id}`,
 			{
 				method: 'PATCH',
 				body: JSON.stringify({
@@ -211,32 +223,44 @@ export async function EditUser(
 		if (response.ok) {
 			const userInfo = await response.json()
 			console.log(userInfo)
-			
 
 			return {
-					status: true,Message:"Данные успешно изменены",users:userInfo
+				status: true,
+				Message:
+					language === 'RU'
+						? 'Данные успешно изменены'
+						: 'Data successfully changed',
+				users: userInfo,
 			}
 		} else {
 			return {
 				status: false,
-				Message:"Произошла ошибка"
+				Message:
+					language === 'RU'
+						? 'Произошла ошибка'
+						: 'There was an error',
 			}
 		}
 	} catch (error) {
 		return {
-			status: false,Message:"Произошла ошибка"
+			status: false,
+			Message:
+				language === 'RU' ? 'Произошла ошибка' : 'There was an error',
 		}
 	}
 }
 export async function CreateUser(
-	token: string|null,
-	userInfo: UserFormValues
+	token: string | null,
+	userInfo: UserFormValues,
+	language: 'EN' | 'RU'
 ): Promise<{
-	status: boolean,Message:string,users?:User[]
+	status: boolean
+	Message: string
+	users?: User[]
 }> {
 	try {
 		const response = await fetch(
-			`https://api.forprojectstests.ru/v1/users/sign_up`,
+			`https://127.0.0.1:8000/v1/users/sign_up`,
 			{
 				method: 'POST',
 				body: JSON.stringify({
@@ -256,19 +280,29 @@ export async function CreateUser(
 		if (response.ok) {
 			const userInfo = await response.json()
 			console.log(userInfo)
-			
 
 			return {
-					status: true,Message:"Данные успешно изменены",users:userInfo
+				status: true,
+				Message:
+					language === 'RU'
+						? 'Данные успешно изменены'
+						: 'Data successfully changed',
+				users: userInfo,
 			}
 		} else {
 			return {
-				status: false,Message:"Произошла ошибка"
+				status: false,
+				Message:
+					language === 'RU'
+						? 'Произошла ошибка'
+						: 'There was an error',
 			}
 		}
 	} catch (error) {
 		return {
-			status: false,Message:"Произошла ошибка"
+			status: false,
+			Message:
+				language === 'RU' ? 'Произошла ошибка' : 'There was an error',
 		}
 	}
 }

@@ -12,12 +12,12 @@ interface ICardScrollingProps {
 const CardScrolling: React.FC<ICardScrollingProps> = ({ setSelectedCardId, selectedCardId }) => {
     const { language } = useLanguage();
     const { token } = useAuth();
-    const { filters, loading, error } = useFilters('https://api.forprojectstests.ru/v1/filters/get_filters', token);
+    const { filters, loading, error } = useFilters('https://127.0.0.1:8000/v1/filters/get_filters', token, language);
     const [messageApi, contextHolder] = message.useMessage();
     const errorMessage = () => {
         messageApi.open({
             type: 'error',
-            content: "При загрузке фильтров произошла ошибка"
+            content: language === 'RU'?"При загрузке фильтров произошла ошибка":'An error occurred while loading filters'
         });
     };
     useEffect(() => {
@@ -26,6 +26,18 @@ const CardScrolling: React.FC<ICardScrollingProps> = ({ setSelectedCardId, selec
             errorMessage()
         }
     }, [error])
+    const handleSelectCard = (filterId: string) => {
+        if (selectedCardId == filterId) {
+            setSelectedCardId(null)
+
+        } else {
+            setSelectedCardId(filterId)
+        }
+    }
+    useEffect(() => {
+        console.log(selectedCardId);
+
+    }, [selectedCardId])
 
     return (
         <>
@@ -35,7 +47,7 @@ const CardScrolling: React.FC<ICardScrollingProps> = ({ setSelectedCardId, selec
                 {!loading &&
                     filters?.map((filter) => {
                         return (
-                            <div className={`${styles.Card} ${selectedCardId === filter.id ? styles.Card__active : ''}`} key={filter.id} onClick={() => setSelectedCardId(filter.id)}>
+                            <div className={`${styles.Card} ${selectedCardId === filter.id ? styles.Card__active : ''}`} key={filter.id} onClick={() => handleSelectCard(filter.id)}>
                                 <div className={styles.Card__topPart}>
                                     <p className={`${styles.inter__medium} ${styles.Card__topPart_title} `}>{filter.title}</p>
                                 </div>

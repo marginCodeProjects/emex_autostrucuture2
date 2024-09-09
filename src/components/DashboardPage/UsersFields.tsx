@@ -69,14 +69,14 @@ const UsersFields: React.FC<IUsersProps> = ({ setEditingCardId, editingCardId, u
     const handleSave = async () => {
         // Проверка обязательных полей
         if (!formValues.fullName || !formValues.username || !formValues.password || formValues.isAdmunUI === undefined) {
-            error("Пожалуйста заполните все поля")
+            error(language === 'RU' ? "Пожалуйста заполните все поля" : "Please fill in all fields")
             return;
         }
 
         if (typeof editingCardId === 'number') {
-            const { status, Message, users } = await EditUser(token, editingCardId, formValues);
+            const { status, Message, users } = await EditUser(token, editingCardId, formValues, language);
             if (status) {
-                if (Message == "Данные успешно изменены") {
+                if (Message == "Данные успешно изменены" || Message == "Data successfully changed") {
                     success()
                     setNewPassword(formValues.password);
                     setNewUsername(formValues.username);
@@ -87,15 +87,15 @@ const UsersFields: React.FC<IUsersProps> = ({ setEditingCardId, editingCardId, u
                     }
 
                 } else {
-                    error("Произошла ошибка")
+                    error(language === 'RU' ? "Произошла ошибка" : "There was an error")
                 }
             } else {
-                error("Произошла ошибка")
+                error(language === 'RU' ? "Произошла ошибка" : "There was an error")
             }
         } else if (typeof editingCardId === 'boolean') {
-            const { status, Message, users } = await CreateUser(token, formValues);
+            const { status, Message, users } = await CreateUser(token, formValues, language);
             if (status) {
-                if (Message == "Данные успешно изменены") {
+                if (Message == "Данные успешно изменены" || Message == "Data successfully changed") {
                     success()
                     setNewPassword(formValues.password);
                     setNewUsername(formValues.username);
@@ -108,10 +108,10 @@ const UsersFields: React.FC<IUsersProps> = ({ setEditingCardId, editingCardId, u
                     }
 
                 } else {
-                    error("Произошла ошибка")
+                    error(language === 'RU' ? "Произошла ошибка" : "There was an error")
                 }
             } else {
-                error("Произошла ошибка")
+                error(language === 'RU' ? "Произошла ошибка" : "There was an error")
             }
         }
     };
@@ -120,7 +120,7 @@ const UsersFields: React.FC<IUsersProps> = ({ setEditingCardId, editingCardId, u
     const success = () => {
         messageApi.open({
             type: 'success',
-            content: 'Данные успешно изменены',
+            content: language === 'RU' ? "Данные успешно изменены" : "Data successfully changed"
         });
     };
     const error = (content: string) => {

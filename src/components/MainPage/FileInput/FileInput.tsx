@@ -17,18 +17,18 @@ const FileUploadPage: React.FC<IFileUploadPageProps> = ({ setFile }) => {
         multiple: false,
         showUploadList: false,
         headers: { 'access-token': `${token}` },
-        action: 'https://api.forprojectstests.ru/v1/files/upload_file',
+        action: 'https://127.0.0.1:8000/v1/files/upload_file',
         onChange(info) {
             const { status } = info.file;
 
             if (status === 'done') {
-                message.success("Файл успешно загружен");
+                message.success(language === 'RU'?"Файл успешно загружен":"The file has been successfully uploaded");
                 if (info.file.name) {
                     setFile(info.file.name)
                     localStorage.setItem('fileName', info.file.name)
                 }
             } else if (status === 'error') {
-                message.error(`Файл не соответствует шаблону`);
+                message.error(language === 'RU'?"Файл не соответствует шаблону":"File does not match the template");
             }
         },
 
@@ -40,7 +40,7 @@ const FileUploadPage: React.FC<IFileUploadPageProps> = ({ setFile }) => {
                 <img src={icon} className={styles.icon} />
                 <p className={`${styles.inter__medium} ${styles.hintText}`} dangerouslySetInnerHTML={{ __html: texts[language].dragAndDropInput }} />
             </Dragger>
-            <a href='https://api.forprojectstests.ru/v1/files/get_shablon' className={`${styles.inter__medium} ${styles.downloadTemplate}`}>{texts[language].downloadTemplate}</a>
+            <a href='https://127.0.0.1:8000/v1/files/get_shablon' className={`${styles.inter__medium} ${styles.downloadTemplate}`}>{texts[language].downloadTemplate}</a>
         </>
     );
 };

@@ -5,10 +5,12 @@ import { Button, Form, Input, message } from 'antd';
 import { onFinish, onFinishFailed, } from '../../api/UserService';
 import { IUserLogin } from '../../interfaces/Main';
 import { useAuth } from '../../components/Other/authContext/useAuth';
+import { useLanguage } from '../../components/Other/LanguageProvider/useLanguage';
 
 
 const Login: React.FC = () => {
     const navigate = useNavigate();
+    const { language } = useLanguage()
     const [errorMessage, setErrorMessage] = useState<string | null>(null);
     const { login } = useAuth();
     const [messageApi, contextHolder] = message.useMessage();
@@ -33,7 +35,7 @@ const Login: React.FC = () => {
                 labelCol={{ span: 24 }}
                 wrapperCol={{ span: 24 }}
                 style={{ maxWidth: 600, width: '100%' }}
-                onFinish={onFinish(login, navigate, setErrorMessage)}
+                onFinish={onFinish(login, navigate, setErrorMessage, language)}
                 onFinishFailed={onFinishFailed}
                 autoComplete="off"
             >

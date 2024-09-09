@@ -3,13 +3,13 @@ import { ProxyFormValues, Proxys } from "../../interfaces/Main"
 
 export async function ExtendProxy(
 	token: string|null,
-	formValues: ProxyFormValues
+	formValues: ProxyFormValues,language:'RU'|'EN'
 ): Promise<{
 	status: boolean,proxys?:Proxys[],message?:string
 }> {
 	try {
 		const response = await fetch(
-			`https://api.forprojectstests.ru/v1/proxies/prolong_proxy?date=${formValues.date}&count=${formValues.count}&duration=${formValues.duration}`,
+			`https://127.0.0.1:8000/v1/proxies/prolong_proxy?date=${formValues.date}&count=${formValues.count}&duration=${formValues.duration}`,
 			{
 				method: 'GET',
 				headers: {
@@ -27,7 +27,7 @@ export async function ExtendProxy(
 		} else if(response.status === 422) {
          
 			return {
-				status: false,message:"Пожалуйста заполните все поля"
+				status: false,message:language==="RU" ? "Пожалуйста заполните все поля" :"Please fill in all fields"
 			}
 		}else{
 			const proxys = await response.json()
@@ -44,13 +44,13 @@ export async function ExtendProxy(
 
 export async function BuyProxy(
 	token: string|null,
-	formValues: ProxyFormValues
+	formValues: ProxyFormValues,language:'RU'|'EN'
 ): Promise<{
 	status: boolean,proxys?:Proxys[],message?:string
 }> {
 	try {
 		const response = await fetch(
-			`https://api.forprojectstests.ru/v1/proxies/buy_proxy?count=${formValues.count}&duration=${formValues.duration}`,
+			`https://127.0.0.1:8000/v1/proxies/buy_proxy?count=${formValues.count}&duration=${formValues.duration}`,
 			{
 				method: 'GET',
 				headers: {
@@ -68,7 +68,7 @@ export async function BuyProxy(
 		} else if(response.status === 422) {
          
 			return {
-				status: false,message:"Пожалуйста заполните все поля"
+				status: false,message:language==="RU" ? "Пожалуйста заполните все поля" :"Please fill in all fields"
 			}
 		}else{
 			const proxys = await response.json()
@@ -90,7 +90,7 @@ export async function GetProxy(
 }> {
 	try {
 		const response = await fetch(
-			`https://api.forprojectstests.ru/v1/proxies/get_proxy_group`,
+			`https://127.0.0.1:8000/v1/proxies/get_proxy_group`,
 			{
 				method: 'GET',
 				headers: {

@@ -2,10 +2,10 @@ import {  FilterFormValues, FilterOption } from "../../interfaces/Main"
 
 export async function DeleteFilter(
 	token: string | null,
-	filter_id: string
+	filter_id: string,
 ): Promise<FilterOption[] | undefined> {
 	const response = await fetch(
-		`https://api.forprojectstests.ru/v1/filters/delete_filter/${filter_id}`,
+		`https://127.0.0.1:8000/v1/filters/delete_filter/${filter_id}`,
 		{
 			method: 'DELETE',
 
@@ -30,13 +30,13 @@ export async function DeleteFilter(
 export async function EditFilter(
 	token: string|null,
 	filter_id: string,
-	FilterFormValues: FilterFormValues
+	FilterFormValues: FilterFormValues,language:'RU'|'EN'
 ): Promise<{
 	status: boolean,Message:string,Filters?:FilterOption[]
 }> {
 	try {
 		const response = await fetch(
-			`https://api.forprojectstests.ru/v1/filters/edit_filter/${filter_id}`,
+			`https://127.0.0.1:8000/v1/filters/edit_filter/${filter_id}`,
 			{
 				method: 'PATCH',
 				body: JSON.stringify({
@@ -61,23 +61,23 @@ export async function EditFilter(
 			
 
 			return {
-					status: true,Message:"Данные успешно изменены",Filters:Filters
+					status: true,Message:language==="RU"?"Данные успешно изменены":"Data successfully changed",Filters:Filters
 			}
 		} else {
 			return {
 				status: false,
-				Message:"Произошла ошибка"
+				Message:language==="RU"?"Произошла ошибка":"There was an error"
 			}
 		}
 	} catch (error) {
 		return {
-			status: false,Message:"Произошла ошибка"
+			status: false,Message:language==="RU"?"Произошла ошибка":"There was an error"
 		}
 	}
 }
 export async function CreateFilter(
 	token: string|null,
-	FilterFormValues: FilterFormValues
+	FilterFormValues: FilterFormValues,language:'RU'|'EN'
 ): Promise<{
 	status: boolean,Message:string,Filters?:FilterOption[]
 }> {
@@ -85,7 +85,7 @@ export async function CreateFilter(
         console.log(FilterFormValues)
         
 		const response = await fetch(
-			`https://api.forprojectstests.ru/v1/filters/create_filter`,
+			`https://127.0.0.1:8000/v1/filters/create_filter`,
 			{
 				method: 'POST',
 				body: JSON.stringify({
@@ -110,16 +110,16 @@ export async function CreateFilter(
 			
 
 			return {
-					status: true,Message:"Фильтр успешно добавлен",Filters:Filters
+					status: true,Message:language==="RU"?"Фильтр успешно добавлен":"Filter successfully added",Filters:Filters
 			}
 		} else {
 			return {
-				status: false,Message:"Произошла ошибка"
+				status: false,Message:language==="RU"?"Произошла ошибка":"There was an error"
 			}
 		}
 	} catch (error) {
 		return {
-			status: false,Message:"Произошла ошибка"
+			status: false,Message:language==="RU"?"Произошла ошибка":"There was an error"
 		}
 	}
 }

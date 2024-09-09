@@ -15,7 +15,7 @@ import { message } from 'antd'
 const Users: React.FC<IUsersProps> = ({ setEditingCardId, users, setUsers }) => {
   const { token } = useAuth()
   const { language } = useLanguage()
-  const [isVisible, setIsVisible] = useState<number | null>(null);
+  const [isVisible, setIsVisible] = useState<number | null>();
   const [messageApi, contextHolder] = message.useMessage();
   const [card, setCard] = useState<number | null | true>(null)
   const [menuPosition, setMenuPosition] = useState<{ left: number; top: number }>({ left: 0, top: 0 });
@@ -37,7 +37,7 @@ const Users: React.FC<IUsersProps> = ({ setEditingCardId, users, setUsers }) => 
   const success = () => {
     messageApi.open({
       type: 'success',
-      content: 'Пользователь успешно удалён',
+      content: language === 'RU' ? 'Пользователь успешно удалён' : 'User successfully deleted',
     });
   };
   const error = (content: string) => {
@@ -53,14 +53,20 @@ const Users: React.FC<IUsersProps> = ({ setEditingCardId, users, setUsers }) => 
     }
 
     fetchData()
-  }, [token]) // Зависимость от токена
+  }, [token])
+  useEffect(() => {
+    console.log(card);
+
+  }, [])
+
   const userDeleteHandler = async (user_id: number) => {
     const updatedUserList: User[] | undefined = await DeleteUser(token, user_id)
-    setUsers && setUsers(updatedUserList)
     if (typeof updatedUserList === 'object') {
+      setUsers && setUsers(updatedUserList)
       success()
+      setCard(null)
     }
-    else { error("Произошла ошибка") }
+    else { error(language === 'RU'?"Произошла ошибка":'There was an error') }
   }
   return (
     <div className={styles.users}>

@@ -24,7 +24,7 @@ const Proxy = () => {
             if (data.status && data.proxys) {
                 setProxys(data.proxys)
             } else {
-                error("Произошла ошибка")
+                error(language === 'RU' ? "Произошла ошибка" : 'There was an error')
             }
 
         }
@@ -60,7 +60,7 @@ const Proxy = () => {
     const success = () => {
         messageApi.open({
             type: 'success',
-            content: 'Прокси успешно куплены',
+            content: language === 'RU' ? 'Прокси успешно куплены' : 'The proxies have been successfully purchased',
         });
     };
     const error = (message: string) => {
@@ -71,10 +71,10 @@ const Proxy = () => {
     };
     const ProxyAction = () => {
         if (typeof selectedProxyId === "number") {
-            console.log("я");
+
 
             (async () => {
-                const data = await ExtendProxy(token, formValues);
+                const data = await ExtendProxy(token, formValues,language);
                 if (data.status && data.proxys) {
                     success();
 
@@ -83,13 +83,13 @@ const Proxy = () => {
                 } else if (data.message) {
                     error(data.message);
                 } else {
-                    error("Произошла ошибка")
+                    error(language === 'RU' ? "Произошла ошибка" : 'There was an error')
                 }
             })();
         } else {
-            console.log("не я");
+
             (async () => {
-                const data = await BuyProxy(token, formValues);
+                const data = await BuyProxy(token, formValues,language);
                 if (data.status && data.proxys) {
                     success();
 
@@ -97,7 +97,7 @@ const Proxy = () => {
                 } else if (data.message) {
                     error(data.message);
                 } else {
-                    error("Произошла ошибка")
+                    error(language === 'RU' ? "Произошла ошибка" : 'There was an error')
                 }
             })();
         }

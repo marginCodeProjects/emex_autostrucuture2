@@ -46,7 +46,7 @@ const SessionDataTable: React.FC<SessionDataTableProps> = ({ fileId }) => {
 
     useEffect(() => {
         const GetData = async () => {
-            const { success, rows, totalRows, message } = await GetFileData(token, fileId, skip, limit);
+            const { success, rows, totalRows, message } = await GetFileData(token, fileId, skip, limit, language);
             if (success && rows) {
                 setRowsLen(totalRows)
                 setTableData(rows.map((file: any, index: number) => ({
@@ -69,7 +69,7 @@ const SessionDataTable: React.FC<SessionDataTableProps> = ({ fileId }) => {
                         cellPaddingInline: 14,
                         borderColor: '#335ae6',
                         headerBg: "#C9D4F9",
-                        fontFamily:'Inter',headerBorderRadius:8
+                        fontFamily: 'Inter', headerBorderRadius: 8
                     },
                 },
             }}

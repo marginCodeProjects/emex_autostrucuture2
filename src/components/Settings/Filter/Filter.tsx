@@ -7,12 +7,16 @@ import styles from './Filter.module.css'
 import Input from 'antd/es/input'
 import { message, Select } from 'antd'
 import { FilterFormValues } from '../../../interfaces/Main'
-import { CreateFilter, DeleteFilter, EditFilter } from '../../../api/FilterService'
+import {
+    CreateFilter,
+    DeleteFilter,
+    EditFilter,
+} from '../../../api/FilterService'
 const Filter = () => {
     const { language } = useLanguage()
     const { token } = useAuth()
-    const [messageApi, contextHolder] = message.useMessage();
-    const [selectedCardId, setSelectedCardId] = useState<string>('')
+    const [messageApi, contextHolder] = message.useMessage()
+    const [selectedCardId, setSelectedCardId] = useState<string | undefined>('')
     const [FilterFieldsText, setFilterFieldsText] = useState<FilterFormValues>({
         logo: '',
         deep_analog: 10,
@@ -23,21 +27,37 @@ const Filter = () => {
         date: 10,
     })
     const { filters, loading, setFilters } = useFilters(
-        'https://api.forprojectstests.ru/v1/filters/get_filters',
-        token
+        'https://127.0.0.1:8000/v1/filters/get_filters',
+        token, language
     )
+    const handleSelectCard = (filterId: string) => {
+        if (selectedCardId == filterId) {
+            setSelectedCardId(undefined)
+            setFilterFieldsText({
+                logo: '',
+                deep_analog: 10,
+                deep_filter: 10,
+                analog: false,
+                title: '',
+                is_bigger: false,
+                date: 10,
+            })
+        } else {
+            setSelectedCardId(filterId)
+        }
+    }
     const success = (message: string) => {
         messageApi.open({
             type: 'success',
             content: message,
-        });
-    };
+        })
+    }
     const error = (message: string) => {
         messageApi.open({
             type: 'error',
             content: message,
-        });
-    };
+        })
+    }
     const handleChange = (
         field: keyof FilterFormValues,
         value: string | number | boolean | undefined
@@ -45,43 +65,65 @@ const Filter = () => {
         setFilterFieldsText((prevValues) => ({ ...prevValues, [field]: value }))
     }
     useEffect(() => {
-        const filter = filters?.find((value) => value.id === selectedCardId);
+        const filter = filters?.find((value) => value.id === selectedCardId)
 
         if (filter) {
-            handleChange('analog', filter.analog ?? false);
-            handleChange('date', filter.date ?? '');
-            handleChange('deep_analog', filter.deep_analog ?? 10);
-            handleChange('deep_filter', filter.deep_filter ?? 10);
-            handleChange('is_bigger', filter.is_bigger ?? false);
-            handleChange('logo', filter.logo ?? '');
-            handleChange('title', filter.title ?? '');
+            setFilterFieldsText({
+                logo: filter.logo,
+                deep_analog: filter.deep_analog ?? 10,
+                deep_filter: filter.deep_filter ?? 10,
+                analog: filter.analog ?? false,
+                title: filter.title ?? '',
+                is_bigger: filter.is_bigger ?? false,
+                date: filter.date ?? '',
+            })
         }
-    }, [selectedCardId, filters]);
+    }, [selectedCardId, filters])
     const handleDeleteFilter = async () => {
         if (selectedCardId) {
             const filters = await DeleteFilter(token, selectedCardId)
             if (filters) {
                 setFilters && setFilters(filters)
-                success("Фильтр успешно удалён")
+                success(
+                    language === 'RU'
+                        ? 'Фильтр успешно удалён'
+                        : 'The filter has been successfully removed'
+                )
             } else {
-                error("Произошла ошибка")
+                error(
+                    language === 'RU'
+                        ? 'Произошла ошибка'
+                        : 'There was an error'
+                )
             }
-
         }
     }
     const handleFilterAction = async () => {
         if (selectedCardId) {
-            const newfilters = await EditFilter(token, selectedCardId, FilterFieldsText)
+            const newfilters = await EditFilter(
+                token,
+                selectedCardId,
+                FilterFieldsText,
+                language
+            )
             if (newfilters.status) {
                 setFilters && setFilters(newfilters.Filters)
                 success(newfilters.Message)
-            } else { error(newfilters.Message) }
+            } else {
+                error(newfilters.Message)
+            }
         } else {
-            const newfilters = await CreateFilter(token, FilterFieldsText)
+            const newfilters = await CreateFilter(
+                token,
+                FilterFieldsText,
+                language
+            )
             if (newfilters.status) {
                 setFilters && setFilters(newfilters.Filters)
                 success(newfilters.Message)
-            } else { error(newfilters.Message) }
+            } else {
+                error(newfilters.Message)
+            }
         }
     }
     return (
@@ -93,11 +135,11 @@ const Filter = () => {
                         return (
                             <div
                                 className={`${styles.Card} ${selectedCardId === filter.id
-                                    ? styles.Card__active
-                                    : ''
+                                        ? styles.Card__active
+                                        : ''
                                     }`}
                                 key={filter.id}
-                                onClick={() => setSelectedCardId(filter.id)}
+                                onClick={() => handleSelectCard(filter.id)}
                             >
                                 <div className={styles.Card__topPart}>
                                     <p
@@ -107,11 +149,29 @@ const Filter = () => {
                                     </p>
                                 </div>
                                 <div className={styles.Cart_bottomPart}>
-                                    {filter.logo === null ?
-                                        <p className={`${styles.Card__bottomPart_texts} ${styles.inter__medium}`}>{`${texts[language].filterCardLogo} ${texts[language].logoIsNotUsed}`}</p>
-                                        : <p className={`${styles.Card__bottomPart_texts} ${styles.inter__medium}`}>{`${texts[language].filterCardLogo} - ${filter.logo}`}</p>}
-                                    <p className={`${styles.Card__bottomPart_texts} ${styles.inter__medium}`}>{filter.is_bigger ? `${texts[language].filterCardDeliveryTime} > ${filter.date}` : `${texts[language].filterCardDeliveryTime} < ${filter.date}`}</p>
-                                    <p className={`${styles.Card__bottomPart_texts} ${styles.inter__medium}`}>{filter.analog ? `${texts[language].filterCardIsNotOriginal}` : `${texts[language].filterCardIsOriginal}`}</p>
+                                    {filter.logo === null ? (
+                                        <p
+                                            className={`${styles.Card__bottomPart_texts} ${styles.inter__medium}`}
+                                        >{`${texts[language].filterCardLogo} ${texts[language].logoIsNotUsed}`}</p>
+                                    ) : (
+                                        <p
+                                            className={`${styles.Card__bottomPart_texts} ${styles.inter__medium}`}
+                                        >{`${texts[language].filterCardLogo} - ${filter.logo}`}</p>
+                                    )}
+                                    <p
+                                        className={`${styles.Card__bottomPart_texts} ${styles.inter__medium}`}
+                                    >
+                                        {filter.is_bigger
+                                            ? `${texts[language].filterCardDeliveryTime} > ${filter.date}`
+                                            : `${texts[language].filterCardDeliveryTime} < ${filter.date}`}
+                                    </p>
+                                    <p
+                                        className={`${styles.Card__bottomPart_texts} ${styles.inter__medium}`}
+                                    >
+                                        {filter.analog
+                                            ? `${texts[language].filterCardIsNotOriginal}`
+                                            : `${texts[language].filterCardIsOriginal}`}
+                                    </p>
                                 </div>
                             </div>
                         )
@@ -245,19 +305,21 @@ const Filter = () => {
                     </div>
                 </div>
                 <div className={styles.ProxyActions__buttonsDiv}>
-                    <div onClick={() => handleFilterAction()}
+                    <div
+                        onClick={() => handleFilterAction()}
                         className={`${styles.ProxyActions__Button} ${styles.inter__medium} ${styles.Card__bottomPart_texts}`}
                     >
                         {settingsTexts[language].save}
                     </div>
-                    <div onClick={() => handleDeleteFilter()}
+                    <div
+                        onClick={() => handleDeleteFilter()}
                         className={`${styles.ProxyActions__Button} ${styles.inter__medium} ${styles.Card__bottomPart_texts}`}
                     >
                         {settingsTexts[language].remove}
                     </div>
                 </div>
             </div>
-        </div >
+        </div>
     )
 }
 

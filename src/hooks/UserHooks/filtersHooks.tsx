@@ -1,4 +1,4 @@
-import  { useState, useEffect } from 'react';
+import { useState, useEffect } from 'react';
 import { FilterOption, FiltersState } from '../../interfaces/Main';
 
 
@@ -6,7 +6,7 @@ import { FilterOption, FiltersState } from '../../interfaces/Main';
 
 
 // Хук для получения фильтров
-const useFilters = (endpoint: string, token: string | null): FiltersState => {
+const useFilters = (endpoint: string, token: string | null, language: "RU" | 'EN'): FiltersState => {
     const [filters, setFilters] = useState<FilterOption[] | undefined>([]);
     const [loading, setLoading] = useState<boolean>(true);
     const [error, setError] = useState<string | null>(null);
@@ -28,11 +28,9 @@ const useFilters = (endpoint: string, token: string | null): FiltersState => {
                 const data = await response.json();
                 setFilters(data);
             } catch (err: unknown) {
-                if (err instanceof Error) {
-                    setError(err.message || 'Ошибка при загрузке');
-                } else {
-                    setError('Неизвестная ошибка');
-                }
+
+                setError(language === 'RU' ? 'Неизвестная ошибка' : 'Unknown error');
+
             } finally {
                 setLoading(false);
             }

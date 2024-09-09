@@ -1,13 +1,13 @@
 export async function ParserStart(
 	filterId: string | null,
-	token: string | null
+	token: string | null,language:"RU"|"EN"
 ): Promise<{ success: boolean; message: string }> {
 	if (filterId === null) {
 		return { success: false, message: 'Пожалуйста выберите фильтр' }
 	}
 	try {
 		const response = await fetch(
-			`https://api.forprojectstests.ru/v1/new_parser/start/${filterId}`,
+			`https://127.0.0.1:8000/v1/new_parser/start/${filterId}`,
 			{
 				method: 'GET',
 				headers: {
@@ -18,23 +18,23 @@ export async function ParserStart(
 		)
 
 		if (response.status === 200) {
-			return { success: true, message: 'Парсер запущен' }
+			return { success: true, message:language === "RU"? 'Парсер запущен':'Parser is up and running' }
 		} else if (response.status === 405) {
-			return { success: false, message: 'Файл уже был спаршен' }
+			return { success: false, message:language === "RU"? 'Файл уже был спаршен':'The file has already been sparred' }
 		} else {
-			return { success: false, message: 'Ошибка запуска парсера' }
+			return { success: false, message:language === "RU"? 'Ошибка запуска парсера':'Parser start error' }
 		}
 	} catch (error) {
-		return { success: false, message: 'Ошибка сети или сервера' }
+		return { success: false, message:language === "RU"? 'Ошибка сети или сервера':'Network or server error' }
 	}
 }
 
 export async function ParserStop(
-	token: string | null
+	token: string | null,language:"RU"|"EN"
 ): Promise<{ success: boolean; message: string }> {
 	try {
 		const response = await fetch(
-			`https://api.forprojectstests.ru/v1/new_parser/stop`,
+			`https://127.0.0.1:8000/v1/new_parser/stop`,
 			{
 				method: 'GET',
 				headers: {
@@ -45,11 +45,11 @@ export async function ParserStop(
 		)
 
 		if (response.ok) {
-			return { success: true, message: 'Парсер остановлен' }
+			return { success: true, message:language === "RU"? 'Парсер остановлен':'Parser stopped' }
 		} else {
-			return { success: false, message: 'Ошибка остановки парсера' }
+			return { success: false, message:language === "RU"? 'Ошибка остановки парсера':'Parser stop error' }
 		}
 	} catch (error) {
-		return { success: false, message: 'Ошибка сети или сервера' }
+		return { success: false, message:language === "RU"? 'Ошибка сети или сервера':'Network or server error' }
 	}
 }

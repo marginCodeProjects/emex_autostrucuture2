@@ -1,16 +1,14 @@
 import styles from './ProcessManagement.module.css'
 import startIcon from '../../../assets/startButtonIcon.svg'
 import stopIcon from '../../../assets/stopButtonIcon.svg'
-import smallProcessIcon from '../../../assets/smallProcessArrow.svg'
 import { IProcessManagementProps } from '../../../interfaces/Main'
 import useWebSocket from '../../../hooks/UserHooks/socketHooks'
 import { useEffect, useState } from 'react'
-import { calculateMarginPercent } from '../../../utils/utils'
 import { ParserStart, ParserStop } from '../../../api/ParserService'
 import { useLanguage } from '../../Other/LanguageProvider/useLanguage'
 import { texts, statusMessages } from '../../Other/LanguageProvider/languages'
 import { useAuth } from '../../Other/authContext/useAuth'
-import { message } from 'antd'
+import { ConfigProvider, message, Progress } from 'antd'
 const ProcessManagement: React.FC<IProcessManagementProps> = ({
 	file,
 	setFile,
@@ -20,7 +18,6 @@ const ProcessManagement: React.FC<IProcessManagementProps> = ({
 	const { token } = useAuth()
 	const [messageApi, contextHolder] = message.useMessage()
 	const { status, inputPercent, percentBannedList } = useWebSocket()
-	const [marginPercent, setMarginPercent] = useState<number>(-10)
 	const [parsingInProcess, setParsingInProcess] = useState(false)
 	useEffect(() => {
 		const parsingStatus = localStorage.getItem('parsingInProcess')
@@ -47,7 +44,7 @@ const ProcessManagement: React.FC<IProcessManagementProps> = ({
 			setFile(fileName)
 		}
 	}, [status])
-	
+
 	const statusMessage = () => {
 		const normalizedStatus = status.trim()
 
@@ -84,7 +81,7 @@ const ProcessManagement: React.FC<IProcessManagementProps> = ({
 	}
 	const startParserHandler = async () => {
 		if (parsingInProcess) {
-			const data = await ParserStop(token)
+			const data = await ParserStop(token, language)
 			if (data.success === false) {
 				errorMessage(data.message)
 			} else if (data.success) {
@@ -93,7 +90,7 @@ const ProcessManagement: React.FC<IProcessManagementProps> = ({
 				successMessage(data.message)
 			}
 		} else {
-			const data = await ParserStart(filterId, token)
+			const data = await ParserStart(filterId, token, language)
 
 			if (data.success === false) {
 				errorMessage(data.message)
@@ -105,73 +102,54 @@ const ProcessManagement: React.FC<IProcessManagementProps> = ({
 		}
 	}
 
-	useEffect(() => {
-		setMarginPercent(calculateMarginPercent(inputPercent))
-	}, [inputPercent])
+
 
 	return (
-		<div>
-			{contextHolder}
-			{
-				<div className={styles.ProcessDiv}>
-					<img
-						src={parsingInProcess ? stopIcon : startIcon}
-						onClick={() => startParserHandler()}
-						className={styles.ProcessDiv__StartButton}
-					/>
-					<div className={styles.ProcessDiv__group}>
-						<div className={styles.texts__div}>
-							<p
-								className={`${styles.inter__medium}${styles.texts}`}
-							>
-								{statusMessage()}
-							</p>
-							<p
-								className={`${styles.inter__medium} ${styles.texts__red}`}
-							>
-								{texts[language].blocked}
-							</p>
-						</div>
-						<div>
-							<div
-								style={{
-									transform: `translateX(${marginPercent}px)`,
-								}}
-								className={
-									styles.ProcessDiv__progressLine__smallProgressArrowDiv
-								}
-							>
+
+		<ConfigProvider
+			theme={{
+				components: {
+					Progress: {
+						circleIconFontSize: "20px"
+					},
+				},
+			}}
+		>
+
+
+			<div>
+				{contextHolder}
+				{
+					<div className={styles.ProcessDiv}>
+						<img
+							src={parsingInProcess ? stopIcon : startIcon}
+							onClick={() => startParserHandler()}
+							className={styles.ProcessDiv__StartButton}
+						/>
+						<div className={styles.ProcessDiv__group}>
+							<div className={styles.texts__div}>
 								<p
-									className={`${styles.inter__medium} ${styles.texts} ${styles.ProcessDiv__progressLine__smallProgressArrowText}`}
+									className={`${styles.inter__medium}${styles.texts}`}
 								>
-									{`${inputPercent}%`}
+									{statusMessage()}
 								</p>
-								<img
-									src={smallProcessIcon}
-									className={
-										styles.ProcessDiv__progressLine__smallProgressArrowImg
-									}
-									alt=''
-								/>
+								<p
+									className={`${styles.inter__medium} ${styles.texts__red}`}
+								>
+									{texts[language].blocked}
+								</p>
 							</div>
+
+							<Progress style={{
+								margin: "8px auto 0px",
+								width: '98%'
+							}} percent={inputPercent} percentPosition={{ align: 'start', type: 'outer' }} size="small" />
 						</div>
-						<div className={styles.ProcessDiv__progressLine}>
-							<div
-								style={{ width: `${inputPercent}%` }}
-								className={styles.ProcessDiv__progressLineFat}
-							></div>
-						</div>
+						<Progress type="circle" percent={percentBannedList} size={46} strokeColor={'#e53835'} status='exception' />
 					</div>
-					<div className={styles.ProcessDiv__StartButton}>
-						<p
-							className={`${styles.inter__medium} ${styles.texts__red}`}
-						>
-							{`${percentBannedList}%`}
-						</p>
-					</div>
-				</div>
-			}
-		</div>
+				}
+			</div>
+		</ConfigProvider >
 	)
 }
 

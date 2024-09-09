@@ -15,7 +15,7 @@ const Header: React.FC<IHeaderProps> = ({ onLogoutSuccess, username }) => {
   const [messageApi, contextHolder] = message.useMessage();
   const [errorMessage, setErrorMessage] = useState<string | undefined>(undefined)
   function logoutHandler() {
-    handleLogout(setErrorMessage, token, onLogoutSuccess)
+    handleLogout(setErrorMessage, token, onLogoutSuccess, language)
   }
   const error = (message: string) => {
     messageApi.open({
