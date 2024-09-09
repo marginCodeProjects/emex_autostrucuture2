@@ -10,7 +10,7 @@ export async function GetFiles(
 ): Promise<{ success: boolean; files?: Files[]; message?: string }> {
 	try {
 		const response = await fetch(
-			`https://127.0.0.1:8000/v1/files/all_files`,
+			`https://api.forprojectstests.ru/v1/files/all_files`,
 			{
 				method: 'GET',
 				headers: {
@@ -57,7 +57,7 @@ export async function GetFilesBeforeParsing(
 ): Promise<{ file?: Blob; success?: boolean }> {
 	try {
 		const response = await fetch(
-			`https://127.0.0.1:8000/v1/files/download_file/before_parsing/${file_id}`,
+			`https://api.forprojectstests.ru/v1/files/download_file/before_parsing/${file_id}`,
 			{
 				method: 'POST',
 				headers: {
@@ -85,7 +85,7 @@ export async function GetFileAfterParsing(
 ): Promise<{ file?: Blob; success?: boolean }> {
 	try {
 		const response = await fetch(
-			`https://127.0.0.1:8000/v1/files/download_file/after_parsing/${file_id}`,
+			`https://api.forprojectstests.ru/v1/files/download_file/after_parsing/${file_id}`,
 			{
 				method: 'POST',
 				headers: {
@@ -121,7 +121,7 @@ export async function GetFileData(
 }> {
 	try {
 		const response = await fetch(
-			`https://127.0.0.1:8000/v1/showing/show_data/${file_id}?skip=${skip}&limit=${limit}`,
+			`https://api.forprojectstests.ru/v1/showing/show_data/${file_id}?skip=${skip}&limit=${limit}`,
 			{
 				method: 'GET',
 				headers: {

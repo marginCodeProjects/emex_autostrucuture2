@@ -12,12 +12,12 @@ interface ICardScrollingProps {
 const CardScrolling: React.FC<ICardScrollingProps> = ({ setSelectedCardId, selectedCardId }) => {
     const { language } = useLanguage();
     const { token } = useAuth();
-    const { filters, loading, error } = useFilters('https://127.0.0.1:8000/v1/filters/get_filters', token, language);
+    const { filters, loading, error } = useFilters('https://api.forprojectstests.ru/v1/filters/get_filters', token, language);
     const [messageApi, contextHolder] = message.useMessage();
     const errorMessage = () => {
         messageApi.open({
             type: 'error',
-            content: language === 'RU'?"При загрузке фильтров произошла ошибка":'An error occurred while loading filters'
+            content: language === 'RU' ? "При загрузке фильтров произошла ошибка" : 'An error occurred while loading filters'
         });
     };
     useEffect(() => {

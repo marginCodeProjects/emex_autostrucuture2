@@ -7,7 +7,7 @@ export async function ParserStart(
 	}
 	try {
 		const response = await fetch(
-			`https://127.0.0.1:8000/v1/new_parser/start/${filterId}`,
+			`https://api.forprojectstests.ru/v1/new_parser/start/${filterId}`,
 			{
 				method: 'GET',
 				headers: {
@@ -34,7 +34,7 @@ export async function ParserStop(
 ): Promise<{ success: boolean; message: string }> {
 	try {
 		const response = await fetch(
-			`https://127.0.0.1:8000/v1/new_parser/stop`,
+			`https://api.forprojectstests.ru/v1/new_parser/stop`,
 			{
 				method: 'GET',
 				headers: {

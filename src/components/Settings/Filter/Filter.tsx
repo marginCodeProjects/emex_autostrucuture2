@@ -27,7 +27,7 @@ const Filter = () => {
         date: 10,
     })
     const { filters, loading, setFilters } = useFilters(
-        'https://127.0.0.1:8000/v1/filters/get_filters',
+        'https://api.forprojectstests.ru/v1/filters/get_filters',
         token, language
     )
     const handleSelectCard = (filterId: string) => {
@@ -135,8 +135,8 @@ const Filter = () => {
                         return (
                             <div
                                 className={`${styles.Card} ${selectedCardId === filter.id
-                                        ? styles.Card__active
-                                        : ''
+                                    ? styles.Card__active
+                                    : ''
                                     }`}
                                 key={filter.id}
                                 onClick={() => handleSelectCard(filter.id)}
