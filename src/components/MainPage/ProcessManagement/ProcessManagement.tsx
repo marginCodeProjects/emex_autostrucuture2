@@ -27,7 +27,7 @@ const ProcessManagement: React.FC<IProcessManagementProps> = ({
 	}, [])
 
 	useEffect(() => {
-		console.log(status)
+		
 
 		if (
 			status == 'Парсер не запущен' ||

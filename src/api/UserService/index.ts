@@ -43,8 +43,7 @@ export async function UserLogin(data: IUserLogin,language:"RU"|"EN"): Promise<{
 
 		if (response.ok) {
 			const userInfo = await response.json()
-			console.log(userInfo.is_admin)
-
+		
 			return {
 				success: true,
 				message:language==="RU"? 'Успешный вход':'Successful entry',
@@ -98,11 +97,7 @@ export const onFinish =
 		}
 	}
 
-// Функция onFinishFailed
-export const onFinishFailed =
-	(): FormProps<IUserLogin>['onFinishFailed'] => (errorInfo) => {
-		console.log('Failed:', errorInfo)
-	}
+
 export async function UserLogout(
 	token: string | null,
 	language: 'EN' | 'RU'
@@ -222,7 +217,7 @@ export async function EditUser(
 
 		if (response.ok) {
 			const userInfo = await response.json()
-			console.log(userInfo)
+			
 
 			return {
 				status: true,
@@ -279,7 +274,7 @@ export async function CreateUser(
 
 		if (response.ok) {
 			const userInfo = await response.json()
-			console.log(userInfo)
+			
 
 			return {
 				status: true,

@@ -34,10 +34,7 @@ const CardScrolling: React.FC<ICardScrollingProps> = ({ setSelectedCardId, selec
             setSelectedCardId(filterId)
         }
     }
-    useEffect(() => {
-        console.log(selectedCardId);
-
-    }, [selectedCardId])
+   
 
     return (
         <>

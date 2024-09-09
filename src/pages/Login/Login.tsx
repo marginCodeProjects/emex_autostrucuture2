@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import styles from './Login.module.css';
 import { Button, Form, Input, message } from 'antd';
-import { onFinish, onFinishFailed, } from '../../api/UserService';
+import { onFinish, } from '../../api/UserService';
 import { IUserLogin } from '../../interfaces/Main';
 import { useAuth } from '../../components/Other/authContext/useAuth';
 import { useLanguage } from '../../components/Other/LanguageProvider/useLanguage';
@@ -36,7 +36,7 @@ const Login: React.FC = () => {
                 wrapperCol={{ span: 24 }}
                 style={{ maxWidth: 600, width: '100%' }}
                 onFinish={onFinish(login, navigate, setErrorMessage, language)}
-                onFinishFailed={onFinishFailed}
+
                 autoComplete="off"
             >
                 <Form.Item<IUserLogin>

@@ -57,7 +57,7 @@ export async function EditFilter(
 
 		if (response.ok) {
 			const Filters = await response.json()
-			console.log(Filters)
+		
 			
 
 			return {
@@ -82,7 +82,7 @@ export async function CreateFilter(
 	status: boolean,Message:string,Filters?:FilterOption[]
 }> {
 	try {
-        console.log(FilterFormValues)
+       
         
 		const response = await fetch(
 			`https://api.forprojectstests.ru/v1/filters/create_filter`,
@@ -106,7 +106,7 @@ export async function CreateFilter(
 
 		if (response.ok) {
 			const Filters = await response.json()
-			console.log(Filters)
+			
 			
 
 			return {

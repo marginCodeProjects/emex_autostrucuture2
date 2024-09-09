@@ -21,7 +21,9 @@ export async function ParserStart(
 			return { success: true, message:language === "RU"? 'Парсер запущен':'Parser is up and running' }
 		} else if (response.status === 405) {
 			return { success: false, message:language === "RU"? 'Файл уже был спаршен':'The file has already been sparred' }
-		} else {
+		} else if (response.status === 409) {
+			return { success: false, message:language === "RU"? 'Все прокси в бане':'All proxies are banned' }}
+		 else {
 			return { success: false, message:language === "RU"? 'Ошибка запуска парсера':'Parser start error' }
 		}
 	} catch (error) {

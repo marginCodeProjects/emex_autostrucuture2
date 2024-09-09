@@ -19,9 +19,7 @@ const useWebSocket = () => {
 
 
         const wsPercent = new WebSocket(`wss://api.forprojectstests.ru/v1/new_parser/websocket_percent/${token}`);
-        wsPercent.onopen = () => {
-            console.log('wsPercent connected');
-        };
+
         wsPercent.onmessage = (event: MessageEvent) => {
             const data: PercentMessage = JSON.parse(event.data);
 

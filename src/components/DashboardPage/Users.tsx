@@ -54,10 +54,7 @@ const Users: React.FC<IUsersProps> = ({ setEditingCardId, users, setUsers }) => 
 
     fetchData()
   }, [token])
-  useEffect(() => {
-    console.log(card);
-
-  }, [])
+ 
 
   const userDeleteHandler = async (user_id: number) => {
     const updatedUserList: User[] | undefined = await DeleteUser(token, user_id)
