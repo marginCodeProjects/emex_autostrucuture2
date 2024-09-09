@@ -1,4 +1,4 @@
-import React, { ReactNode } from 'react'
+import React, { ReactNode, SetStateAction } from 'react'
 
 export interface IUserLogin {
 	username: string
@@ -154,4 +154,17 @@ export interface SessionTableAPI {
 }
 export interface SessionDataTableProps {
     fileId: number | undefined;
+}
+
+export interface IPagePartTitleProps {
+    num: string
+    label: string
+}
+
+export interface ICardScrollingProps {
+    setSelectedCardId: React.Dispatch<SetStateAction<string | null>>
+    selectedCardId: string | null
+}
+export interface AllDataTableProps {
+    setFileId: React.Dispatch<React.SetStateAction<number | undefined>>
 }

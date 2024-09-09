@@ -1,9 +1,7 @@
 import React from 'react'
 import styles from './PagePartTitle.module.css'
-interface IPagePartTitleProps {
-    num: string
-    label: string
-}
+import { IPagePartTitleProps } from '../../../interfaces/Main'
+
 const PagePartTitle: React.FC<IPagePartTitleProps> = ({ num, label }) => {
     return (<div className={styles.Div}>
         <p className={`${styles.inter_bold} ${styles.Num}`}>{num}</p>

@@ -1,14 +1,12 @@
-import { SetStateAction, useEffect } from 'react';
+import { useEffect } from 'react';
 import useFilters from '../../../hooks/UserHooks/filtersHooks';
 import { useLanguage } from '../../Other/LanguageProvider/useLanguage'
 import { texts } from '../../Other/LanguageProvider/languages'
 import styles from './CardScrolling.module.css'
 import { message } from 'antd';
 import { useAuth } from '../../Other/authContext/useAuth';
-interface ICardScrollingProps {
-    setSelectedCardId: React.Dispatch<SetStateAction<string | null>>
-    selectedCardId: string | null
-}
+import { ICardScrollingProps } from '../../../interfaces/Main';
+
 const CardScrolling: React.FC<ICardScrollingProps> = ({ setSelectedCardId, selectedCardId }) => {
     const { language } = useLanguage();
     const { token } = useAuth();
@@ -34,7 +32,7 @@ const CardScrolling: React.FC<ICardScrollingProps> = ({ setSelectedCardId, selec
             setSelectedCardId(filterId)
         }
     }
-   
+
 
     return (
         <>

@@ -5,10 +5,8 @@ import { historyTexts } from '../../../components/Other/LanguageProvider/languag
 import { GetFiles } from '../../../api/FilesService';
 import { useAuth } from '../../Other/authContext/useAuth';
 import { message, Popover } from 'antd';
-import { Files } from '../../../interfaces/Main';
-interface AllDataTableProps {
-    setFileId: React.Dispatch<React.SetStateAction<number | undefined>>
-}
+import { AllDataTableProps, Files } from '../../../interfaces/Main';
+
 const AllDataTable: React.FC<AllDataTableProps> = ({ setFileId }) => {
     const { token } = useAuth();
     const { language } = useLanguage();

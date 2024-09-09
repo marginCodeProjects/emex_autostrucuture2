@@ -11,6 +11,7 @@ import menu from '../../assets/menuIcon.svg'
 import { dashboardTexts } from '../Other/LanguageProvider/languages'
 import { useLanguage } from '../Other/LanguageProvider/useLanguage'
 import { message } from 'antd'
+import { toggleControlItem } from '../../utils/utils'
 
 const Users: React.FC<IUsersProps> = ({ setEditingCardId, users, setUsers }) => {
   const { token } = useAuth()
@@ -20,20 +21,7 @@ const Users: React.FC<IUsersProps> = ({ setEditingCardId, users, setUsers }) => 
   const [card, setCard] = useState<number | null | true>(null)
   const [menuPosition, setMenuPosition] = useState<{ left: number; top: number }>({ left: 0, top: 0 });
 
-  const toggleControlItem = (index: number, event: React.MouseEvent) => {
-    setCard(index);
-    setIsVisible(isVisible === index ? null : index);
 
-    // Получаем координаты кнопки
-    const button = event.currentTarget as HTMLElement;
-    const buttonRect = button.getBoundingClientRect();
-
-    // Устанавливаем координаты меню на 100px правее кнопки
-    setMenuPosition({
-      left: buttonRect.right + 50,
-      top: buttonRect.top - 20
-    });
-  };
   const success = () => {
     messageApi.open({
       type: 'success',
@@ -49,12 +37,14 @@ const Users: React.FC<IUsersProps> = ({ setEditingCardId, users, setUsers }) => 
   useEffect(() => {
     const fetchData = async () => {
       const data = await GetAllUsers(token)
+
       setUsers && setUsers(data)
+
     }
 
     fetchData()
   }, [token])
- 
+
 
   const userDeleteHandler = async (user_id: number) => {
     const updatedUserList: User[] | undefined = await DeleteUser(token, user_id)
@@ -63,8 +53,9 @@ const Users: React.FC<IUsersProps> = ({ setEditingCardId, users, setUsers }) => 
       success()
       setCard(null)
     }
-    else { error(language === 'RU'?"Произошла ошибка":'There was an error') }
+    else { error(language === 'RU' ? "Произошла ошибка" : 'There was an error') }
   }
+
   return (
     <div className={styles.users}>
       {contextHolder}
@@ -110,7 +101,7 @@ const Users: React.FC<IUsersProps> = ({ setEditingCardId, users, setUsers }) => 
                       <img
                         src={menu}
                         className={styles.userLine__statusIconPointer}
-                        onClick={(e) => toggleControlItem(user.id, e)}
+                        onClick={(e) => toggleControlItem(user.id, e, setCard, setIsVisible, setMenuPosition, isVisible)}
                         alt=''
                       />
 
