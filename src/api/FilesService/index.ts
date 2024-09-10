@@ -51,15 +51,15 @@ export async function GetFiles(
 	}
 }
 
-export async function GetFilesBeforeParsing(
+export async function ApplyVATCalculation(
 	token: string | null,
-	file_id: number
-): Promise<{ file?: Blob; success?: boolean }> {
+	language: 'EN' | 'RU',file_id:number
+): Promise<{ success: boolean; files?: Files[]; message?: string }> {
 	try {
 		const response = await fetch(
-			`https://api.forprojectstests.ru/v1/files/download_file/before_parsing/${file_id}`,
+			`https://api.forprojectstests.ru/v1/nds/edit/${file_id}`,
 			{
-				method: 'POST',
+				method: 'GET',
 				headers: {
 					'Content-Type': 'application/json',
 					'access-token': `${token}`,
@@ -69,43 +69,53 @@ export async function GetFilesBeforeParsing(
 
 		if (response.ok) {
 			// Парсим JSON только если запрос успешен
-			const file: Blob = await response.json()
-			return { file }
-		} else {
-			return { success: false }
-		}
-	} catch (error) {
-		return { success: false }
-	}
-}
-
-export async function GetFileAfterParsing(
-	token: string | null,
-	file_id: number
-): Promise<{ file?: Blob; success?: boolean }> {
-	try {
-		const response = await fetch(
-			`https://api.forprojectstests.ru/v1/files/download_file/after_parsing/${file_id}`,
-			{
-				method: 'POST',
-				headers: {
-					'Content-Type': 'application/json',
-					'access-token': `${token}`,
-				},
+			const files: Files[] = await response.json()
+			return { success: true, files }
+		} else if (response.status == 404) {
+			return {
+				success: false,
+				message:
+					language === 'RU'
+						? 'Вы ещё не загружали файлы'
+						: "You haven't uploaded any files yet",
 			}
-		)
-
-		if (response.ok) {
-			// Парсим JSON только если запрос успешен
-			const file: Blob = await response.json()
-			return { file }
-		} else {
-			return { success: false }
-		}
+		}else if (response.status == 405) {
+			return {
+				success: false,
+				message:
+					language === 'RU'
+						? 'Файл не может быть сохранён'
+						: "The file cannot be saved",
+			}
+			
+		}else if (response.status == 409) {
+			return {
+				success: false,
+				message:
+					language === 'RU'
+						? 'К файлу уже был применён расчёт НДС'
+						: "VAT calculation has already been applied to the file",
+			}}
+		 else
+			return {
+				success: false,
+				message:
+					language === 'RU'
+						? 'Ошибка сети или сервера'
+						: 'Network or server error',
+			}
 	} catch (error) {
-		return { success: false }
+		return {
+			success: false,
+			message:
+				language === 'RU'
+					? 'Ошибка сети или сервера'
+					: 'Network or server error',
+		}
 	}
 }
+
+
 
 export async function GetFileData(
 	token: string | null,

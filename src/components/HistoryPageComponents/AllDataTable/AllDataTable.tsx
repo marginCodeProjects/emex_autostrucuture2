@@ -2,7 +2,7 @@ import { useState, useEffect } from 'react';
 import { useLanguage } from '../../Other/LanguageProvider/useLanguage';
 import styles from './AllDataTable.module.css';
 import { historyTexts } from '../../../components/Other/LanguageProvider/languages';
-import { GetFiles } from '../../../api/FilesService';
+import { ApplyVATCalculation, GetFiles } from '../../../api/FilesService';
 import { useAuth } from '../../Other/authContext/useAuth';
 import { message, Popover } from 'antd';
 import { AllDataTableProps, Files } from '../../../interfaces/Main';
@@ -23,6 +23,14 @@ const AllDataTable: React.FC<AllDataTableProps> = ({ setFileId }) => {
             disclamer(message)
         }
     };
+    const applyVAT = async (file_id: number) => {
+        const { success, files, message } = await ApplyVATCalculation(token, language, file_id)
+        if (success) {
+            setFiles(files || []);
+        } else {
+            disclamer(message)
+        }
+    }
     const disclamer = (message: string | undefined) => {
         messageApi.open({
             type: "warning",
@@ -38,6 +46,7 @@ const AllDataTable: React.FC<AllDataTableProps> = ({ setFileId }) => {
             <div>
                 <a href={`https://api.forprojectstests.ru/v1/files/download_file/after_parsing/${id}`} className={`${styles.table__textsForLinks} ${styles.inter__medium}`} >{historyTexts[language].downloadFile}</a>
                 <p className={`${styles.table__textsForLinks} ${styles.inter__medium}`} style={{ width: '100%' }} onClick={() => setFileId(id)}>{historyTexts[language].viewFile}</p>
+                <p className={`${styles.table__textsForLinks} ${styles.inter__medium}`} style={{ width: '100%' }} onClick={() => applyVAT(id)}>{historyTexts[language].ApplyVATCalculation}</p>
             </div>
         );
     }

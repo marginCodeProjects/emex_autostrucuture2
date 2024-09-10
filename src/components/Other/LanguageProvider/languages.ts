@@ -60,7 +60,7 @@ export const historyTexts = {
 		bestPrice: 'Лучшая цена',
 		logo: 'Лого',
 		deliveryTime: 'Срок поставки',
-		linesOnPage: 'Строк на странице:',NDS:"НДС"
+		linesOnPage: 'Строк на странице:',NDS:"НДС",ApplyVATCalculation:'Применить расчёт НДС'
 	},
 	EN: {
 		history: 'History',
@@ -80,7 +80,7 @@ export const historyTexts = {
 		bestPrice: 'Best price',
 		logo: 'Logo',
 		deliveryTime: 'Delivery time',
-		linesOnPage: 'Lines on the page:',NDS:"NDS"
+		linesOnPage: 'Lines on the page:',NDS:"NDS",ApplyVATCalculation:'Apply VAT calculation'
 	},
 }
 export const dashboardTexts = {
