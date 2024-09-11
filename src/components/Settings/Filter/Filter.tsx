@@ -27,7 +27,7 @@ const Filter = () => {
         date: 10,
     })
     const { filters, loading, setFilters } = useFilters(
-        'https://api.forprojectstests.ru/v1/filters/get_filters',
+        'https://api.autostructure.ru/v1/filters/get_filters',
         token, language
     )
     const handleSelectCard = (filterId: string) => {

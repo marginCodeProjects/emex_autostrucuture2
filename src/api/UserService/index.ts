@@ -30,7 +30,7 @@ export async function UserLogin(data: IUserLogin,language:"RU"|"EN"): Promise<{
 	is_admin: boolean
 }> {
 	try {
-		const response = await fetch('https://api.forprojectstests.ru/v1/users/login', {
+		const response = await fetch('https://api.autostructure.ru/v1/users/login', {
 			method: 'POST',
 			body: JSON.stringify({
 				username: data.username,
@@ -106,7 +106,7 @@ export async function UserLogout(
 	message?: string
 }> {
 	try {
-		const response = await fetch('https://api.forprojectstests.ru/v1/users/logout', {
+		const response = await fetch('https://api.autostructure.ru/v1/users/logout', {
 			method: 'GET',
 			headers: {
 				'Content-Type': 'application/json',
@@ -139,7 +139,7 @@ export async function GetAllUsers(
 ): Promise<User[] | undefined> {
 	try {
 		const response = await fetch(
-			'https://api.forprojectstests.ru/v1/users/show_all',
+			'https://api.autostructure.ru/v1/users/show_all',
 			{
 				method: 'GET',
 
@@ -168,7 +168,7 @@ export async function DeleteUser(
 	user_id: number
 ): Promise<User[] | undefined> {
 	const response = await fetch(
-		`https://api.forprojectstests.ru/v1/users/delete/${user_id}`,
+		`https://api.autostructure.ru/v1/users/delete/${user_id}`,
 		{
 			method: 'DELETE',
 
@@ -198,7 +198,7 @@ export async function EditUser(
 }> {
 	try {
 		const response = await fetch(
-			`https://api.forprojectstests.ru/v1/users/edit/${user_id}`,
+			`https://api.autostructure.ru/v1/users/edit/${user_id}`,
 			{
 				method: 'PATCH',
 				body: JSON.stringify({
@@ -255,7 +255,7 @@ export async function CreateUser(
 }> {
 	try {
 		const response = await fetch(
-			`https://api.forprojectstests.ru/v1/users/sign_up`,
+			`https://api.autostructure.ru/v1/users/sign_up`,
 			{
 				method: 'POST',
 				body: JSON.stringify({
