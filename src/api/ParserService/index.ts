@@ -3,7 +3,7 @@ export async function ParserStart(
 	token: string | null,language:"RU"|"EN"
 ): Promise<{ success: boolean; message: string }> {
 	if (filterId === null) {
-		return { success: false, message: 'Пожалуйста выберите фильтр' }
+		return { success: false, message:language === "RU"? 'Пожалуйста выберите фильтр':'Please select a filter' }
 	}
 	try {
 		const response = await fetch(
