@@ -107,6 +107,7 @@ export interface FilterFormValues {
 	is_bigger: boolean
 	date: number
 	logo: string
+	pickup_point:number
 }
 export interface FilterOption {
 	id: string
@@ -118,6 +119,8 @@ export interface FilterOption {
 	analog: boolean
 	date: number
 	user_id: number
+	pickup_point:number
+	
 }
 
 // Типы состояния

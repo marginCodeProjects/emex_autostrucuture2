@@ -1,8 +1,8 @@
-import {  FilterFormValues, FilterOption } from "../../interfaces/Main"
+import { FilterFormValues, FilterOption } from '../../interfaces/Main'
 
 export async function DeleteFilter(
 	token: string | null,
-	filter_id: string,
+	filter_id: string
 ): Promise<FilterOption[] | undefined> {
 	const response = await fetch(
 		`https://api.autostructure.ru/v1/filters/delete_filter/${filter_id}`,
@@ -24,15 +24,15 @@ export async function DeleteFilter(
 	}
 }
 
-
-
-
 export async function EditFilter(
-	token: string|null,
+	token: string | null,
 	filter_id: string,
-	FilterFormValues: FilterFormValues,language:'RU'|'EN'
+	FilterFormValues: FilterFormValues,
+	language: 'RU' | 'EN'
 ): Promise<{
-	status: boolean,Message:string,Filters?:FilterOption[]
+	status: boolean
+	Message: string
+	Filters?: FilterOption[]
 }> {
 	try {
 		const response = await fetch(
@@ -40,13 +40,14 @@ export async function EditFilter(
 			{
 				method: 'PATCH',
 				body: JSON.stringify({
-                    deep_filter: FilterFormValues.deep_filter,
+					deep_filter: FilterFormValues.deep_filter,
 					deep_analog: FilterFormValues.deep_analog,
 					analog: FilterFormValues.analog,
 					title: FilterFormValues.title,
 					is_bigger: FilterFormValues.is_bigger,
-                    date:FilterFormValues.date,
-                    logo:FilterFormValues.logo
+					date: FilterFormValues.date,
+					logo: FilterFormValues.logo,
+					pickup_point: FilterFormValues.pickup_point,
 				}),
 				headers: {
 					'Content-Type': 'application/json',
@@ -57,33 +58,42 @@ export async function EditFilter(
 
 		if (response.ok) {
 			const Filters = await response.json()
-		
-			
 
 			return {
-					status: true,Message:language==="RU"?"Данные успешно изменены":"Data successfully changed",Filters:Filters
+				status: true,
+				Message:
+					language === 'RU'
+						? 'Данные успешно изменены'
+						: 'Data successfully changed',
+				Filters: Filters,
 			}
 		} else {
 			return {
 				status: false,
-				Message:language==="RU"?"Произошла ошибка":"There was an error"
+				Message:
+					language === 'RU'
+						? 'Произошла ошибка'
+						: 'There was an error',
 			}
 		}
 	} catch (error) {
 		return {
-			status: false,Message:language==="RU"?"Произошла ошибка":"There was an error"
+			status: false,
+			Message:
+				language === 'RU' ? 'Произошла ошибка' : 'There was an error',
 		}
 	}
 }
 export async function CreateFilter(
-	token: string|null,
-	FilterFormValues: FilterFormValues,language:'RU'|'EN'
+	token: string | null,
+	FilterFormValues: FilterFormValues,
+	language: 'RU' | 'EN'
 ): Promise<{
-	status: boolean,Message:string,Filters?:FilterOption[]
+	status: boolean
+	Message: string
+	Filters?: FilterOption[]
 }> {
 	try {
-       
-        
 		const response = await fetch(
 			`https://api.autostructure.ru/v1/filters/create_filter`,
 			{
@@ -94,8 +104,9 @@ export async function CreateFilter(
 					analog: FilterFormValues.analog,
 					title: FilterFormValues.title,
 					is_bigger: FilterFormValues.is_bigger,
-                    date:FilterFormValues.date,
-                    logo:FilterFormValues.logo
+					date: FilterFormValues.date,
+					logo: FilterFormValues.logo,
+					pickup_point: FilterFormValues.pickup_point,
 				}),
 				headers: {
 					'Content-Type': 'application/json',
@@ -106,20 +117,29 @@ export async function CreateFilter(
 
 		if (response.ok) {
 			const Filters = await response.json()
-			
-			
 
 			return {
-					status: true,Message:language==="RU"?"Фильтр успешно добавлен":"Filter successfully added",Filters:Filters
+				status: true,
+				Message:
+					language === 'RU'
+						? 'Фильтр успешно добавлен'
+						: 'Filter successfully added',
+				Filters: Filters,
 			}
 		} else {
 			return {
-				status: false,Message:language==="RU"?"Произошла ошибка":"There was an error"
+				status: false,
+				Message:
+					language === 'RU'
+						? 'Произошла ошибка'
+						: 'There was an error',
 			}
 		}
 	} catch (error) {
 		return {
-			status: false,Message:language==="RU"?"Произошла ошибка":"There was an error"
+			status: false,
+			Message:
+				language === 'RU' ? 'Произошла ошибка' : 'There was an error',
 		}
 	}
 }

@@ -56,11 +56,11 @@ export const historyTexts = {
 		quantity: 'Кол-во',
 		price: 'Цена',
 		batch: 'Партия',
-		newPrice: 'Новая цена',
+		newPrice: 'Цена с лого',
 		bestPrice: 'Лучшая цена',
 		logo: 'Лого',
 		deliveryTime: 'Срок поставки',
-		linesOnPage: 'Строк на странице:',NDS:"НДС",ApplyVATCalculation:'Применить расчёт НДС'
+		linesOnPage: 'Строк на странице:',NDS:"НДС",ApplyVATCalculation:'Применить расчёт',priceAfterCalculation:"Цена после расчёта"
 	},
 	EN: {
 		history: 'History',
@@ -76,11 +76,11 @@ export const historyTexts = {
 		quantity: 'Quantity',
 		price: 'Price',
 		batch: 'Batch',
-		newPrice: 'New price',
+		newPrice: 'Logo price',
 		bestPrice: 'Best price',
 		logo: 'Logo',
 		deliveryTime: 'Delivery time',
-		linesOnPage: 'Lines on the page:',NDS:"NDS",ApplyVATCalculation:'Apply VAT calculation'
+		linesOnPage: 'Lines on the page:',NDS:"NDS",ApplyVATCalculation:'Apply calculation',priceAfterCalculation:"Price after calculation"
 	},
 }
 export const dashboardTexts = {
@@ -141,7 +141,7 @@ export const settingsTexts = {
 		moreThan: 'Больше чем',
 		lessThan: 'Меньше чем',
 		originals: 'Оригиналы',
-		notOriginals: 'Оригиналы и не оригиналы',
+		notOriginals: 'Оригиналы и не оригиналы',pickup_point:"Пункт самовывоза"
 	},
 	EN: {
 		PROXY: 'PROXY',
@@ -165,7 +165,7 @@ export const settingsTexts = {
 		moreThan: 'More than',
 		lessThan: 'Less than',
 		originals: 'Originals',
-		notOriginals: 'Originals and non-originals',
+		notOriginals: 'Originals and non-originals',pickup_point:'Pickup point'
 	},
 }
 

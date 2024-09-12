@@ -24,7 +24,7 @@ const Filter = () => {
         analog: false,
         title: '',
         is_bigger: false,
-        date: 10,
+        date: 10, pickup_point: 38760
     })
     const { filters, loading, setFilters } = useFilters(
         'https://api.autostructure.ru/v1/filters/get_filters',
@@ -40,7 +40,7 @@ const Filter = () => {
                 analog: false,
                 title: '',
                 is_bigger: false,
-                date: 10,
+                date: 10, pickup_point: 38760
             })
         } else {
             setSelectedCardId(filterId)
@@ -75,7 +75,7 @@ const Filter = () => {
                 analog: filter.analog ?? false,
                 title: filter.title ?? '',
                 is_bigger: filter.is_bigger ?? false,
-                date: filter.date ?? '',
+                date: filter.date ?? '', pickup_point: filter.pickup_point
             })
         }
     }, [selectedCardId, filters])
@@ -300,6 +300,21 @@ const Filter = () => {
                             onChange={(e) =>
                                 handleChange('title', e.target.value)
                             }
+                            className={`${styles.ProxyActions__input} ${styles.inter__medium} ${styles.FilterFieldsText} ${styles.Card__bottomPart_texts}`}
+                        />
+                    </div>
+                    <div className={styles.InputsDiv}>
+                        <p
+                            className={`${styles.InputsLineText} ${styles.inter__medium}`}
+                        >
+                            {settingsTexts[language].pickup_point}
+                        </p>
+                        <Input
+                            value={FilterFieldsText.pickup_point}
+                            onChange={(e) =>
+                                handleChange('pickup_point', e.target.value)
+                            }
+                            type='number'
                             className={`${styles.ProxyActions__input} ${styles.inter__medium} ${styles.FilterFieldsText} ${styles.Card__bottomPart_texts}`}
                         />
                     </div>
