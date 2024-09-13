@@ -26,9 +26,7 @@ const useWebSocket = () => {
             setInputPercent(data.Percent_parsing_goods);
             setPercentBannedList(data.Percent_banned_list);
         };
-        wsPercent.onerror = (error) => {
-            console.error("WebSocket Percent Error: ", error);
-        };
+       
 
         return () => {
             wsStatus.close();
