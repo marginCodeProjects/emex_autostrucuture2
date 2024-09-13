@@ -83,8 +83,8 @@ const Header: React.FC<IHeaderProps> = ({ onLogoutSuccess, username }) => {
             unCheckedChildren='РУС'
             onChange={() => toggleLanguage()}
           />
-          {isAdmin ? <NavLink to={'/dashboard'} className={`${styles.header__controlPanel__item}  ${styles.inter_semibold}`} >{username}</NavLink> : <p
-            className={`${styles.header__controlPanel__item}  ${styles.inter_semibold}`}
+          {isAdmin ? <NavLink to={'/dashboard'} className={`${styles.header__controlPanel__item}  ${styles.inter_semibold}`} style={{ width: '87px' }} >{username}</NavLink> : <p
+            className={`${styles.header__controlPanel__item}  ${styles.inter_semibold}`} style={{ width: '87px' }}
           >
             {username}
           </p>}
@@ -96,7 +96,7 @@ const Header: React.FC<IHeaderProps> = ({ onLogoutSuccess, username }) => {
           </button>
         </div>
       </div>
-    </nav>
+    </nav >
   )
 }
 

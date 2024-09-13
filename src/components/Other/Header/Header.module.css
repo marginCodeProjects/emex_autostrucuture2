@@ -39,9 +39,9 @@
 	width: 232px;
 	height: 19px;
 	display: flex;
+	justify-content: space-between;
 }
 .header__controlPanel__item {
-	max-width: 55px;
 	margin-right: 39px;
 	align-self: flex-end;
 }
