@@ -42,7 +42,6 @@
 	justify-content: space-between;
 }
 .header__controlPanel__item {
-	margin-right: 39px;
 	align-self: flex-end;
 }
 .header__controlPanel__item:last-child {
