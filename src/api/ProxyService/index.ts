@@ -1,11 +1,13 @@
-
-import { ProxyFormValues, Proxys } from "../../interfaces/Main"
+import { ProxyFormValues, Proxys } from '../../interfaces/Main'
 
 export async function ExtendProxy(
-	token: string|null,
-	formValues: ProxyFormValues,language:'RU'|'EN'
+	token: string | null,
+	formValues: ProxyFormValues,
+	language: 'RU' | 'EN'
 ): Promise<{
-	status: boolean,proxys?:Proxys[],message?:string
+	status: boolean
+	proxys?: Proxys[]
+	message?: string
 }> {
 	try {
 		const response = await fetch(
@@ -22,31 +24,39 @@ export async function ExtendProxy(
 		if (response.status === 200) {
 			const proxys = await response.json()
 			return {
-					status: true,proxys
+				status: true,
+				proxys,
 			}
-		} else if(response.status === 422) {
-         
+		} else if (response.status === 422) {
 			return {
-				status: false,message:language==="RU" ? "Пожалуйста заполните все поля" :"Please fill in all fields"
+				status: false,
+				message:
+					language === 'RU'
+						? 'Пожалуйста заполните все поля'
+						: 'Please fill in all fields',
 			}
-		}else{
+		} else {
 			const proxys = await response.json()
 			return {
-				status: false,message:proxys.detail
+				status: false,
+				message: proxys.detail,
 			}
 		}
 	} catch (error) {
 		return {
-			status: false
+			status: false,
 		}
 	}
 }
 
 export async function BuyProxy(
-	token: string|null,
-	formValues: ProxyFormValues,language:'RU'|'EN'
+	token: string | null,
+	formValues: ProxyFormValues,
+	language: 'RU' | 'EN'
 ): Promise<{
-	status: boolean,proxys?:Proxys[],message?:string
+	status: boolean
+	proxys?: Proxys[]
+	message?: string
 }> {
 	try {
 		const response = await fetch(
@@ -63,30 +73,34 @@ export async function BuyProxy(
 		if (response.status === 200) {
 			const proxys = await response.json()
 			return {
-					status: true,proxys
+				status: true,
+				proxys,
 			}
-		} else if(response.status === 422) {
-         
+		} else if (response.status === 422) {
 			return {
-				status: false,message:language==="RU" ? "Пожалуйста заполните все поля" :"Please fill in all fields"
+				status: false,
+				message:
+					language === 'RU'
+						? 'Пожалуйста заполните все поля'
+						: 'Please fill in all fields',
 			}
-		}else{
+		} else {
 			const proxys = await response.json()
 			return {
-				status: false,message:proxys.detail
+				status: false,
+				message: proxys.detail,
 			}
 		}
 	} catch (error) {
 		return {
-			status: false
+			status: false,
 		}
 	}
 }
-export async function GetProxy(
-	token: string|null,
-	
-): Promise<{
-	status: boolean,proxys?:Proxys[],message?:string
+export async function GetProxy(token: string | null): Promise<{
+	status: boolean
+	proxys?: Proxys[]
+	message?: string
 }> {
 	try {
 		const response = await fetch(
@@ -103,17 +117,19 @@ export async function GetProxy(
 		if (response.ok) {
 			const proxys = await response.json()
 			return {
-					status: true,proxys
+				status: true,
+				proxys,
 			}
 		} else {
-			const proxys = await response.json() 
+			const proxys = await response.json()
 			return {
-				status: false,message:proxys.detail
+				status: false,
+				message: proxys.detail,
 			}
 		}
 	} catch (error) {
 		return {
-			status: false
+			status: false,
 		}
 	}
 }

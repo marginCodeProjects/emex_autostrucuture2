@@ -1,5 +1,3 @@
-
-
 .TableRow {
 	display: flex;
 	flex-direction: row;
@@ -41,21 +39,22 @@
 	background-color: rgba(178, 193, 246, 0.7);
 }
 .TableContainer {
-    display: flex;
-    flex-direction: column;
-    
-    border: 1px solid #335AE6; /* Граница вокруг всей таблицы */
-   
-    border-radius: 8px; /* Закругление углов (опционально) */
+	display: flex;
+	flex-direction: column;
+
+	border: 1px solid #335ae6; /* Граница вокруг всей таблицы */
+
+	border-radius: 8px; /* Закругление углов (опционально) */
 }
 
 .Table {
-    overflow: auto; /* Прокрутка для таблицы */
+	overflow: auto; /* Прокрутка для таблицы */
 }
 
 .PaginationContainer {
-    display: flex;
-    justify-content: flex-end; /* Смещает пагинацию вправо */
-    margin-right: 10px; /* Отступ справа для пагинации */
-height: 77px;align-items: center;
+	display: flex;
+	justify-content: flex-end; /* Смещает пагинацию вправо */
+	margin-right: 10px; /* Отступ справа для пагинации */
+	height: 77px;
+	align-items: center;
 }

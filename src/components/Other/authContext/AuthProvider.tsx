@@ -1,6 +1,6 @@
 // src/components/Other/authContext/authContext.tsx
 
-import React, {   useEffect, useState } from "react";
+import React, { useEffect, useState } from "react";
 import { AuthState } from "../../../interfaces/Main";
 import { AuthContext } from "./AuthContext";
 
@@ -60,4 +60,4 @@ const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children }) => 
 
 
 // Экспортируем по умолчанию объект с необходимыми экспортами
-export default  AuthProvider ;
+export default AuthProvider;

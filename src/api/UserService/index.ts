@@ -22,7 +22,10 @@ export async function handleLogout(
 	}
 }
 
-export async function UserLogin(data: IUserLogin,language:"RU"|"EN"): Promise<{
+export async function UserLogin(
+	data: IUserLogin,
+	language: 'RU' | 'EN'
+): Promise<{
 	success: boolean
 	message: string
 	username: string
@@ -30,34 +33,41 @@ export async function UserLogin(data: IUserLogin,language:"RU"|"EN"): Promise<{
 	is_admin: boolean
 }> {
 	try {
-		const response = await fetch('https://api.autostructure.ru/v1/users/login', {
-			method: 'POST',
-			body: JSON.stringify({
-				username: data.username,
-				password: data.password,
-			}),
-			headers: {
-				'Content-Type': 'application/json',
-			},
-		})
+		const response = await fetch(
+			'https://api.autostructure.ru/v1/users/login',
+			{
+				method: 'POST',
+				body: JSON.stringify({
+					username: data.username,
+					password: data.password,
+				}),
+				headers: {
+					'Content-Type': 'application/json',
+				},
+			}
+		)
 
 		if (response.ok) {
 			const userInfo = await response.json()
-		
+
 			return {
 				success: true,
-				message:language==="RU"? 'Успешный вход':'Successful entry',
+				message:
+					language === 'RU' ? 'Успешный вход' : 'Successful entry',
 				username: userInfo.username,
 				token: userInfo.access_token,
 				is_admin: userInfo.is_admin,
 			}
 		} else {
-			let errorMessage = language==="RU"? 'Ошибка входа':'Login error'
+			let errorMessage =
+				language === 'RU' ? 'Ошибка входа' : 'Login error'
 
 			if (response.status === 404) {
-				errorMessage = language==="RU"? 'Неправильный логин':'Incorrect login'
+				errorMessage =
+					language === 'RU' ? 'Неправильный логин' : 'Incorrect login'
 			} else if (response.status === 401) {
-				errorMessage = language==="RU"? 'Доступ запрещен':'Access denied'
+				errorMessage =
+					language === 'RU' ? 'Доступ запрещен' : 'Access denied'
 			}
 
 			return {
@@ -71,7 +81,10 @@ export async function UserLogin(data: IUserLogin,language:"RU"|"EN"): Promise<{
 	} catch (error) {
 		return {
 			success: false,
-			message:language==="RU"? 'Ошибка сети или сервера':'Network or server error',
+			message:
+				language === 'RU'
+					? 'Ошибка сети или сервера'
+					: 'Network or server error',
 			username: '',
 			token: '',
 			is_admin: false,
@@ -84,10 +97,11 @@ export const onFinish =
 	(
 		login: (username: string, token: string, isAdmin: boolean) => void,
 		navigate: NavigateFunction,
-		setErrorMessage: (message: string | null) => void,language:"RU"|"EN"
+		setErrorMessage: (message: string | null) => void,
+		language: 'RU' | 'EN'
 	): FormProps<IUserLogin>['onFinish'] =>
 	async (values) => {
-		const result = await UserLogin(values,language)
+		const result = await UserLogin(values, language)
 
 		if (result.success) {
 			login(result.username, result.token, result.is_admin)
@@ -97,7 +111,6 @@ export const onFinish =
 		}
 	}
 
-
 export async function UserLogout(
 	token: string | null,
 	language: 'EN' | 'RU'
@@ -106,13 +119,16 @@ export async function UserLogout(
 	message?: string
 }> {
 	try {
-		const response = await fetch('https://api.autostructure.ru/v1/users/logout', {
-			method: 'GET',
-			headers: {
-				'Content-Type': 'application/json',
-				'access-token': `${token}`,
-			},
-		})
+		const response = await fetch(
+			'https://api.autostructure.ru/v1/users/logout',
+			{
+				method: 'GET',
+				headers: {
+					'Content-Type': 'application/json',
+					'access-token': `${token}`,
+				},
+			}
+		)
 
 		if (response.ok) {
 			localStorage.removeItem('token')
@@ -158,7 +174,7 @@ export async function GetAllUsers(
 		}
 	} catch (error) {
 		// Приводим error к типу, совместимому с message.error
-	
+
 		return undefined // Возвращаем undefined в случае ошибки
 	}
 }
@@ -217,7 +233,6 @@ export async function EditUser(
 
 		if (response.ok) {
 			const userInfo = await response.json()
-			
 
 			return {
 				status: true,
@@ -274,7 +289,6 @@ export async function CreateUser(
 
 		if (response.ok) {
 			const userInfo = await response.json()
-			
 
 			return {
 				status: true,

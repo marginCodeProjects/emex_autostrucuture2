@@ -7,7 +7,7 @@ export const texts = {
 		selectFilter: 'ВЫБОР ФИЛЬТРОВ',
 		filterCardLogo: 'Лого',
 		filterCardIsOriginal: 'Только оригиналы',
-		filterCardIsNotOriginal:'Оригиналы и аналоги',
+		filterCardIsNotOriginal: 'Оригиналы и аналоги',
 		filterCardDeliveryTime: 'Срок поставки',
 		filterCardDepthAnalogueSearch: 'Глубина поиска аналога',
 		filterCardDepthSelectionByTheFirstFilter:
@@ -16,8 +16,8 @@ export const texts = {
 		dragAndDropInput: `Щелкните или перетащите файл в эту область<br/> для загрузки.<br/>Загружаемый файл должен быть в формате xlsx.<br/>Файл будет автоматически загружен в систему.`,
 		downloadTemplate: 'Скачать шаблон',
 		processManagement: 'УПРАВЛЕНИЕ ПРОЦЕССОМ',
-		blocked: 'Заблокировано',logoIsNotUsed:'не используется'
-
+		blocked: 'Заблокировано',
+		logoIsNotUsed: 'не используется',
 	},
 	EN: {
 		home: 'Home',
@@ -27,7 +27,7 @@ export const texts = {
 		selectFilter: 'FILTER SELECTION',
 		filterCardLogo: 'Logo',
 		filterCardIsOriginal: 'Originals only',
-		filterCardIsNotOriginal:'Originals and analogs',
+		filterCardIsNotOriginal: 'Originals and analogs',
 		filterCardDeliveryTime: 'Delivery time',
 		filterCardDepthAnalogueSearch: 'Depth of analogue search',
 		filterCardDepthSelectionByTheFirstFilter:
@@ -37,7 +37,8 @@ export const texts = {
 			'Click or drag the file to this area to upload.<br/>The uploaded file must be in xlsx format. The file will<br/> be automatically uploaded to the system.',
 		downloadTemplate: 'Download template',
 		processManagement: 'PROCESS MANAGEMENT',
-		blocked: 'Blocked',logoIsNotUsed:'is not used'
+		blocked: 'Blocked',
+		logoIsNotUsed: 'is not used',
 	},
 }
 
@@ -48,7 +49,8 @@ export const historyTexts = {
 		filters: 'Фильтры',
 		dataBeforeParsing: 'Данные до парсинга',
 		dataAfterParsing: 'Данные после парсинга',
-		downloadFile:'Скачать файл',viewFile:'Просмотреть файл',
+		downloadFile: 'Скачать файл',
+		viewFile: 'Просмотреть файл',
 		article: 'Артикул',
 		name: 'Наименование',
 		brand: 'Бренд',
@@ -60,7 +62,10 @@ export const historyTexts = {
 		bestPrice: 'Лучшая цена',
 		logo: 'Лого',
 		deliveryTime: 'Срок поставки',
-		linesOnPage: 'Строк на странице:',NDS:"НДС",ApplyVATCalculation:'Применить расчёт',priceAfterCalculation:"Цена после расчёта"
+		linesOnPage: 'Строк на странице:',
+		NDS: 'НДС',
+		ApplyVATCalculation: 'Применить расчёт',
+		priceAfterCalculation: 'Цена после расчёта',
 	},
 	EN: {
 		history: 'History',
@@ -68,7 +73,8 @@ export const historyTexts = {
 		filters: 'Filters',
 		dataBeforeParsing: 'Data before parsing',
 		dataAfterParsing: 'Data after parsing',
-		downloadFile:'Download file',viewFile:'View file',
+		downloadFile: 'Download file',
+		viewFile: 'View file',
 		article: 'Article',
 		name: 'Name',
 		brand: 'Brand',
@@ -80,7 +86,10 @@ export const historyTexts = {
 		bestPrice: 'Best price',
 		logo: 'Logo',
 		deliveryTime: 'Delivery time',
-		linesOnPage: 'Lines on the page:',NDS:"NDS",ApplyVATCalculation:'Apply calculation',priceAfterCalculation:"Price after calculation"
+		linesOnPage: 'Lines on the page:',
+		NDS: 'NDS',
+		ApplyVATCalculation: 'Apply calculation',
+		priceAfterCalculation: 'Price after calculation',
 	},
 }
 export const dashboardTexts = {
@@ -141,7 +150,8 @@ export const settingsTexts = {
 		moreThan: 'Больше чем',
 		lessThan: 'Меньше чем',
 		originals: 'Оригиналы',
-		notOriginals: 'Оригиналы и не оригиналы',pickup_point:"Пункт самовывоза"
+		notOriginals: 'Оригиналы и не оригиналы',
+		pickup_point: 'Пункт самовывоза',
 	},
 	EN: {
 		PROXY: 'PROXY',
@@ -165,7 +175,8 @@ export const settingsTexts = {
 		moreThan: 'More than',
 		lessThan: 'Less than',
 		originals: 'Originals',
-		notOriginals: 'Originals and non-originals',pickup_point:'Pickup point'
+		notOriginals: 'Originals and non-originals',
+		pickup_point: 'Pickup point',
 	},
 }
 

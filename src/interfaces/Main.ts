@@ -107,7 +107,7 @@ export interface FilterFormValues {
 	is_bigger: boolean
 	date: number
 	logo: string
-	pickup_point:number
+	pickup_point: number
 }
 export interface FilterOption {
 	id: string
@@ -119,8 +119,7 @@ export interface FilterOption {
 	analog: boolean
 	date: number
 	user_id: number
-	pickup_point:number
-	
+	pickup_point: number
 }
 
 // Типы состояния
@@ -134,40 +133,40 @@ export interface FiltersState {
 }
 
 export interface SessionTableRowData {
-	"article": string
-	"article1": string
-	"price": string
-	"nds": string
-	"logo": string
-	"new_price": string
-	"user_id": number
-	"id": number
-	"name": string
-	"brand": string
-	"quantity": string
-	"batch": string
-	"best_price": string
-	"delivery_time": string
-	"quantity1": string
-	"file_id": number
+	article: string
+	article1: string
+	price: string
+	nds: string
+	logo: string
+	new_price: string
+	user_id: number
+	id: number
+	name: string
+	brand: string
+	quantity: string
+	batch: string
+	best_price: string
+	delivery_time: string
+	quantity1: string
+	file_id: number
 }
 export interface SessionTableAPI {
-	total:number
-	rows:SessionTableRowData[]
+	total: number
+	rows: SessionTableRowData[]
 }
 export interface SessionDataTableProps {
-    fileId: number | undefined;
+	fileId: number | undefined
 }
 
 export interface IPagePartTitleProps {
-    num: string
-    label: string
+	num: string
+	label: string
 }
 
 export interface ICardScrollingProps {
-    setSelectedCardId: React.Dispatch<SetStateAction<string | null>>
-    selectedCardId: string | null
+	setSelectedCardId: React.Dispatch<SetStateAction<string | null>>
+	selectedCardId: string | null
 }
 export interface AllDataTableProps {
-    setFileId: React.Dispatch<React.SetStateAction<number | undefined>>
+	setFileId: React.Dispatch<React.SetStateAction<number | undefined>>
 }

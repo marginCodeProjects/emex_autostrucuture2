@@ -13,6 +13,8 @@ const AllDataTable: React.FC<AllDataTableProps> = ({ setFileId }) => {
     const [files, setFiles] = useState<Files[] | null>(null);
     const [loading, setLoading] = useState<boolean>(false);
     const [messageApi, contextHolder] = message.useMessage();
+    const [popoverVisible, setPopoverVisible] = useState<number | null>(null);
+
     const get_files_handler = async () => {
         setLoading(true);
         const { success, files, message } = await GetFiles(token, language);
@@ -23,14 +25,17 @@ const AllDataTable: React.FC<AllDataTableProps> = ({ setFileId }) => {
             disclamer(message)
         }
     };
+
     const applyVAT = async (file_id: number) => {
         const { success, files, message } = await ApplyVATCalculation(token, language, file_id)
         if (success) {
             setFiles(files || []);
+            setPopoverVisible(null); // Close Popover after VAT calculation
         } else {
             disclamer(message)
         }
     }
+
     const disclamer = (message: string | undefined) => {
         messageApi.open({
             type: "warning",
@@ -41,6 +46,7 @@ const AllDataTable: React.FC<AllDataTableProps> = ({ setFileId }) => {
     useEffect(() => {
         get_files_handler();
     }, []);
+
     const afterParsingPopup = (id: number) => {
         return (
             <div>
@@ -50,6 +56,7 @@ const AllDataTable: React.FC<AllDataTableProps> = ({ setFileId }) => {
             </div>
         );
     }
+
     return (
         <>
             {contextHolder}
@@ -72,9 +79,15 @@ const AllDataTable: React.FC<AllDataTableProps> = ({ setFileId }) => {
                             <p className={`${styles.table__texts} ${styles.inter__medium}`}>{file.date.slice(0, 10)}</p>
                             <p className={`${styles.table__texts} ${styles.inter__medium}`}>{file.new_filter_id}</p>
                             <a href={`https://api.autostructure.ru/v1/files/download_file/before_parsing/${file.id}`} className={`${styles.table__textsForLinks} ${styles.inter__medium}`} >{file.before_parsing_filename}</a>
-                            {file.after_parsing_filename != null ? <Popover content={afterParsingPopup(file.id)} >
-                                <p className={`${styles.table__textsForLinks} ${styles.inter__medium}`} style={{ width: '25%' }} >{file.after_parsing_filename}</p>
-                            </Popover> : <p style={{ width: '25%' }} ></p>}
+                            {file.after_parsing_filename != null ? (
+                                <Popover 
+                                    content={afterParsingPopup(file.id)} 
+                                    visible={popoverVisible === file.id}
+                                    onVisibleChange={(visible) => setPopoverVisible(visible ? file.id : null)}
+                                >
+                                    <p className={`${styles.table__textsForLinks} ${styles.inter__medium}`} style={{ width: '25%' }} >{file.after_parsing_filename}</p>
+                                </Popover>
+                            ) : <p style={{ width: '25%' }} ></p>}
                         </div>
                     ))}
                 </div>

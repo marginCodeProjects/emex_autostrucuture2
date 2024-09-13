@@ -16,7 +16,13 @@
 	font-weight: 700;
 	font-style: normal;
 }
-.Main__container{
-    padding: 0 25px;max-width: 1135px;margin: 0 auto;
+.Main__container {
+	padding: 0 25px;
+	max-width: 1135px;
+	margin: 0 auto;
 }
-.Main__blockTitles{font-size: 20px;text-align: left;margin-bottom: 20px;}
+.Main__blockTitles {
+	font-size: 20px;
+	text-align: left;
+	margin-bottom: 20px;
+}

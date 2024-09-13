@@ -74,7 +74,7 @@ const Proxy = () => {
 
 
             (async () => {
-                const data = await ExtendProxy(token, formValues,language);
+                const data = await ExtendProxy(token, formValues, language);
                 if (data.status && data.proxys) {
                     success();
 
@@ -89,7 +89,7 @@ const Proxy = () => {
         } else {
 
             (async () => {
-                const data = await BuyProxy(token, formValues,language);
+                const data = await BuyProxy(token, formValues, language);
                 if (data.status && data.proxys) {
                     success();
 

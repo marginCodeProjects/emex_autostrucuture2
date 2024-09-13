@@ -13,13 +13,12 @@
 	display: flex;
 	overflow-x: scroll;
 	overflow-y: hidden;
-	scrollbar-width: none; 
+	scrollbar-width: none;
 	margin-bottom: 40px;
 }
 
-
 .OutlineDiv::-webkit-scrollbar {
-	display: none; 
+	display: none;
 }
 .Card {
 	min-width: 207px;

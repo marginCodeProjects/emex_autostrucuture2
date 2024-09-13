@@ -53,7 +53,8 @@ export async function GetFiles(
 
 export async function ApplyVATCalculation(
 	token: string | null,
-	language: 'EN' | 'RU',file_id:number
+	language: 'EN' | 'RU',
+	file_id: number
 ): Promise<{ success: boolean; files?: Files[]; message?: string }> {
 	try {
 		const response = await fetch(
@@ -79,24 +80,23 @@ export async function ApplyVATCalculation(
 						? 'Вы ещё не загружали файлы'
 						: "You haven't uploaded any files yet",
 			}
-		}else if (response.status == 405) {
+		} else if (response.status == 405) {
 			return {
 				success: false,
 				message:
 					language === 'RU'
 						? 'Файл не может быть сохранён'
-						: "The file cannot be saved",
+						: 'The file cannot be saved',
 			}
-			
-		}else if (response.status == 409) {
+		} else if (response.status == 409) {
 			return {
 				success: false,
 				message:
 					language === 'RU'
 						? 'К файлу уже был применён расчёт НДС'
-						: "VAT calculation has already been applied to the file",
-			}}
-		 else
+						: 'VAT calculation has already been applied to the file',
+			}
+		} else
 			return {
 				success: false,
 				message:
@@ -114,8 +114,6 @@ export async function ApplyVATCalculation(
 		}
 	}
 }
-
-
 
 export async function GetFileData(
 	token: string | null,
