@@ -8,9 +8,10 @@ const AdminDashboard = () => {
     null
   )
   const [users, setUsers] = useState<User[] | undefined>(undefined)
+
   return (
     <div className={styles.dashboard__container}>
-      <Users users={users} setUsers={setUsers} setEditingCardId={setEditingCardId} />
+      <Users users={users} setUsers={setUsers} setEditingCardId={setEditingCardId}  />
       <UsersFields users={users} setUsers={setUsers} editingCardId={editingCardId} setEditingCardId={setEditingCardId} />
     </div>
   )

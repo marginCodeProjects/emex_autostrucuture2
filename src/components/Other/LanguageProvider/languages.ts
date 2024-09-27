@@ -152,6 +152,8 @@ export const settingsTexts = {
 		originals: 'Оригиналы',
 		notOriginals: 'Оригиналы и не оригиналы',
 		pickup_point: 'Пункт самовывоза',
+		uploadProxy: 'Загрузить прокси',
+		uploadProxyModalTitle: 'Загрузить прокси из файла',
 	},
 	EN: {
 		PROXY: 'PROXY',
@@ -177,6 +179,8 @@ export const settingsTexts = {
 		originals: 'Originals',
 		notOriginals: 'Originals and non-originals',
 		pickup_point: 'Pickup point',
+		uploadProxy: 'Upload proxy',
+		uploadProxyModalTitle: 'Upload proxy from file',
 	},
 }
 

@@ -1,11 +1,13 @@
 import { useEffect, useState } from 'react'
 import { useAuth } from '../../Other/authContext/useAuth'
-import { settingsTexts } from '../../Other/LanguageProvider/languages'
+import { settingsTexts, texts } from '../../Other/LanguageProvider/languages'
 import { useLanguage } from '../../Other/LanguageProvider/useLanguage'
 import styles from './Proxy.module.css'
 import { ProxyFormValues, Proxys } from '../../../interfaces/Main'
-import { Input, message, Select } from 'antd'
+import { Button, Input, message, Modal, Select, UploadProps } from 'antd'
 import { BuyProxy, ExtendProxy, GetProxy } from '../../../api/ProxyService'
+import Dragger from 'antd/es/upload/Dragger'
+import icon from '../../../assets/UploadDataIcon.svg'
 const Proxy = () => {
     const { language } = useLanguage()
     const { token } = useAuth()
@@ -17,6 +19,7 @@ const Proxy = () => {
         duration: undefined,
         count: undefined,
     })
+    const [open, setOpen] = useState(false)
     useEffect(() => {
 
         const getProxy = async () => {
@@ -30,7 +33,25 @@ const Proxy = () => {
         }
         getProxy()
     }, [])
+    const props: UploadProps = {
+        name: 'file',
+        multiple: false,
+        showUploadList: false,
+        headers: { 'access-token': `${token}` },
+        action: 'https://127.0.0.1:8000/v1/proxies/upload_file_with_proxy',
+        onChange(info) {
+            const { status } = info.file;
 
+            if (status === 'done') {
+                message.success(language === 'RU' ? "Файл успешно загружен" : "The file has been successfully uploaded");
+                setOpen(false)
+
+            } else if (status === 'error') {
+                message.error(language === 'RU' ? "Файл не соответствует шаблону" : "File does not match the template");
+            }
+        },
+
+    };
     const handleChange = (
         field: keyof ProxyFormValues,
         value: string | number
@@ -134,6 +155,7 @@ const Proxy = () => {
                         )
                     })}
             </div>
+
             <div className={styles.ProxyActions__inputsDiv}>
                 {' '}
                 <Input
@@ -183,7 +205,27 @@ const Proxy = () => {
                         {settingsTexts[language].remove}
                     </div>
                 </div>
+                <Button onClick={() => setOpen(true)} className={`${styles.ProxyActions__AddProxy} ${styles.inter__medium} ${styles.userActionsTexts}`}>
+                    {settingsTexts[language].uploadProxy}
+                </Button>
+                <Modal
+                    title={settingsTexts[language].uploadProxyModalTitle}
+                    centered
+                    open={open}
+                    onOk={() => setOpen(false)}
+                    onCancel={() => setOpen(false)}
+                    width={600}
+                >
+                    <Dragger {...props} style={{ width: '100%', marginBottom: '20px' }} >
+                        <img src={icon} className={styles.icon} />
+                        <p className={`${styles.inter__medium} ${styles.hintText}`} dangerouslySetInnerHTML={{ __html: texts[language].dragAndDropInput }} />
+                    </Dragger>
+                    <a href='https://127.0.0.1:8000/v1/proxies/get_shablon' className={`${styles.inter__medium} ${styles.downloadProxyTemplate}`}>{texts[language].downloadTemplate}</a>
+                </Modal>
+
             </div>
+
+
         </div>
     )
 }

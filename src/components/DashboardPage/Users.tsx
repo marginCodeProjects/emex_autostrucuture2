@@ -115,19 +115,25 @@ const Users: React.FC<IUsersProps> = ({ setEditingCardId, users, setUsers }) => 
           className={`${styles.userLine__controlItem} ${isVisible === card ? styles.show : ''}`}
           style={{ left: `${menuPosition.left}px`, top: `${menuPosition.top}px` }} // Устанавливаем координаты стиля динамически
         >
-          <div onClick={() => setEditingCardId && setEditingCardId(card)}
+          <div onClick={() => { setEditingCardId && setEditingCardId(card); }}
             className={`${styles.userLine__controlItemEdit} ${styles.inter__trueMedium} ${styles.userActionsTexts}`}
           >
             {dashboardTexts[language].edit}
           </div>
+
           <div onClick={() => typeof card === 'number' && userDeleteHandler(card)}
-            className={`${styles.inter__trueMedium} ${styles.userActionsTexts} ${styles.userLine__controlItemRemove}`}
+            className={`${styles.inter__trueMedium} ${styles.userActionsTexts} ${styles.userLine__controlItemEdit}`}
           >
             {dashboardTexts[language].remove}
           </div>
         </div>
       </div>
-      <div className={`${styles.users__addUserButton} ${styles.inter__trueMedium}  ${styles.userActionsTexts} `} onClick={() => setEditingCardId && setEditingCardId(true)}>{dashboardTexts[language].add}</div>
+      <div className={styles.controlItemsDiv}>
+
+        <div className={`${styles.users__addUserButton} ${styles.inter__trueMedium}  ${styles.userActionsTexts} `} onClick={() => { setEditingCardId && setEditingCardId(true); }}>{dashboardTexts[language].add}</div>
+
+
+      </div>
     </div>
   )
 }

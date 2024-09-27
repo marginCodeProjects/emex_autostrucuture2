@@ -7,6 +7,7 @@ import { Input, message, Select } from 'antd';
 import { CreateUser, EditUser } from '../../api/UserService';
 import { useAuth } from '../Other/authContext/useAuth';
 import { CopyTwoTone } from '@ant-design/icons';
+
 const UsersFields: React.FC<IUsersProps> = ({ setEditingCardId, editingCardId, users, setUsers }) => {
     const { token } = useAuth();
     const { language } = useLanguage();
@@ -129,15 +130,31 @@ const UsersFields: React.FC<IUsersProps> = ({ setEditingCardId, editingCardId, u
             content: content,
         });
     };
+
+
+
+    const getActionText = () => {
+
+        if (typeof editingCardId === 'number') {
+            return language === 'RU' ? 'Редактировать пользователя' : 'Edit User';
+        } else if (typeof editingCardId === 'boolean') {
+            return language === 'RU' ? 'Добавить пользователя' : 'Add User';
+        }
+
+        return '';
+    };
+
     if (editingCardId == null) {
         return (<></>)
     }
+
     else {
 
         return (
             <div className={styles.userEdit__div}>
                 {contextHolder}
                 <div className={styles.userEdit__inputsDiv}>
+                    <p className={` ${styles.inter__medium} ${styles.userFirstName} ${styles.selectedActionText}`}>{getActionText()}</p>
                     <Input
                         value={formValues.fullName}
                         onChange={(e) => handleChange('fullName', e.target.value)}

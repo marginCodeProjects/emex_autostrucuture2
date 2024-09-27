@@ -10,7 +10,7 @@ const useWebSocket = () => {
     const [percentBannedList, setPercentBannedList] = useState<number>(0); // Изначально 0
     const { token } = useAuth();
     useEffect(() => {
-        const wsStatus = new WebSocket(`wss://api.autostructure.ru/v1/new_parser/websocket_status/${token}`);
+        const wsStatus = new WebSocket(`wss://127.0.0.1:8000/v1/new_parser/websocket_status/${token}`);
 
         wsStatus.onmessage = (event: MessageEvent) => {
             const data: StatusMessage = JSON.parse(event.data);
@@ -18,7 +18,7 @@ const useWebSocket = () => {
         };
 
 
-        const wsPercent = new WebSocket(`wss://api.autostructure.ru/v1/new_parser/websocket_percent/${token}`);
+        const wsPercent = new WebSocket(`wss://127.0.0.1:8000/v1/new_parser/websocket_percent/${token}`);
 
         wsPercent.onmessage = (event: MessageEvent) => {
             const data: PercentMessage = JSON.parse(event.data);
@@ -26,7 +26,7 @@ const useWebSocket = () => {
             setInputPercent(data.Percent_parsing_goods);
             setPercentBannedList(data.Percent_banned_list);
         };
-       
+
 
         return () => {
             wsStatus.close();
