@@ -38,7 +38,7 @@ const Proxy = () => {
         multiple: false,
         showUploadList: false,
         headers: { 'access-token': `${token}` },
-        action: 'https://127.0.0.1:8000/v1/proxies/upload_file_with_proxy',
+        action: 'https://api.autostructure.ru/v1/proxies/upload_file_with_proxy',
         onChange(info) {
             const { status } = info.file;
 
@@ -220,7 +220,7 @@ const Proxy = () => {
                         <img src={icon} className={styles.icon} />
                         <p className={`${styles.inter__medium} ${styles.hintText}`} dangerouslySetInnerHTML={{ __html: texts[language].dragAndDropInput }} />
                     </Dragger>
-                    <a href='https://127.0.0.1:8000/v1/proxies/get_shablon' className={`${styles.inter__medium} ${styles.downloadProxyTemplate}`}>{texts[language].downloadTemplate}</a>
+                    <a href='https://api.autostructure.ru/v1/proxies/get_shablon' className={`${styles.inter__medium} ${styles.downloadProxyTemplate}`}>{texts[language].downloadTemplate}</a>
                 </Modal>
 
             </div>
