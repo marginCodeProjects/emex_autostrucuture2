@@ -128,7 +128,7 @@ const ProcessManagement: React.FC<IProcessManagementProps> = ({
 		
 	}
 	useEffect(() => {
-
+		fetchTraffic()
 
 		// Устанавливаем интервал только если парсинг идет
 		const interval = parsingInProcess ? setInterval(fetchTraffic, 30000) : null
@@ -138,15 +138,8 @@ const ProcessManagement: React.FC<IProcessManagementProps> = ({
 			if (interval) clearInterval(interval)
 		}
 	}, [parsingInProcess,language])
-	useEffect(() => {
-		fetchTraffic()
-
-	}, [language])
-
-	useEffect(() => {
-		console.log(ProxyTrafficAvalibale)
-	}, [ProxyTrafficAvalibale])
-
+	
+	
 	return (
 		<ConfigProvider
 			theme={{
