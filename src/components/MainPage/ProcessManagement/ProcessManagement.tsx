@@ -125,7 +125,7 @@ const ProcessManagement: React.FC<IProcessManagementProps> = ({
 			const availableTrafficString = availableTrafficGB + suffix
 			setProxyTrafficAvalibale(availableTrafficString)
 		}
-		
+
 	}
 	useEffect(() => {
 		fetchTraffic()
@@ -137,9 +137,9 @@ const ProcessManagement: React.FC<IProcessManagementProps> = ({
 		return () => {
 			if (interval) clearInterval(interval)
 		}
-	}, [parsingInProcess,language])
-	
-	
+	}, [parsingInProcess, language])
+
+
 	return (
 		<ConfigProvider
 			theme={{
@@ -169,13 +169,13 @@ const ProcessManagement: React.FC<IProcessManagementProps> = ({
 						</div>
 
 						<Progress
-							style={{ margin: "8px auto 0px", width: '98%' }}
+							style={{ margin: "3px auto 0px", width: '98%' }}
 							percent={inputPercent}
 							percentPosition={{ align: 'start', type: 'outer' }}
 							size="small"
 						/>
 					</div>
-					<p>{ProxyTrafficAvalibale}</p>
+					<p className={`${styles.inter__medium} ${styles.texts__red}`} style={{ fontSize: "15px" }}>{ProxyTrafficAvalibale}</p>
 				</div>
 			</div>
 		</ConfigProvider>
