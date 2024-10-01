@@ -4,11 +4,12 @@ import stopIcon from '../../../assets/stopButtonIcon.svg'
 import { IProcessManagementProps } from '../../../interfaces/Main'
 import useWebSocket from '../../../hooks/UserHooks/socketHooks'
 import { useEffect, useState } from 'react'
-import { ParserStart, ParserStop } from '../../../api/ParserService'
+import { GetProxyTrafficAvalibale, ParserStart, ParserStop } from '../../../api/ParserService'
 import { useLanguage } from '../../Other/LanguageProvider/useLanguage'
 import { texts, statusMessages } from '../../Other/LanguageProvider/languages'
 import { useAuth } from '../../Other/authContext/useAuth'
 import { ConfigProvider, message, Progress } from 'antd'
+
 const ProcessManagement: React.FC<IProcessManagementProps> = ({
 	file,
 	setFile,
@@ -17,8 +18,9 @@ const ProcessManagement: React.FC<IProcessManagementProps> = ({
 	const { language } = useLanguage()
 	const { token } = useAuth()
 	const [messageApi, contextHolder] = message.useMessage()
-	const { status, inputPercent, percentBannedList } = useWebSocket()
+	const { status, inputPercent } = useWebSocket()
 	const [parsingInProcess, setParsingInProcess] = useState(false)
+	const [ProxyTrafficAvalibale, setProxyTrafficAvalibale] = useState<number>()
 	useEffect(() => {
 		const parsingStatus = localStorage.getItem('parsingInProcess')
 		if (parsingStatus === 'true') {
@@ -27,8 +29,6 @@ const ProcessManagement: React.FC<IProcessManagementProps> = ({
 	}, [])
 
 	useEffect(() => {
-
-
 		if (
 			status == 'Парсер не запущен' ||
 			status == 'PARSER_NOT_STARTED_DATA_SAVED'
@@ -102,10 +102,42 @@ const ProcessManagement: React.FC<IProcessManagementProps> = ({
 		}
 	}
 
+	const getProxyTraffic = async () => {
+		if (parsingInProcess) { // Проверка, чтобы запросы делались только при parsingInProcess == true
+			const proxyTraffic = await GetProxyTrafficAvalibale(language)
+			return proxyTraffic
+		}
+	}
+	useEffect(() => {
+		console.log(ProxyTrafficAvalibale);
 
+	}, [ProxyTrafficAvalibale])
+
+	// Используем useEffect для вызова getProxyTraffic при загрузке и каждые 10 секунд
+	useEffect(() => {
+		const getBalance = async () => {
+
+			const data = await getProxyTraffic()
+			setProxyTrafficAvalibale(data?.AvailableTraffick)
+
+			if (parsingInProcess) {
+
+				const interval = setInterval(() => {
+					const getBalanceInterval = async () => {
+						const data = await getProxyTraffic()
+						setProxyTrafficAvalibale(data?.AvailableTraffick)
+					}
+					getBalanceInterval()
+				}, 10000) // 10000 миллисекунд = 10 секунд
+				// Очищаем интервал при размонтировании компонента
+				return () => clearInterval(interval)
+			}
+		}
+		getBalance()
+
+	}, [parsingInProcess]) // Интервал будет зависеть от состояния parsingInProcess
 
 	return (
-
 		<ConfigProvider
 			theme={{
 				components: {
@@ -115,8 +147,6 @@ const ProcessManagement: React.FC<IProcessManagementProps> = ({
 				},
 			}}
 		>
-
-
 			<div>
 				{contextHolder}
 				{
@@ -136,7 +166,7 @@ const ProcessManagement: React.FC<IProcessManagementProps> = ({
 								<p
 									className={`${styles.inter__medium} ${styles.texts__red}`}
 								>
-									{texts[language].blocked}
+									{texts[language].Available}
 								</p>
 							</div>
 
@@ -145,11 +175,11 @@ const ProcessManagement: React.FC<IProcessManagementProps> = ({
 								width: '98%'
 							}} percent={inputPercent} percentPosition={{ align: 'start', type: 'outer' }} size="small" />
 						</div>
-						<Progress type="circle" percent={percentBannedList} size={46} strokeColor={'#e53835'} status='exception' />
+						<p>{ProxyTrafficAvalibale}</p>
 					</div>
 				}
 			</div>
-		</ConfigProvider >
+		</ConfigProvider>
 	)
 }
 

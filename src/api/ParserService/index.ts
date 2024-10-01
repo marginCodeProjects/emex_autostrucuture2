@@ -109,3 +109,44 @@ export async function ParserStop(
 		}
 	}
 }
+export async function GetProxyTrafficAvalibale(
+	language: 'RU' | 'EN'
+): Promise<{ success: boolean; AvailableTraffick?: number; message?: string }> {
+	try {
+		const response = await fetch(
+			'https://backend.mangoproxy.com/public-api/v1/traffic',
+			{
+				method: 'GET',
+				headers: {
+					'x-api-key':
+						'mango_fd49e4bb0ee651047a557a0a81f0d08c9d1a2bc71b05032adb712ed488759ae9',
+				},
+			}
+		)
+
+		if (response.ok) {
+			const AvailableTraffick = await response.json()
+			return {
+				success: true,
+
+				AvailableTraffick: AvailableTraffick.availableMB,
+			}
+		} else {
+			return {
+				success: false,
+				message:
+					language === 'RU'
+						? 'Ошибка остановки парсера'
+						: 'Parser stop error',
+			}
+		}
+	} catch (error) {
+		return {
+			success: false,
+			message:
+				language === 'RU'
+					? 'Ошибка сети или сервера'
+					: 'Network or server error',
+		}
+	}
+}

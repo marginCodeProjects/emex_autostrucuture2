@@ -16,7 +16,7 @@ export const texts = {
 		dragAndDropInput: `Щелкните или перетащите файл в эту область<br/> для загрузки.<br/>Загружаемый файл должен быть в формате xlsx.<br/>Файл будет автоматически загружен в систему.`,
 		downloadTemplate: 'Скачать шаблон',
 		processManagement: 'УПРАВЛЕНИЕ ПРОЦЕССОМ',
-		blocked: 'Заблокировано',
+		Available: 'Доступно',
 		logoIsNotUsed: 'не используется',
 	},
 	EN: {
@@ -37,7 +37,7 @@ export const texts = {
 			'Click or drag the file to this area to upload.<br/>The uploaded file must be in xlsx format. The file will<br/> be automatically uploaded to the system.',
 		downloadTemplate: 'Download template',
 		processManagement: 'PROCESS MANAGEMENT',
-		blocked: 'Blocked',
+		Available: 'Available',
 		logoIsNotUsed: 'is not used',
 	},
 }
