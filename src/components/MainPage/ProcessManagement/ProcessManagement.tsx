@@ -21,6 +21,7 @@ const ProcessManagement: React.FC<IProcessManagementProps> = ({
 	const { status, inputPercent } = useWebSocket()
 	const [parsingInProcess, setParsingInProcess] = useState(false)
 	const [ProxyTrafficAvalibale, setProxyTrafficAvalibale] = useState<number>()
+
 	useEffect(() => {
 		const parsingStatus = localStorage.getItem('parsingInProcess')
 		if (parsingStatus === 'true') {
@@ -103,39 +104,34 @@ const ProcessManagement: React.FC<IProcessManagementProps> = ({
 	}
 
 	const getProxyTraffic = async () => {
-		if (parsingInProcess) { // Проверка, чтобы запросы делались только при parsingInProcess == true
+		if (parsingInProcess) {
 			const proxyTraffic = await GetProxyTrafficAvalibale(language)
 			return proxyTraffic
 		}
 	}
-	useEffect(() => {
-		console.log(ProxyTrafficAvalibale);
-
-	}, [ProxyTrafficAvalibale])
 
 	// Используем useEffect для вызова getProxyTraffic при загрузке и каждые 10 секунд
 	useEffect(() => {
-		const getBalance = async () => {
-
+		const fetchTraffic = async () => {
 			const data = await getProxyTraffic()
 			setProxyTrafficAvalibale(data?.AvailableTraffick)
-
-			if (parsingInProcess) {
-
-				const interval = setInterval(() => {
-					const getBalanceInterval = async () => {
-						const data = await getProxyTraffic()
-						setProxyTrafficAvalibale(data?.AvailableTraffick)
-					}
-					getBalanceInterval()
-				}, 10000) // 10000 миллисекунд = 10 секунд
-				// Очищаем интервал при размонтировании компонента
-				return () => clearInterval(interval)
-			}
 		}
-		getBalance()
 
-	}, [parsingInProcess]) // Интервал будет зависеть от состояния parsingInProcess
+		// Первый вызов сразу при загрузке компонента
+		fetchTraffic()
+
+		// Устанавливаем интервал только если парсинг идет
+		const interval = parsingInProcess ? setInterval(fetchTraffic, 10000) : null
+
+		// Очистка интервала при размонтировании компонента
+		return () => {
+			if (interval) clearInterval(interval)
+		}
+	}, [parsingInProcess])
+
+	useEffect(() => {
+		console.log(ProxyTrafficAvalibale)
+	}, [ProxyTrafficAvalibale])
 
 	return (
 		<ConfigProvider
@@ -149,35 +145,31 @@ const ProcessManagement: React.FC<IProcessManagementProps> = ({
 		>
 			<div>
 				{contextHolder}
-				{
-					<div className={styles.ProcessDiv}>
-						<img
-							src={parsingInProcess ? stopIcon : startIcon}
-							onClick={() => startParserHandler()}
-							className={styles.ProcessDiv__StartButton}
-						/>
-						<div className={styles.ProcessDiv__group}>
-							<div className={styles.texts__div}>
-								<p
-									className={`${styles.inter__medium}${styles.texts}`}
-								>
-									{statusMessage()}
-								</p>
-								<p
-									className={`${styles.inter__medium} ${styles.texts__red}`}
-								>
-									{texts[language].Available}
-								</p>
-							</div>
-
-							<Progress style={{
-								margin: "8px auto 0px",
-								width: '98%'
-							}} percent={inputPercent} percentPosition={{ align: 'start', type: 'outer' }} size="small" />
+				<div className={styles.ProcessDiv}>
+					<img
+						src={parsingInProcess ? stopIcon : startIcon}
+						onClick={startParserHandler}
+						className={styles.ProcessDiv__StartButton}
+					/>
+					<div className={styles.ProcessDiv__group}>
+						<div className={styles.texts__div}>
+							<p className={`${styles.inter__medium}${styles.texts}`}>
+								{statusMessage()}
+							</p>
+							<p className={`${styles.inter__medium} ${styles.texts__red}`}>
+								{texts[language].Available}
+							</p>
 						</div>
-						<p>{ProxyTrafficAvalibale}</p>
+
+						<Progress
+							style={{ margin: "8px auto 0px", width: '98%' }}
+							percent={inputPercent}
+							percentPosition={{ align: 'start', type: 'outer' }}
+							size="small"
+						/>
 					</div>
-				}
+					<p>{ProxyTrafficAvalibale}</p>
+				</div>
 			</div>
 		</ConfigProvider>
 	)
