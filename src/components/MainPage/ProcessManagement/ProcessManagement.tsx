@@ -20,7 +20,7 @@ const ProcessManagement: React.FC<IProcessManagementProps> = ({
 	const [messageApi, contextHolder] = message.useMessage()
 	const { status, inputPercent } = useWebSocket()
 	const [parsingInProcess, setParsingInProcess] = useState(false)
-	const [ProxyTrafficAvalibale, setProxyTrafficAvalibale] = useState<number>()
+	const [ProxyTrafficAvalibale, setProxyTrafficAvalibale] = useState<string>()
 
 	useEffect(() => {
 		const parsingStatus = localStorage.getItem('parsingInProcess')
@@ -111,23 +111,37 @@ const ProcessManagement: React.FC<IProcessManagementProps> = ({
 	}
 
 	// Используем useEffect для вызова getProxyTraffic при загрузке и каждые 10 секунд
-	useEffect(() => {
-		const fetchTraffic = async () => {
-			const data = await getProxyTraffic()
-			setProxyTrafficAvalibale(data?.AvailableTraffick)
-		}
+	const fetchTraffic = async () => {
+		const data = await getProxyTraffic()
+		console.log(data);
+		if (data?.AvailableTraffick) {
 
-		// Первый вызов сразу при загрузке компонента
-		fetchTraffic()
+			const availableTrafficGB = (data?.AvailableTraffick / 1024).toFixed(1)
+
+			// Добавляем суффикс "GB" или "ГБ" в зависимости от языка
+			const suffix = language === "RU" ? ' ГБ' : ' GB'
+
+			// Записываем результат как строку
+			const availableTrafficString = availableTrafficGB + suffix
+			setProxyTrafficAvalibale(availableTrafficString)
+		}
+		
+	}
+	useEffect(() => {
+
 
 		// Устанавливаем интервал только если парсинг идет
-		const interval = parsingInProcess ? setInterval(fetchTraffic, 10000) : null
+		const interval = parsingInProcess ? setInterval(fetchTraffic, 30000) : null
 
 		// Очистка интервала при размонтировании компонента
 		return () => {
 			if (interval) clearInterval(interval)
 		}
-	}, [parsingInProcess])
+	}, [parsingInProcess,language])
+	useEffect(() => {
+		fetchTraffic()
+
+	}, [language])
 
 	useEffect(() => {
 		console.log(ProxyTrafficAvalibale)
