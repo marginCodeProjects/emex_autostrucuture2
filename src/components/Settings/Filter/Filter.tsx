@@ -205,25 +205,32 @@ const Filter = () => {
                                 },
                             ]}
                         />{' '}
-                         <Select
-                            className={`${styles.ProxyActions__input} ${styles.inter__medium} ${styles.FilterFieldsText}`}
-                            value={
-                                FilterFieldsText.replacement
-                                    ? settingsTexts[language].include
-                                    : settingsTexts[language].notInclude
-                            }
-                            onChange={(e) => handleChange('replacement', e)}
-                            options={[
-                                {
-                                    value: true,
-                                    label: settingsTexts[language].include,
-                                },
-                                {
-                                    value: false,
-                                    label: settingsTexts[language].notInclude,
-                                },
-                            ]}
-                        />{' '}
+                        <div className={styles.InputsDiv}>
+                            <p
+                                className={`${styles.InputsLineText} ${styles.inter__medium}`}
+                            >
+                                {settingsTexts[language].sameBrandAnalog}
+                            </p>
+                            <Select
+                                className={`${styles.ProxyActions__input} ${styles.inter__medium} ${styles.FilterFieldsText}`}
+                                value={
+                                    FilterFieldsText.replacement
+                                        ? settingsTexts[language].include
+                                        : settingsTexts[language].notInclude
+                                }
+                                onChange={(e) => handleChange('replacement', e)}
+                                options={[
+                                    {
+                                        value: true,
+                                        label: settingsTexts[language].include,
+                                    },
+                                    {
+                                        value: false,
+                                        label: settingsTexts[language].notInclude,
+                                    },
+                                ]}
+                            />{' '}
+                        </div>
                         <Input
                             value={FilterFieldsText.date}
                             onChange={(e) =>
