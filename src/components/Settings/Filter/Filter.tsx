@@ -75,7 +75,7 @@ const Filter = () => {
                 analog: filter.analog ?? false,
                 title: filter.title ?? '',
                 is_bigger: filter.is_bigger ?? false,
-                date: filter.date ?? '', pickup_point: filter.pickup_point, replacement: false
+                date: filter.date ?? '', pickup_point: filter.pickup_point, replacement: filter.replacement
             })
         }
     }, [selectedCardId, filters])
@@ -214,32 +214,32 @@ const Filter = () => {
                             className={`${styles.ProxyActions__input} ${styles.inter__medium} ${styles.FilterFieldsText}`}
                         />
                     </div>
-                        <div className={styles.InputsDiv}>
-                            <p
-                                className={`${styles.InputsLineText} ${styles.inter__medium}`}
-                            >
-                                {settingsTexts[language].sameBrandAnalog}
-                            </p>
-                            <Select
-                                className={`${styles.ProxyActions__input} ${styles.inter__medium} ${styles.FilterFieldsText}`}
-                                value={
-                                    FilterFieldsText.replacement
-                                        ? settingsTexts[language].include
-                                        : settingsTexts[language].notInclude
-                                }
-                                onChange={(e) => handleChange('replacement', e)}
-                                options={[
-                                    {
-                                        value: true,
-                                        label: settingsTexts[language].include,
-                                    },
-                                    {
-                                        value: false,
-                                        label: settingsTexts[language].notInclude,
-                                    },
-                                ]}
-                            />{' '}
-                        </div>
+                    <div className={styles.InputsDiv}>
+                        <p
+                            className={`${styles.InputsLineText} ${styles.inter__medium}`}
+                        >
+                            {settingsTexts[language].sameBrandAnalog}
+                        </p>
+                        <Select
+                            className={`${styles.ProxyActions__input} ${styles.inter__medium} ${styles.FilterFieldsText}`}
+                            value={
+                                FilterFieldsText.replacement
+                                    ? settingsTexts[language].include
+                                    : settingsTexts[language].notInclude
+                            }
+                            onChange={(e) => handleChange('replacement', e)}
+                            options={[
+                                {
+                                    value: true,
+                                    label: settingsTexts[language].include,
+                                },
+                                {
+                                    value: false,
+                                    label: settingsTexts[language].notInclude,
+                                },
+                            ]}
+                        />{' '}
+                    </div>
                     <div className={styles.InputsDiv}>
                         <p
                             className={`${styles.InputsLineText} ${styles.inter__medium}`}
