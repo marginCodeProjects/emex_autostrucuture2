@@ -154,6 +154,7 @@ export const settingsTexts = {
 		pickup_point: 'Пункт самовывоза',
 		uploadProxy: 'Загрузить прокси',
 		uploadProxyModalTitle: 'Загрузить прокси из файла',
+		sameBrandAnalog: 'Аналоги того же производителя',include:"Включать",notInclude:"Не включать"
 	},
 	EN: {
 		PROXY: 'PROXY',
@@ -180,7 +181,8 @@ export const settingsTexts = {
 		notOriginals: 'Originals and non-originals',
 		pickup_point: 'Pickup point',
 		uploadProxy: 'Upload proxy',
-		uploadProxyModalTitle: 'Upload proxy from file',
+		sameBrandAnalog: 'Analogs of the same manufacturer',
+		uploadProxyModalTitle: 'Upload proxy from file',include:"Include",notInclude:"Not include"
 	},
 }
 

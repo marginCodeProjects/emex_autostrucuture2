@@ -48,6 +48,7 @@ export async function EditFilter(
 					date: FilterFormValues.date,
 					logo: FilterFormValues.logo,
 					pickup_point: FilterFormValues.pickup_point,
+					replacement: FilterFormValues.replacement,
 				}),
 				headers: {
 					'Content-Type': 'application/json',
@@ -107,6 +108,7 @@ export async function CreateFilter(
 					date: FilterFormValues.date,
 					logo: FilterFormValues.logo,
 					pickup_point: FilterFormValues.pickup_point,
+					replacement: FilterFormValues.replacement,
 				}),
 				headers: {
 					'Content-Type': 'application/json',

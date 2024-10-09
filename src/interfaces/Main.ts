@@ -109,6 +109,7 @@ export interface FilterFormValues {
 	date: number
 	logo: string
 	pickup_point: number
+	replacement:boolean
 }
 export interface FilterOption {
 	id: string
@@ -121,6 +122,7 @@ export interface FilterOption {
 	date: number
 	user_id: number
 	pickup_point: number
+	replacement:boolean
 }
 
 // Типы состояния

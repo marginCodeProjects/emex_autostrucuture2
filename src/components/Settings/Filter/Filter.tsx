@@ -24,7 +24,7 @@ const Filter = () => {
         analog: false,
         title: '',
         is_bigger: false,
-        date: 10, pickup_point: 38760
+        date: 10, pickup_point: 38760, replacement: false
     })
     const { filters, loading, setFilters } = useFilters(
         'https://api.autostructure.ru/v1/filters/get_filters',
@@ -40,7 +40,7 @@ const Filter = () => {
                 analog: false,
                 title: '',
                 is_bigger: false,
-                date: 10, pickup_point: 38760
+                date: 10, pickup_point: 38760, replacement: false
             })
         } else {
             setSelectedCardId(filterId)
@@ -75,7 +75,7 @@ const Filter = () => {
                 analog: filter.analog ?? false,
                 title: filter.title ?? '',
                 is_bigger: filter.is_bigger ?? false,
-                date: filter.date ?? '', pickup_point: filter.pickup_point
+                date: filter.date ?? '', pickup_point: filter.pickup_point, replacement: false
             })
         }
     }, [selectedCardId, filters])
@@ -202,6 +202,25 @@ const Filter = () => {
                                 {
                                     value: false,
                                     label: settingsTexts[language].lessThan,
+                                },
+                            ]}
+                        />{' '}
+                         <Select
+                            className={`${styles.ProxyActions__input} ${styles.inter__medium} ${styles.FilterFieldsText}`}
+                            value={
+                                FilterFieldsText.replacement
+                                    ? settingsTexts[language].include
+                                    : settingsTexts[language].notInclude
+                            }
+                            onChange={(e) => handleChange('replacement', e)}
+                            options={[
+                                {
+                                    value: true,
+                                    label: settingsTexts[language].include,
+                                },
+                                {
+                                    value: false,
+                                    label: settingsTexts[language].notInclude,
                                 },
                             ]}
                         />{' '}
