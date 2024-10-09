@@ -205,6 +205,15 @@ const Filter = () => {
                                 },
                             ]}
                         />{' '}
+                        <Input
+                            value={FilterFieldsText.date}
+                            onChange={(e) =>
+                                handleChange('date', e.target.value)
+                            }
+                            type='number'
+                            className={`${styles.ProxyActions__input} ${styles.inter__medium} ${styles.FilterFieldsText}`}
+                        />
+                    </div>
                         <div className={styles.InputsDiv}>
                             <p
                                 className={`${styles.InputsLineText} ${styles.inter__medium}`}
@@ -231,15 +240,6 @@ const Filter = () => {
                                 ]}
                             />{' '}
                         </div>
-                        <Input
-                            value={FilterFieldsText.date}
-                            onChange={(e) =>
-                                handleChange('date', e.target.value)
-                            }
-                            type='number'
-                            className={`${styles.ProxyActions__input} ${styles.inter__medium} ${styles.FilterFieldsText}`}
-                        />
-                    </div>
                     <div className={styles.InputsDiv}>
                         <p
                             className={`${styles.InputsLineText} ${styles.inter__medium}`}
