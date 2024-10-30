@@ -9,12 +9,12 @@ import { useState } from 'react';
 
 const History = () => {
   const { language } = useLanguage();
-  const [fileId, setFileId] = useState<number | undefined>()
+  const [fileName, setFileName] = useState<string | undefined>()
   return (
     <div className={styles.history__container}><PagePartTitle num='1.' label={historyTexts[language].history} />
-      <AllDataTable setFileId={setFileId} />
-      {fileId &&
-        <SessionDataTable fileId={fileId} />
+      <AllDataTable setFileName={setFileName} />
+      {fileName &&
+        <SessionDataTable fileName={fileName} />
       }
     </div>
   );

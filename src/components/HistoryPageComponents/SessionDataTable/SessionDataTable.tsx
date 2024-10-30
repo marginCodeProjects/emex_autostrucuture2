@@ -8,7 +8,7 @@ import styles from './SessionDataTable.module.css';
 import { SessionDataTableProps, SessionTableRowData } from '../../../interfaces/Main';
 
 
-const SessionDataTable: React.FC<SessionDataTableProps> = ({ fileId }) => {
+const SessionDataTable: React.FC<SessionDataTableProps> = ({ fileName }) => {
     const { language } = useLanguage();
     const { token } = useAuth();
     const [messageApi, contextHolder] = message.useMessage();
@@ -47,7 +47,7 @@ const SessionDataTable: React.FC<SessionDataTableProps> = ({ fileId }) => {
 
     useEffect(() => {
         const GetData = async () => {
-            const { success, rows, totalRows, message } = await GetFileData(token, fileId, skip, limit, language);
+            const { success, rows, totalRows, message } = await GetFileData(token, fileName, skip, limit, language);
             if (success && rows) {
                 setRowsLen(totalRows)
                 setTableData(rows.map((file: any, index: number) => ({
@@ -60,7 +60,7 @@ const SessionDataTable: React.FC<SessionDataTableProps> = ({ fileId }) => {
             }
         };
         GetData();
-    }, [fileId, skip, limit, token]);
+    }, [fileName, skip, limit, token]);
 
     return (
         <ConfigProvider

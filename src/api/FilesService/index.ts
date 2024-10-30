@@ -10,7 +10,7 @@ export async function GetFiles(
 ): Promise<{ success: boolean; files?: Files[]; message?: string }> {
 	try {
 		const response = await fetch(
-			`https://127.0.0.1:8000/v1/files/all_files`,
+			`https://api.autostructure.ru/v1/files/all_files`,
 			{
 				method: 'GET',
 				headers: {
@@ -58,7 +58,7 @@ export async function ApplyVATCalculation(
 ): Promise<{ success: boolean; files?: Files[]; message?: string }> {
 	try {
 		const response = await fetch(
-			`https://127.0.0.1:8000/v1/nds/edit/${file_id}`,
+			`https://api.autostructure.ru/v1/nds/edit/${file_id}`,
 			{
 				method: 'GET',
 				headers: {
@@ -117,7 +117,7 @@ export async function ApplyVATCalculation(
 
 export async function GetFileData(
 	token: string | null,
-	file_id: number | undefined,
+	fileName: string | undefined,
 	skip: number,
 	limit: number,
 	language: 'EN' | 'RU'
@@ -129,7 +129,7 @@ export async function GetFileData(
 }> {
 	try {
 		const response = await fetch(
-			`https://127.0.0.1:8000/v1/showing/show_data/${file_id}?skip=${skip}&limit=${limit}`,
+			`https://api.autostructure.ru/v1/showing/show_data/${fileName}?skip=${skip}&limit=${limit}`,
 			{
 				method: 'GET',
 				headers: {

@@ -159,7 +159,7 @@ export interface SessionTableAPI {
 	rows: SessionTableRowData[]
 }
 export interface SessionDataTableProps {
-	fileId: number | undefined
+	fileName: string | undefined
 }
 
 export interface IPagePartTitleProps {
@@ -172,5 +172,5 @@ export interface ICardScrollingProps {
 	selectedCardId: string | null
 }
 export interface AllDataTableProps {
-	setFileId: React.Dispatch<React.SetStateAction<number | undefined>>
+	setFileName: React.Dispatch<React.SetStateAction<string | undefined>>
 }
