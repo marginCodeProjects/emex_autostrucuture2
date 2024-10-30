@@ -169,6 +169,7 @@ export async function GetBrightProxyTrafficAvalibale(
 					Authorization:
 						'Bearer 378709d1-cde5-4bd6-a48a-6c140a6ae4d7',
 				},
+				mode: 'no-cors',
 			}
 		)
 
