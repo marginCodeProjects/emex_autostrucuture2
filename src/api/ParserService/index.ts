@@ -1,6 +1,7 @@
 export async function ParserStart(
 	filterId: string | null,
 	token: string | null,
+	currentProxySource: string,
 	language: 'RU' | 'EN'
 ): Promise<{ success: boolean; message: string }> {
 	if (filterId === null) {
@@ -14,7 +15,7 @@ export async function ParserStart(
 	}
 	try {
 		const response = await fetch(
-			`https://api.autostructure.ru/v1/new_parser/start/${filterId}`,
+			`https://api.autostructure.ru/v1/new_parser/start/${filterId}?using_proxy=${currentProxySource}`,
 			{
 				method: 'GET',
 				headers: {
@@ -109,7 +110,7 @@ export async function ParserStop(
 		}
 	}
 }
-export async function GetProxyTrafficAvalibale(
+export async function GetMangoProxyTrafficAvalibale(
 	language: 'RU' | 'EN'
 ): Promise<{ success: boolean; AvailableTraffick?: number; message?: string }> {
 	try {
@@ -130,6 +131,54 @@ export async function GetProxyTrafficAvalibale(
 				success: true,
 
 				AvailableTraffick: AvailableTraffick.availableMB,
+			}
+		} else {
+			return {
+				success: false,
+				message:
+					language === 'RU'
+						? 'Ошибка остановки парсера'
+						: 'Parser stop error',
+			}
+		}
+	} catch (error) {
+		return {
+			success: false,
+			message:
+				language === 'RU'
+					? 'Ошибка сети или сервера'
+					: 'Network or server error',
+		}
+	}
+}
+
+export async function GetBrightProxyTrafficAvalibale(
+	language: 'RU' | 'EN'
+): Promise<{
+	success: boolean
+	balance?: number
+	pending_costs?: number
+	message?: string
+}> {
+	try {
+		const response = await fetch(
+			'https://api.brightdata.com/customer/balance',
+			{
+				method: 'GET',
+				headers: {
+					Authorization:
+						'Bearer 378709d1-cde5-4bd6-a48a-6c140a6ae4d7',
+				},
+			}
+		)
+
+		if (response.ok) {
+			const data = await response.json()
+			return {
+				success: true,
+
+				balance: data.balance,
+				pending_costs: data.pending_costs,
 			}
 		} else {
 			return {

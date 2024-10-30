@@ -4,7 +4,7 @@ import stopIcon from '../../../assets/stopButtonIcon.svg'
 import { IProcessManagementProps } from '../../../interfaces/Main'
 import useWebSocket from '../../../hooks/UserHooks/socketHooks'
 import { useEffect, useState } from 'react'
-import { GetProxyTrafficAvalibale, ParserStart, ParserStop } from '../../../api/ParserService'
+import { GetBrightProxyTrafficAvalibale, GetMangoProxyTrafficAvalibale, ParserStart, ParserStop } from '../../../api/ParserService'
 import { useLanguage } from '../../Other/LanguageProvider/useLanguage'
 import { texts, statusMessages } from '../../Other/LanguageProvider/languages'
 import { useAuth } from '../../Other/authContext/useAuth'
@@ -21,13 +21,23 @@ const ProcessManagement: React.FC<IProcessManagementProps> = ({
 	const { status, inputPercent } = useWebSocket()
 	const [parsingInProcess, setParsingInProcess] = useState(false)
 	const [ProxyTrafficAvalibale, setProxyTrafficAvalibale] = useState<string>()
-
+	const [currentProxySource, setCurrentProxySource] = useState("MANGO")
+	const [isLoading, setIsLoading] = useState(true)
 	useEffect(() => {
 		const parsingStatus = localStorage.getItem('parsingInProcess')
+		const ProxySource = localStorage.getItem("currentProxySource")
+		if (ProxySource != null) {
+
+			setCurrentProxySource(ProxySource)
+		}
 		if (parsingStatus === 'true') {
 			setParsingInProcess(true)
 		}
+		setIsLoading(false)
 	}, [])
+
+
+
 
 	useEffect(() => {
 		if (
@@ -91,7 +101,7 @@ const ProcessManagement: React.FC<IProcessManagementProps> = ({
 				successMessage(data.message)
 			}
 		} else {
-			const data = await ParserStart(filterId, token, language)
+			const data = await ParserStart(filterId, token, currentProxySource, language)
 
 			if (data.success === false) {
 				errorMessage(data.message)
@@ -103,29 +113,24 @@ const ProcessManagement: React.FC<IProcessManagementProps> = ({
 		}
 	}
 
-	const getProxyTraffic = async () => {
-		if (parsingInProcess) {
-			const proxyTraffic = await GetProxyTrafficAvalibale(language)
-			return proxyTraffic
-		}
-	}
-
-	// Используем useEffect для вызова getProxyTraffic при загрузке и каждые 10 секунд
 	const fetchTraffic = async () => {
-		const data = await getProxyTraffic()
-		console.log(data);
-		if (data?.AvailableTraffick) {
+		if (isLoading == false) {
+			if (parsingInProcess) {
+				if (currentProxySource == "MANGO") {
+					const data = await GetMangoProxyTrafficAvalibale(language)
+					if (data?.AvailableTraffick) {
+						const availableTrafficGB = (data.AvailableTraffick / 1024).toFixed(1)
+						const suffix = language === "RU" ? ' ГБ' : ' GB'
+						setProxyTrafficAvalibale(availableTrafficGB + suffix)
+					}
 
-			const availableTrafficGB = (data?.AvailableTraffick / 1024).toFixed(1)
+				} else if (currentProxySource == "BRIGHTDATA") {
+					const data = await GetBrightProxyTrafficAvalibale(language)
+					console.log(data);
 
-			// Добавляем суффикс "GB" или "ГБ" в зависимости от языка
-			const suffix = language === "RU" ? ' ГБ' : ' GB'
-
-			// Записываем результат как строку
-			const availableTrafficString = availableTrafficGB + suffix
-			setProxyTrafficAvalibale(availableTrafficString)
+				}
+			}
 		}
-
 	}
 	useEffect(() => {
 		fetchTraffic()
@@ -137,7 +142,7 @@ const ProcessManagement: React.FC<IProcessManagementProps> = ({
 		return () => {
 			if (interval) clearInterval(interval)
 		}
-	}, [parsingInProcess, language])
+	}, [parsingInProcess, language, isLoading])
 
 
 	return (
