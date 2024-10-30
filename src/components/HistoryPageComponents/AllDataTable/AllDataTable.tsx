@@ -2,7 +2,7 @@ import { useState, useEffect } from 'react';
 import { useLanguage } from '../../Other/LanguageProvider/useLanguage';
 import styles from './AllDataTable.module.css';
 import { historyTexts } from '../../../components/Other/LanguageProvider/languages';
-import { ApplyVATCalculation, GetFiles } from '../../../api/FilesService';
+import { GetFiles } from '../../../api/FilesService';
 import { useAuth } from '../../Other/authContext/useAuth';
 import { message, Popover } from 'antd';
 import { AllDataTableProps, Files } from '../../../interfaces/Main';
