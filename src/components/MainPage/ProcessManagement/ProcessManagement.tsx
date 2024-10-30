@@ -127,7 +127,12 @@ const ProcessManagement: React.FC<IProcessManagementProps> = ({
 				} else if (currentProxySource == "BRIGHTDATA") {
 					const data = await GetBrightProxyTrafficAvalibale(language)
 					console.log(data);
+					if (data.balance && data.pending_costs) {
 
+						const availableTrafficGB = ((data.balance - data.pending_costs) / 0.6).toFixed(1)
+						const suffix = language === "RU" ? ' ГБ' : ' GB'
+						setProxyTrafficAvalibale(availableTrafficGB + suffix)
+					}
 				}
 			}
 		}

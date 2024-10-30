@@ -27,7 +27,7 @@ const Filter = () => {
         date: 10, pickup_point: 38760, replacement: false
     })
     const { filters, loading, setFilters } = useFilters(
-        'https://api.autostructure.ru/v1/filters/get_filters',
+        'https://127.0.0.1:8000/v1/filters/get_filters',
         token, language
     )
     const handleSelectCard = (filterId: string) => {

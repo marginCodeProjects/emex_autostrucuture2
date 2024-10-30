@@ -51,7 +51,9 @@ export interface Files {
 	before_parsing_filename: string
 	finish_date: string | null
 	new_filter_id: number | null
-	after_parsing_filename: string
+	filename_after_parsing: string
+	filename_after_parsing_with_nds: string
+	filename_after_parsing_without_nds: string
 	date: string
 	user_id: number
 	id: number
@@ -79,7 +81,6 @@ export interface IUsersProps {
 	editingCardId?: null | number | true
 	users: User[] | undefined
 	setUsers?: React.Dispatch<React.SetStateAction<User[] | undefined>>
-	
 }
 
 export interface UserFormValues {
@@ -109,7 +110,7 @@ export interface FilterFormValues {
 	date: number
 	logo: string
 	pickup_point: number
-	replacement:boolean
+	replacement: boolean
 }
 export interface FilterOption {
 	id: string
@@ -122,7 +123,7 @@ export interface FilterOption {
 	date: number
 	user_id: number
 	pickup_point: number
-	replacement:boolean
+	replacement: boolean
 }
 
 // Типы состояния
