@@ -24,15 +24,18 @@ const SessionDataTable: React.FC<SessionDataTableProps> = ({ fileName, fileType 
             content: message
         });
     };
+    useEffect(() => {
 
-    if (fileType == "afterParsing") {
-        setPriceFieldKey('best_price')
-    } else if (fileType == "withoutNds") {
-        setPriceFieldKey("best_price_without_nds")
-    } else if (fileType == "withNds") {
-        setPriceFieldKey("best_price_with_nds")
 
-    }
+        if (fileType == "afterParsing") {
+            setPriceFieldKey('best_price')
+        } else if (fileType == "withoutNds") {
+            setPriceFieldKey("best_price_without_nds")
+        } else if (fileType == "withNds") {
+            setPriceFieldKey("best_price_with_nds")
+
+        }
+    }, [fileType])
 
     const columns = [
         { title: historyTexts[language].article, dataIndex: 'article', key: 'article' },
