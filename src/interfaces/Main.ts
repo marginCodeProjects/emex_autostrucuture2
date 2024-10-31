@@ -137,22 +137,24 @@ export interface FiltersState {
 }
 
 export interface SessionTableRowData {
+	good_code: string
 	article: string
+	name: string
+	brand: string
 	article1: string
 	price: string
-	nds: string
 	logo: string
 	new_price: string
 	user_id: number
 	id: number
-	name: string
-	brand: string
 	quantity: string
 	batch: string
-	best_price: string
 	delivery_time: string
 	quantity1: string
 	file_id: number
+	best_price?: string
+	best_price_with_nds?: string
+	best_price_without_nds?: string
 }
 export interface SessionTableAPI {
 	total: number
@@ -160,6 +162,7 @@ export interface SessionTableAPI {
 }
 export interface SessionDataTableProps {
 	fileName: string | undefined
+	fileType: null | 'afterParsing' | 'withoutNds' | 'withNds'
 }
 
 export interface IPagePartTitleProps {
@@ -173,4 +176,7 @@ export interface ICardScrollingProps {
 }
 export interface AllDataTableProps {
 	setFileName: React.Dispatch<React.SetStateAction<string | undefined>>
+	setFileType: React.Dispatch<
+		React.SetStateAction<null | 'afterParsing' | 'withoutNds' | 'withNds'>
+	>
 }

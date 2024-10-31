@@ -10,11 +10,12 @@ import { useState } from 'react';
 const History = () => {
   const { language } = useLanguage();
   const [fileName, setFileName] = useState<string | undefined>()
+  const [fileType, setFileType] = useState<"afterParsing" | "withoutNds" | "withNds" | null>(null)
   return (
     <div className={styles.history__container}><PagePartTitle num='1.' label={historyTexts[language].history} />
-      <AllDataTable setFileName={setFileName} />
+      <AllDataTable setFileName={setFileName} setFileType={setFileType} />
       {fileName &&
-        <SessionDataTable fileName={fileName} />
+        <SessionDataTable fileName={fileName} fileType={fileType} />
       }
     </div>
   );

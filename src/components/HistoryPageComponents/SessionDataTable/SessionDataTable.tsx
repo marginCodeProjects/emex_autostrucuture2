@@ -7,8 +7,7 @@ import { useAuth } from '../../Other/authContext/useAuth';
 import styles from './SessionDataTable.module.css';
 import { SessionDataTableProps, SessionTableRowData } from '../../../interfaces/Main';
 
-
-const SessionDataTable: React.FC<SessionDataTableProps> = ({ fileName }) => {
+const SessionDataTable: React.FC<SessionDataTableProps> = ({ fileName, fileType }) => {
     const { language } = useLanguage();
     const { token } = useAuth();
     const [messageApi, contextHolder] = message.useMessage();
@@ -16,6 +15,8 @@ const SessionDataTable: React.FC<SessionDataTableProps> = ({ fileName }) => {
     const [limit, setLimit] = useState(10);
     const [skip, setSkip] = useState(0);
     const [rowsLen, setRowsLen] = useState(0)
+    const [priceFieldKey, setPriceFieldKey] = useState('')
+
 
     const errorMessage = (message: string) => {
         messageApi.open({
@@ -23,6 +24,16 @@ const SessionDataTable: React.FC<SessionDataTableProps> = ({ fileName }) => {
             content: message
         });
     };
+
+    if (fileType == "afterParsing") {
+        setPriceFieldKey('best_price')
+    } else if (fileType == "withoutNds") {
+        setPriceFieldKey("best_price_without_nds")
+    } else if (fileType == "withNds") {
+        setPriceFieldKey("best_price_with_nds")
+
+    }
+
     const columns = [
         { title: historyTexts[language].article, dataIndex: 'article', key: 'article' },
         { title: historyTexts[language].name, dataIndex: 'name', key: 'name' },
@@ -31,8 +42,7 @@ const SessionDataTable: React.FC<SessionDataTableProps> = ({ fileName }) => {
         { title: historyTexts[language].quantity, dataIndex: 'quantity', key: 'quantity' },
         { title: historyTexts[language].price, dataIndex: 'price', key: 'price' },
         { title: historyTexts[language].batch, dataIndex: 'batch', key: 'batch' },
-        { title: historyTexts[language].NDS, dataIndex: 'nds', key: 'NDS' },
-        { title: historyTexts[language].bestPrice, dataIndex: 'best_price', key: 'bestPrice' },
+        { title: historyTexts[language].bestPrice, dataIndex: `${priceFieldKey}`, key: `${priceFieldKey}` },
         { title: historyTexts[language].logo, dataIndex: 'logo', key: 'logo' },
         { title: historyTexts[language].deliveryTime, dataIndex: 'delivery_time', key: 'deliveryTime' },
         { title: historyTexts[language].quantity, dataIndex: 'quantity', key: 'quantity' },
@@ -76,7 +86,7 @@ const SessionDataTable: React.FC<SessionDataTableProps> = ({ fileName }) => {
             }}
         >
             {contextHolder}
-            <div className={styles.TableContainer}>
+            {fileType != null && <div className={styles.TableContainer}>
                 <Table
                     columns={columns}
                     dataSource={tableData}
@@ -94,7 +104,7 @@ const SessionDataTable: React.FC<SessionDataTableProps> = ({ fileName }) => {
                         pageSize={limit}
                     />
                 </div>
-            </div>
+            </div>}
 
         </ConfigProvider>
     );

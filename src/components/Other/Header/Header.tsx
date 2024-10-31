@@ -37,9 +37,7 @@ const Header: React.FC<IHeaderProps> = ({ onLogoutSuccess, username }) => {
 			localStorage.setItem('currentProxySource', 'MANGO')
 		}
 	}
-	useEffect(() => {
-		console.log(isChecked)
-	}, [isChecked])
+
 
 	const error = (message: string) => {
 		messageApi.open({
@@ -52,6 +50,8 @@ const Header: React.FC<IHeaderProps> = ({ onLogoutSuccess, username }) => {
 			error(errorMessage)
 		}
 	}, [errorMessage])
+
+
 
 	return (
 		<nav className={styles.header}>

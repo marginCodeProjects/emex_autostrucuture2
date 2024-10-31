@@ -7,7 +7,7 @@ import { useAuth } from '../../Other/authContext/useAuth';
 import { message, Popover } from 'antd';
 import { AllDataTableProps, Files } from '../../../interfaces/Main';
 
-const AllDataTable: React.FC<AllDataTableProps> = ({ setFileName }) => {
+const AllDataTable: React.FC<AllDataTableProps> = ({ setFileName, setFileType }) => {
     const { token } = useAuth();
     const { language } = useLanguage();
     const [files, setFiles] = useState<Files[] | null>(null);
@@ -47,11 +47,11 @@ const AllDataTable: React.FC<AllDataTableProps> = ({ setFileName }) => {
         get_files_handler();
     }, []);
 
-    const afterParsingPopup = (id: number, url: string, fileName: string) => {
+    const afterParsingPopup = (id: number, url: string, fileName: string, fileType: "afterParsing" | "withoutNds" | "withNds") => {
         return (
             <div>
                 <a href={`https://api.autostructure.ru/v1/files/download_file/${url}/${id}`} className={`${styles.table__textsForLinks} ${styles.inter__medium}`} >{historyTexts[language].downloadFile}</a>
-                <p className={`${styles.table__textsForLinks} ${styles.inter__medium}`} style={{ width: '100%' }} onClick={() => setFileName(fileName)}>{historyTexts[language].viewFile}</p>
+                <p className={`${styles.table__textsForLinks} ${styles.inter__medium}`} style={{ width: '100%' }} onClick={() => { setFileName(fileName); setFileType(fileType) }}>{historyTexts[language].viewFile}</p>
 
             </div>
         );
@@ -82,24 +82,24 @@ const AllDataTable: React.FC<AllDataTableProps> = ({ setFileName }) => {
                             {file.filename_after_parsing != null ? (
                                 <div style={{ width: "25%", display: "flex", flexDirection: 'column', marginTop: '-12px' }}>
                                     <Popover
-                                        content={afterParsingPopup(file.id, "after_parsing", file.filename_after_parsing)}
-                                        visible={popoverVisible === file.filename_after_parsing}
-                                        onVisibleChange={(visible) => setPopoverVisible(visible ? file.filename_after_parsing : null)}
+                                        content={afterParsingPopup(file.id, "after_parsing", file.filename_after_parsing, 'afterParsing')}
+                                        open={popoverVisible === file.filename_after_parsing}
+                                        onOpenChange={(visible) => setPopoverVisible(visible ? file.filename_after_parsing : null)}
                                     >
 
                                         <p className={`${styles.table__textsForLinks} ${styles.inter__medium}`} style={{ width: '100%' }} >{file.filename_after_parsing}</p>
                                     </Popover>
                                     <Popover
-                                        content={afterParsingPopup(file.id, "after_parsing_without_nds", file.filename_after_parsing_without_nds)}
-                                        visible={popoverVisible === file.filename_after_parsing_without_nds}
-                                        onVisibleChange={(visible) => setPopoverVisible(visible ? file.filename_after_parsing_without_nds : null)}
+                                        content={afterParsingPopup(file.id, "after_parsing_without_nds", file.filename_after_parsing_without_nds, "withoutNds")}
+                                        open={popoverVisible === file.filename_after_parsing_without_nds}
+                                        onOpenChange={(visible) => setPopoverVisible(visible ? file.filename_after_parsing_without_nds : null)}
                                     >
                                         <p className={`${styles.table__textsForLinks} ${styles.inter__medium}`} style={{ width: '100%' }} >{file.filename_after_parsing_without_nds}</p>
                                     </Popover>
                                     <Popover
-                                        content={afterParsingPopup(file.id, "after_parsing_with_nds", file.filename_after_parsing_with_nds)}
-                                        visible={popoverVisible === file.filename_after_parsing_with_nds}
-                                        onVisibleChange={(visible) => setPopoverVisible(visible ? file.filename_after_parsing_with_nds : null)}
+                                        content={afterParsingPopup(file.id, "after_parsing_with_nds", file.filename_after_parsing_with_nds, "withNds")}
+                                        open={popoverVisible === file.filename_after_parsing_with_nds}
+                                        onOpenChange={(visible) => setPopoverVisible(visible ? file.filename_after_parsing_with_nds : null)}
                                     >
                                         <p className={`${styles.table__textsForLinks} ${styles.inter__medium}`} style={{ width: '100%' }} >{file.filename_after_parsing_with_nds}</p>
                                     </Popover>
