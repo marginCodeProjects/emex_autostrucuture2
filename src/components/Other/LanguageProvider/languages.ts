@@ -66,6 +66,7 @@ export const historyTexts = {
 		NDS: 'НДС',
 		ApplyVATCalculation: 'Применить расчёт',
 		priceAfterCalculation: 'Цена после расчёта',
+		goods_code:'Код товара'
 	},
 	EN: {
 		history: 'History',
@@ -89,7 +90,7 @@ export const historyTexts = {
 		linesOnPage: 'Lines on the page:',
 		NDS: 'NDS',
 		ApplyVATCalculation: 'Apply calculation',
-		priceAfterCalculation: 'Price after calculation',
+		priceAfterCalculation: 'Price after calculation',goods_code:'Goods code'
 	},
 }
 export const dashboardTexts = {

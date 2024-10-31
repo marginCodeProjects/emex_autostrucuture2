@@ -38,6 +38,7 @@ const SessionDataTable: React.FC<SessionDataTableProps> = ({ fileName, fileType 
     }, [fileType])
 
     const columns = [
+        { title: historyTexts[language].goods_code, dataIndex: 'good_code', key: 'good_code'},
         { title: historyTexts[language].article, dataIndex: 'article', key: 'article' },
         { title: historyTexts[language].name, dataIndex: 'name', key: 'name' },
         { title: historyTexts[language].brand, dataIndex: 'brand', key: 'brand' },
