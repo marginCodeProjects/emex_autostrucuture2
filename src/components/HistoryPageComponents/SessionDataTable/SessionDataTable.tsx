@@ -51,7 +51,7 @@ const SessionDataTable: React.FC<SessionDataTableProps> = ({ fileName, fileType 
         { title: historyTexts[language].deliveryTime, dataIndex: 'delivery_time', key: 'deliveryTime' },
         { title: historyTexts[language].quantity, dataIndex: 'quantity', key: 'quantity' },
         { title: historyTexts[language].newPrice, dataIndex: 'new_price', key: 'newPrice' },
-        { title: historyTexts[language].priceAfterCalculation, dataIndex: 'after_vat_price', key: 'newPrice' },
+       
     ];
 
     const onShowSizeChange: PaginationProps['onShowSizeChange'] = (current, pageSize) => {
