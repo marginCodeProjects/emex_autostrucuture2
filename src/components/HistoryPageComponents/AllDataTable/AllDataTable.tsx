@@ -50,7 +50,7 @@ const AllDataTable: React.FC<AllDataTableProps> = ({ setFileName, setFileType })
     const afterParsingPopup = (id: number, url: string, fileName: string, fileType: "afterParsing" | "withoutNds" | "withNds") => {
         return (
             <div>
-                <a href={`https://127.0.0.1:8000/v1/files/download_file/${url}/${id}`} className={`${styles.table__textsForLinks} ${styles.inter__medium}`} >{historyTexts[language].downloadFile}</a>
+                <a href={`https://api.autostructure.ru/v1/files/download_file/${url}/${id}`} className={`${styles.table__textsForLinks} ${styles.inter__medium}`} >{historyTexts[language].downloadFile}</a>
                 <p className={`${styles.table__textsForLinks} ${styles.inter__medium}`} style={{ width: '100%' }} onClick={() => { setFileName(fileName); setFileType(fileType) }}>{historyTexts[language].viewFile}</p>
 
             </div>
@@ -78,7 +78,7 @@ const AllDataTable: React.FC<AllDataTableProps> = ({ setFileName, setFileType })
 
                             <p className={`${styles.table__texts} ${styles.inter__medium}`}>{file.date.slice(0, 10)}</p>
                             <p className={`${styles.table__texts} ${styles.inter__medium}`}>{file.new_filter_id}</p>
-                            <a href={`https://127.0.0.1:8000/v1/files/download_file/before_parsing/${file.id}`} className={`${styles.table__textsForLinks} ${styles.inter__medium}`} >{file.before_parsing_filename}</a>
+                            <a href={`https://api.autostructure.ru/v1/files/download_file/before_parsing/${file.id}`} className={`${styles.table__textsForLinks} ${styles.inter__medium}`} >{file.before_parsing_filename}</a>
                             {file.filename_after_parsing != null ? (
                                 <div style={{ width: "25%", display: "flex", flexDirection: 'column', marginTop: '-12px' }}>
                                     <Popover

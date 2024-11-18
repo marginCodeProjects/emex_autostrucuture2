@@ -15,7 +15,7 @@ export async function ParserStart(
 	}
 	try {
 		const response = await fetch(
-			`https://127.0.0.1:8000/v1/new_parser/start/${filterId}?using_proxy=${currentProxySource}`,
+			`https://api.autostructure.ru/v1/new_parser/start/${filterId}?using_proxy=${currentProxySource}`,
 			{
 				method: 'GET',
 				headers: {
@@ -75,7 +75,7 @@ export async function ParserStop(
 ): Promise<{ success: boolean; message: string }> {
 	try {
 		const response = await fetch(
-			`https://127.0.0.1:8000/v1/new_parser/stop`,
+			`https://api.autostructure.ru/v1/new_parser/stop`,
 			{
 				method: 'GET',
 				headers: {
@@ -162,7 +162,7 @@ export async function GetBrightProxyTrafficAvalibale(
 }> {
 	try {
 		const response = await fetch(
-			'https://127.0.0.1:8000/v1/proxies/get_balance_bright_data',
+			'https://api.autostructure.ru/v1/proxies/get_balance_bright_data',
 			{
 				method: 'GET',
 			}

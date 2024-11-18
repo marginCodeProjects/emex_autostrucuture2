@@ -30,7 +30,7 @@ const Filter = () => {
         replacement: false, only_first_logo: false
     })
     const { filters, loading, setFilters } = useFilters(
-        'https://127.0.0.1:8000/v1/filters/get_filters',
+        'https://api.autostructure.ru/v1/filters/get_filters',
         token,
         language
     )
