@@ -5,7 +5,7 @@ export async function DeleteFilter(
 	filter_id: string
 ): Promise<FilterOption[] | undefined> {
 	const response = await fetch(
-		`https://api.autostructure.ru/v1/filters/delete_filter/${filter_id}`,
+		`https://127.0.0.1:8000/v1/filters/delete_filter/${filter_id}`,
 		{
 			method: 'DELETE',
 
@@ -36,7 +36,7 @@ export async function EditFilter(
 }> {
 	try {
 		const response = await fetch(
-			`https://api.autostructure.ru/v1/filters/edit_filter/${filter_id}`,
+			`https://127.0.0.1:8000/v1/filters/edit_filter/${filter_id}`,
 			{
 				method: 'PATCH',
 				body: JSON.stringify({
@@ -49,6 +49,7 @@ export async function EditFilter(
 					logo: FilterFormValues.logo,
 					pickup_point: FilterFormValues.pickup_point,
 					replacement: FilterFormValues.replacement,
+					only_first_logo: FilterFormValues.only_first_logo,
 				}),
 				headers: {
 					'Content-Type': 'application/json',
@@ -96,7 +97,7 @@ export async function CreateFilter(
 }> {
 	try {
 		const response = await fetch(
-			`https://api.autostructure.ru/v1/filters/create_filter`,
+			`https://127.0.0.1:8000/v1/filters/create_filter`,
 			{
 				method: 'POST',
 				body: JSON.stringify({
@@ -109,6 +110,7 @@ export async function CreateFilter(
 					logo: FilterFormValues.logo,
 					pickup_point: FilterFormValues.pickup_point,
 					replacement: FilterFormValues.replacement,
+					only_first_logo: FilterFormValues.only_first_logo,
 				}),
 				headers: {
 					'Content-Type': 'application/json',

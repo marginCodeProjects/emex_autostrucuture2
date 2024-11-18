@@ -66,7 +66,7 @@ export const historyTexts = {
 		NDS: 'НДС',
 		ApplyVATCalculation: 'Применить расчёт',
 		priceAfterCalculation: 'Цена после расчёта',
-		goods_code:'Код товара'
+		goods_code: 'Код товара',
 	},
 	EN: {
 		history: 'History',
@@ -90,7 +90,8 @@ export const historyTexts = {
 		linesOnPage: 'Lines on the page:',
 		NDS: 'NDS',
 		ApplyVATCalculation: 'Apply calculation',
-		priceAfterCalculation: 'Price after calculation',goods_code:'Goods code'
+		priceAfterCalculation: 'Price after calculation',
+		goods_code: 'Goods code',
 	},
 }
 export const dashboardTexts = {
@@ -155,7 +156,10 @@ export const settingsTexts = {
 		pickup_point: 'Пункт самовывоза',
 		uploadProxy: 'Загрузить прокси',
 		uploadProxyModalTitle: 'Загрузить прокси из файла',
-		sameBrandAnalog: 'Аналоги того же производителя',include:"Включать",notInclude:"Не включать"
+		sameBrandAnalog: 'Аналоги того же производителя',
+		include: 'Включать',
+		notInclude: 'Не включать',
+		only_first_logo: 'Только первая строка',
 	},
 	EN: {
 		PROXY: 'PROXY',
@@ -183,7 +187,10 @@ export const settingsTexts = {
 		pickup_point: 'Pickup point',
 		uploadProxy: 'Upload proxy',
 		sameBrandAnalog: 'Analogs of the same manufacturer',
-		uploadProxyModalTitle: 'Upload proxy from file',include:"Include",notInclude:"Not include"
+		uploadProxyModalTitle: 'Upload proxy from file',
+		include: 'Include',
+		notInclude: 'Not include',
+		only_first_logo: 'Only first string',
 	},
 }
 

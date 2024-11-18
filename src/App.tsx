@@ -11,16 +11,19 @@ import AuthProvider from "./components/Other/authContext/AuthProvider";
 
 import AdminDashboard from "./pages/AdminDashboard/AdminDashboard";
 import { useAuth } from "./components/Other/authContext/useAuth";
+import { ProxySourceProvider } from "./components/ProxySourceProvider/ProxySourceProvider";
 
 function App() {
   return (
-    <LanguageProvider>
-      <AuthProvider>
-        <Router>
-          <AppRoutes />
-        </Router>
-      </AuthProvider>
-    </LanguageProvider>
+    <ProxySourceProvider>
+      <LanguageProvider>
+        <AuthProvider>
+          <Router>
+            <AppRoutes />
+          </Router>
+        </AuthProvider>
+      </LanguageProvider>
+    </ProxySourceProvider>
   );
 }
 

@@ -9,6 +9,7 @@ import { useLanguage } from '../../Other/LanguageProvider/useLanguage'
 import { texts, statusMessages } from '../../Other/LanguageProvider/languages'
 import { useAuth } from '../../Other/authContext/useAuth'
 import { ConfigProvider, message, Progress } from 'antd'
+import { useProxySource } from '../../ProxySourceProvider/ProxySourceProvider'
 
 const ProcessManagement: React.FC<IProcessManagementProps> = ({
 	file,
@@ -20,16 +21,13 @@ const ProcessManagement: React.FC<IProcessManagementProps> = ({
 	const [messageApi, contextHolder] = message.useMessage()
 	const { status, inputPercent } = useWebSocket()
 	const [parsingInProcess, setParsingInProcess] = useState(false)
+	const { proxySource } = useProxySource()
 	const [ProxyTrafficAvalibale, setProxyTrafficAvalibale] = useState<string>()
-	const [currentProxySource, setCurrentProxySource] = useState("MANGO")
 	const [isLoading, setIsLoading] = useState(true)
 	useEffect(() => {
 		const parsingStatus = localStorage.getItem('parsingInProcess')
-		const ProxySource = localStorage.getItem("currentProxySource")
-		if (ProxySource != null) {
 
-			setCurrentProxySource(ProxySource)
-		}
+
 		if (parsingStatus === 'true') {
 			setParsingInProcess(true)
 		}
@@ -37,7 +35,12 @@ const ProcessManagement: React.FC<IProcessManagementProps> = ({
 	}, [])
 
 
+	useEffect(() => {
 
+		console.log(proxySource);
+
+
+	}, [proxySource])
 
 	useEffect(() => {
 		if (
@@ -101,7 +104,7 @@ const ProcessManagement: React.FC<IProcessManagementProps> = ({
 				successMessage(data.message)
 			}
 		} else {
-			const data = await ParserStart(filterId, token, currentProxySource, language)
+			const data = await ParserStart(filterId, token, proxySource, language)
 
 			if (data.success === false) {
 				errorMessage(data.message)
@@ -113,41 +116,39 @@ const ProcessManagement: React.FC<IProcessManagementProps> = ({
 		}
 	}
 
+
 	const fetchTraffic = async () => {
-		if (isLoading == false) {
-			if (parsingInProcess) {
-				if (currentProxySource == "MANGO") {
-					const data = await GetMangoProxyTrafficAvalibale(language)
-					if (data?.AvailableTraffick) {
-						const availableTrafficGB = (data.AvailableTraffick / 1024).toFixed(1)
-						const suffix = language === "RU" ? ' ГБ' : ' GB'
-						setProxyTrafficAvalibale(availableTrafficGB + suffix)
-					}
 
-				} else if (currentProxySource == "BRIGHTDATA") {
-					const data = await GetBrightProxyTrafficAvalibale(language)
-					console.log(data);
-					if (data.balance && data.pending_costs) {
 
-						const availableTrafficGB = ((data.balance - data.pending_costs) / 0.6).toFixed(1)
-						const suffix = language === "RU" ? ' ГБ' : ' GB'
-						setProxyTrafficAvalibale(availableTrafficGB + suffix)
-					}
-				}
+		if (proxySource === "MANGO") {
+			console.log("Я сработал манго");
+			const data = await GetMangoProxyTrafficAvalibale(language)
+			if (data?.AvailableTraffick) {
+				const availableTrafficGB = (data.AvailableTraffick / 1024).toFixed(1)
+				const suffix = language === "RU" ? ' ГБ' : ' GB'
+				setProxyTrafficAvalibale(availableTrafficGB + suffix)
+			}
+
+		} else if (proxySource === "BRIGHTDATA") {
+			console.log("Я сработал брайт");
+			const data = await GetBrightProxyTrafficAvalibale(language)
+			console.log(data);
+			if (data.balance && data.pending_costs) {
+				const availableTrafficGB = ((data.balance - data.pending_costs) / 0.6).toFixed(1)
+				const suffix = language === "RU" ? ' ГБ' : ' GB'
+				setProxyTrafficAvalibale(availableTrafficGB + suffix)
 			}
 		}
+
 	}
+
 	useEffect(() => {
 		fetchTraffic()
-
-		// Устанавливаем интервал только если парсинг идет
 		const interval = parsingInProcess ? setInterval(fetchTraffic, 30000) : null
-
-		// Очистка интервала при размонтировании компонента
 		return () => {
 			if (interval) clearInterval(interval)
 		}
-	}, [parsingInProcess, language, isLoading])
+	}, [parsingInProcess, language, isLoading, proxySource])
 
 
 	return (

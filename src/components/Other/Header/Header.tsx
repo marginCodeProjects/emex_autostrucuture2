@@ -9,14 +9,15 @@ import { IHeaderProps } from '../../../interfaces/Main'
 
 import logo from '../../../assets/logo.svg'
 import { useAuth } from '../../Other/authContext/useAuth'
+import { useProxySource } from '../../ProxySourceProvider/ProxySourceProvider'
 const Header: React.FC<IHeaderProps> = ({ onLogoutSuccess, username }) => {
 	const { language, toggleLanguage } = useLanguage()
 	const { token, isAdmin } = useAuth()
+	const { proxySource, toggleProxySource } = useProxySource()
 	const [messageApi, contextHolder] = message.useMessage()
 	const [errorMessage, setErrorMessage] = useState<string | undefined>(
 		undefined
 	)
-	const [isChecked, setIsChecked] = useState(false)
 	const [isLoading, setIsLoading] = useState(false)
 	function logoutHandler() {
 		handleLogout(setErrorMessage, token, onLogoutSuccess, language)
@@ -24,18 +25,19 @@ const Header: React.FC<IHeaderProps> = ({ onLogoutSuccess, username }) => {
 	useEffect(() => {
 		const value = localStorage.getItem('currentProxySource')
 		if (value == 'BRIGHTDATA') {
-			setIsChecked(true)
+			toggleProxySource()
 		}
 
 		setIsLoading(true)
 	}, [])
+	
 
-	const changeProxySource = (value: boolean) => {
-		if (value) {
-			localStorage.setItem('currentProxySource', 'BRIGHTDATA')
-		} else {
-			localStorage.setItem('currentProxySource', 'MANGO')
-		}
+	const changeProxySource = () => {
+
+		toggleProxySource()
+	
+
+
 	}
 
 
@@ -103,8 +105,8 @@ const Header: React.FC<IHeaderProps> = ({ onLogoutSuccess, username }) => {
 							className={styles.header__controlPanel__item}
 							checkedChildren='BRIGHT'
 							unCheckedChildren='MANGO'
-							defaultValue={isChecked}
-							onChange={(value) => changeProxySource(value)}
+							defaultValue={proxySource === "MANGO" ? false : true}
+							onChange={() => changeProxySource()}
 						/>
 					)}
 					<Switch

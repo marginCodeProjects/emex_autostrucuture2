@@ -12,6 +12,7 @@ import {
     DeleteFilter,
     EditFilter,
 } from '../../../api/FilterService'
+import Checkbox from 'antd/es/checkbox/Checkbox'
 const Filter = () => {
     const { language } = useLanguage()
     const { token } = useAuth()
@@ -24,11 +25,14 @@ const Filter = () => {
         analog: false,
         title: '',
         is_bigger: false,
-        date: 10, pickup_point: 38760, replacement: false
+        date: 10,
+        pickup_point: 38760,
+        replacement: false, only_first_logo: false
     })
     const { filters, loading, setFilters } = useFilters(
-        'https://api.autostructure.ru/v1/filters/get_filters',
-        token, language
+        'https://127.0.0.1:8000/v1/filters/get_filters',
+        token,
+        language
     )
     const handleSelectCard = (filterId: string) => {
         if (selectedCardId == filterId) {
@@ -40,7 +44,9 @@ const Filter = () => {
                 analog: false,
                 title: '',
                 is_bigger: false,
-                date: 10, pickup_point: 38760, replacement: false
+                date: 10,
+                pickup_point: 38760,
+                replacement: false, only_first_logo: false
             })
         } else {
             setSelectedCardId(filterId)
@@ -65,6 +71,11 @@ const Filter = () => {
         setFilterFieldsText((prevValues) => ({ ...prevValues, [field]: value }))
     }
     useEffect(() => {
+        console.log(FilterFieldsText);
+
+    }, [FilterFieldsText])
+
+    useEffect(() => {
         const filter = filters?.find((value) => value.id === selectedCardId)
 
         if (filter) {
@@ -75,7 +86,10 @@ const Filter = () => {
                 analog: filter.analog ?? false,
                 title: filter.title ?? '',
                 is_bigger: filter.is_bigger ?? false,
-                date: filter.date ?? '', pickup_point: filter.pickup_point, replacement: filter.replacement
+                date: filter.date ?? '',
+                pickup_point: filter.pickup_point,
+                replacement: filter.replacement,
+                only_first_logo: filter.only_first_logo
             })
         }
     }, [selectedCardId, filters])
@@ -253,6 +267,7 @@ const Filter = () => {
                             }
                             className={`${styles.ProxyActions__input} ${styles.inter__medium} ${styles.FilterFieldsText} ${styles.Card__bottomPart_texts}`}
                         />
+                        <Checkbox className={`${styles.inter__medium} ${styles.FilterFieldsText} ${styles.Card__bottomPart_texts}`} onChange={(e) => handleChange('only_first_logo', e.target.checked)}>{settingsTexts[language].only_first_logo}</Checkbox>
                     </div>
                     <div className={styles.InputsDiv}>
                         <p

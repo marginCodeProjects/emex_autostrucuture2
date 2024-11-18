@@ -111,6 +111,7 @@ export interface FilterFormValues {
 	logo: string
 	pickup_point: number
 	replacement: boolean
+	only_first_logo: boolean
 }
 export interface FilterOption {
 	id: string
@@ -124,6 +125,7 @@ export interface FilterOption {
 	user_id: number
 	pickup_point: number
 	replacement: boolean
+	only_first_logo: boolean
 }
 
 // Типы состояния
