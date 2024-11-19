@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { Table, Space, Tag, Checkbox, Button, Popover, message, Spin } from "antd";
+import { Table, Space,  Checkbox, Button, Popover, message, Spin } from "antd";
 import { useAuth } from "../../Other/authContext/useAuth";
 import { useLanguage } from "../../Other/LanguageProvider/useLanguage";
 import { historyTexts } from "../../../components/Other/LanguageProvider/languages";
