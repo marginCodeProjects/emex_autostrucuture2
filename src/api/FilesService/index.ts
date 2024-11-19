@@ -166,3 +166,52 @@ export async function GetFileData(
 		}
 	}
 }
+
+export async function DeleteFiles(
+	token: string | null,
+	ids: string[],
+	language: 'EN' | 'RU'
+): Promise<{ success: boolean; files?: Files[]; message?: string }> {
+	try {
+		const response = await fetch(
+			`https://api.autostructure.ru/v1/files/delete_files`,
+			{
+				method: 'DELETE',
+				headers: {
+					'Content-Type': 'application/json',
+					'access-token': `${token}`,
+				},
+				body: JSON.stringify(ids),
+			}
+		)
+
+		if (response.ok) {
+			// Парсим JSON только если запрос успешен
+			const files = await response.json()
+			return { success: true, files }
+		} else if (response.status == 404) {
+			return {
+				success: false,
+				message:
+					language === 'RU'
+						? 'Не удалось удалить файлы'
+						: 'Failed to delete files',
+			}
+		} else
+			return {
+				success: false,
+				message:
+					language === 'RU'
+						? 'Ошибка сети или сервера'
+						: 'Network or server error',
+			}
+	} catch (error) {
+		return {
+			success: false,
+			message:
+				language === 'RU'
+					? 'Ошибка сети или сервера'
+					: 'Network or server error',
+		}
+	}
+}

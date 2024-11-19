@@ -1,9 +1,9 @@
 import React, { useState, useEffect } from "react";
-import { Table, Space,  Checkbox, Button, Popover, message, Spin } from "antd";
+import { Table, Space, Checkbox, Button, Popover, message, Spin } from "antd";
 import { useAuth } from "../../Other/authContext/useAuth";
 import { useLanguage } from "../../Other/LanguageProvider/useLanguage";
 import { historyTexts } from "../../../components/Other/LanguageProvider/languages";
-import { GetFiles } from "../../../api/FilesService";
+import { DeleteFiles, GetFiles } from "../../../api/FilesService";
 import styles from "./AllDataTable.module.css";
 import { AllDataTableProps, Files } from "../../../interfaces/Main";
 
@@ -23,7 +23,7 @@ const AllDataTable: React.FC<AllDataTableProps> = ({ setFileName, setFileType })
     const { language } = useLanguage();
     const [files, setFiles] = useState<DataType[] | null>(null);
     const [loading, setLoading] = useState<boolean>(false);
-    const [selectedIds, setSelectedIds] = useState<number[]>([]);
+    const [selectedIds, setSelectedIds] = useState<string[]>([]);
     const [messageApi, contextHolder] = message.useMessage();
 
     const get_files_handler = async () => {
@@ -58,15 +58,32 @@ const AllDataTable: React.FC<AllDataTableProps> = ({ setFileName, setFileType })
         get_files_handler();
     }, []);
 
-    const handleDeleteSelected = () => {
-        console.log("Удаляем ID:", selectedIds);
+    const handleDeleteSelected = async () => {
+        const { files, success, message } = await DeleteFiles(token, selectedIds, language)
+        if (!success) {
+            disclamer(message)
+        } else {
+            if (files) {
+                const formattedFiles = files?.map((file: Files) => ({
+                    key: file.id,
+                    id: file.id,
+                    date: file.date.slice(0, 10),
+                    new_filter_id: file.new_filter_id,
+                    before_parsing_filename: file.before_parsing_filename,
+                    filename_after_parsing: file.filename_after_parsing,
+                    filename_after_parsing_without_nds: file.filename_after_parsing_without_nds,
+                    filename_after_parsing_with_nds: file.filename_after_parsing_with_nds,
+                }));
+                setFiles(formattedFiles || []);
+            }
+        }
         messageApi.open({
             type: "success",
             content: `Выбрано для удаления: ${selectedIds.length} файлов.`,
         });
     };
 
-    const handleCheckboxChange = (id: number, checked: boolean) => {
+    const handleCheckboxChange = (id: string, checked: boolean) => {
         setSelectedIds((prev) =>
             checked ? [...prev, id] : prev.filter((selectedId) => selectedId !== id)
         );
@@ -103,7 +120,7 @@ const AllDataTable: React.FC<AllDataTableProps> = ({ setFileName, setFileType })
             dataIndex: "id",
             key: "select",
             width: 100, // Фиксированная ширина
-            render: (id: number) => (
+            render: (id: string) => (
                 <Checkbox
                     onChange={(e) => handleCheckboxChange(id, e.target.checked)}
                 />
@@ -179,14 +196,14 @@ const AllDataTable: React.FC<AllDataTableProps> = ({ setFileName, setFileType })
                         rowKey="id"
                         pagination={{ pageSize: 5 }}
                     />
-                    <Button
+                    {selectedIds.length > 0 && <Button
                         type="primary"
                         danger
-                        disabled={selectedIds.length === 0}
+                        style={{ marginBottom: '20px' }}
                         onClick={handleDeleteSelected}
                     >
                         Удалить выбранное
-                    </Button>
+                    </Button>}
                 </>
             )}
         </>
