@@ -66,7 +66,7 @@ export const historyTexts = {
 		NDS: 'НДС',
 		ApplyVATCalculation: 'Применить расчёт',
 		priceAfterCalculation: 'Цена после расчёта',
-		goods_code: 'Код товара',
+		goods_code: 'Код товара',select:"Выбрать"
 	},
 	EN: {
 		history: 'History',
@@ -91,7 +91,7 @@ export const historyTexts = {
 		NDS: 'NDS',
 		ApplyVATCalculation: 'Apply calculation',
 		priceAfterCalculation: 'Price after calculation',
-		goods_code: 'Goods code',
+		goods_code: 'Goods code',select:"Select"
 	},
 }
 export const dashboardTexts = {

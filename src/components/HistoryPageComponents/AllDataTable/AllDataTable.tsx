@@ -1,40 +1,51 @@
-import { useState, useEffect } from 'react';
-import { useLanguage } from '../../Other/LanguageProvider/useLanguage';
-import styles from './AllDataTable.module.css';
-import { historyTexts } from '../../../components/Other/LanguageProvider/languages';
-import { GetFiles } from '../../../api/FilesService';
-import { useAuth } from '../../Other/authContext/useAuth';
-import { message, Popover } from 'antd';
-import { AllDataTableProps, Files } from '../../../interfaces/Main';
+import React, { useState, useEffect } from "react";
+import { Table, Space, Tag, Checkbox, Button, Popover, message, Spin } from "antd";
+import { useAuth } from "../../Other/authContext/useAuth";
+import { useLanguage } from "../../Other/LanguageProvider/useLanguage";
+import { historyTexts } from "../../../components/Other/LanguageProvider/languages";
+import { GetFiles } from "../../../api/FilesService";
+import styles from "./AllDataTable.module.css";
+import { AllDataTableProps, Files } from "../../../interfaces/Main";
+
+interface DataType {
+    key: number;
+    id: number;
+    date: string;
+    new_filter_id: number | null;
+    before_parsing_filename: string;
+    filename_after_parsing: string | null;
+    filename_after_parsing_without_nds: string | null;
+    filename_after_parsing_with_nds: string | null;
+}
 
 const AllDataTable: React.FC<AllDataTableProps> = ({ setFileName, setFileType }) => {
     const { token } = useAuth();
     const { language } = useLanguage();
-    const [files, setFiles] = useState<Files[] | null>(null);
+    const [files, setFiles] = useState<DataType[] | null>(null);
     const [loading, setLoading] = useState<boolean>(false);
+    const [selectedIds, setSelectedIds] = useState<number[]>([]);
     const [messageApi, contextHolder] = message.useMessage();
-    const [popoverVisible, setPopoverVisible] = useState<string | null>(null);
 
     const get_files_handler = async () => {
         setLoading(true);
         const { success, files, message } = await GetFiles(token, language);
         setLoading(false);
         if (success) {
-            setFiles(files || []);
+            const formattedFiles = files?.map((file: Files) => ({
+                key: file.id,
+                id: file.id,
+                date: file.date.slice(0, 10),
+                new_filter_id: file.new_filter_id,
+                before_parsing_filename: file.before_parsing_filename,
+                filename_after_parsing: file.filename_after_parsing,
+                filename_after_parsing_without_nds: file.filename_after_parsing_without_nds,
+                filename_after_parsing_with_nds: file.filename_after_parsing_with_nds,
+            }));
+            setFiles(formattedFiles || []);
         } else {
-            disclamer(message)
+            disclamer(message);
         }
     };
-
-    // const applyVAT = async (file_id: number) => {
-    //     const { success, files, message } = await ApplyVATCalculation(token, language, file_id)
-    //     if (success) {
-    //         setFiles(files || []);
-    //         setPopoverVisible(null); // Close Popover after VAT calculation
-    //     } else {
-    //         disclamer(message)
-    //     }
-    // }
 
     const disclamer = (message: string | undefined) => {
         messageApi.open({
@@ -47,68 +58,136 @@ const AllDataTable: React.FC<AllDataTableProps> = ({ setFileName, setFileType })
         get_files_handler();
     }, []);
 
-    const afterParsingPopup = (id: number, url: string, fileName: string, fileType: "afterParsing" | "withoutNds" | "withNds") => {
-        return (
-            <div>
-                <a href={`https://api.autostructure.ru/v1/files/download_file/${url}/${id}`} className={`${styles.table__textsForLinks} ${styles.inter__medium}`} >{historyTexts[language].downloadFile}</a>
-                <p className={`${styles.table__textsForLinks} ${styles.inter__medium}`} style={{ width: '100%' }} onClick={() => { setFileName(fileName); setFileType(fileType) }}>{historyTexts[language].viewFile}</p>
+    const handleDeleteSelected = () => {
+        console.log("Удаляем ID:", selectedIds);
+        messageApi.open({
+            type: "success",
+            content: `Выбрано для удаления: ${selectedIds.length} файлов.`,
+        });
+    };
 
-            </div>
+    const handleCheckboxChange = (id: number, checked: boolean) => {
+        setSelectedIds((prev) =>
+            checked ? [...prev, id] : prev.filter((selectedId) => selectedId !== id)
         );
-    }
+    };
+
+    const afterParsingPopup = (
+        id: number,
+        url: string,
+        fileName: string,
+        fileType: "afterParsing" | "withoutNds" | "withNds"
+    ) => (
+        <div>
+            <a
+                href={`https://api.autostructure.ru/v1/files/download_file/${url}/${id}`}
+                className={`${styles.table__textsForLinks} ${styles.inter__medium}`}
+            >
+                {historyTexts[language].downloadFile}
+            </a>
+            <p
+                className={`${styles.table__textsForLinks} ${styles.inter__medium}`}
+                onClick={() => {
+                    setFileName(fileName);
+                    setFileType(fileType);
+                }}
+            >
+                {historyTexts[language].viewFile}
+            </p>
+        </div>
+    );
+
+    const columns = [
+        {
+            title: "Выбрать",
+            dataIndex: "id",
+            key: "select",
+            width: 100, // Фиксированная ширина
+            render: (id: number) => (
+                <Checkbox
+                    onChange={(e) => handleCheckboxChange(id, e.target.checked)}
+                />
+            ),
+        },
+        {
+            title: "Дата",
+            dataIndex: "date",
+            key: "date",
+            width: 150, // Фиксированная ширина
+        },
+        {
+            title: "Фильтры",
+            dataIndex: "new_filter_id",
+            key: "filters",
+            width: 150,
+        },
+        {
+            title: "Файл до обработки",
+            dataIndex: "before_parsing_filename",
+            key: "beforeParsing",
+            width: 200,
+            render: (text: string, record: DataType) => (
+                <a
+                    href={`https://api.autostructure.ru/v1/files/download_file/before_parsing/${record.id}`}
+                >
+                    {text}
+                </a>
+            ),
+        },
+        {
+            title: "Файлы после обработки",
+            key: "afterParsing",
+            width: 300, // Увеличенная ширина
+            render: (_: any, record: DataType) =>
+                record.filename_after_parsing ? (
+                    <Space direction="vertical">
+                        {["filename_after_parsing", "filename_after_parsing_without_nds", "filename_after_parsing_with_nds"].map(
+                            (field, index) =>
+                                record[field as keyof DataType] && (
+                                    <Popover
+                                        key={index}
+                                        content={afterParsingPopup(
+                                            record.id,
+                                            field.replace("filename_", ""),
+                                            record[field as keyof DataType] as string,
+                                            field as "afterParsing" | "withoutNds" | "withNds"
+                                        )}
+                                    >
+                                        <p className={`${styles.table__textsForLinks}`}>
+                                            {record[field as keyof DataType]}
+                                        </p>
+                                    </Popover>
+                                )
+                        )}
+                    </Space>
+                ) : (
+                    "-"
+                ),
+        },
+    ];
 
     return (
         <>
             {contextHolder}
             {loading ? (
-                <div className="spinner__container">
-                    <div className="spinner"></div>
-                </div>
-
+                <Spin size="large" />
             ) : (
-                <div className={styles.table__container}>
-                    <div className={styles.table__line}>
-                        <p className={`${styles.table__texts} ${styles.inter__medium}`}>{historyTexts[language].date}</p>
-                        <p className={`${styles.table__texts} ${styles.inter__medium}`}>{historyTexts[language].filters}</p>
-                        <p className={`${styles.table__texts} ${styles.inter__medium}`}>{historyTexts[language].dataBeforeParsing}</p>
-                        <p className={`${styles.table__texts} ${styles.inter__medium}`}>{historyTexts[language].dataAfterParsing}</p>
-                    </div>
-                    {files?.map((file) => (
-                        <div key={file.id} className={styles.table__line}>
-
-                            <p className={`${styles.table__texts} ${styles.inter__medium}`}>{file.date.slice(0, 10)}</p>
-                            <p className={`${styles.table__texts} ${styles.inter__medium}`}>{file.new_filter_id}</p>
-                            <a href={`https://api.autostructure.ru/v1/files/download_file/before_parsing/${file.id}`} className={`${styles.table__textsForLinks} ${styles.inter__medium}`} >{file.before_parsing_filename}</a>
-                            {file.filename_after_parsing != null ? (
-                                <div style={{ width: "25%", display: "flex", flexDirection: 'column', marginTop: '-12px' }}>
-                                    <Popover
-                                        content={afterParsingPopup(file.id, "after_parsing", file.filename_after_parsing, 'afterParsing')}
-                                        open={popoverVisible === file.filename_after_parsing}
-                                        onOpenChange={(visible) => setPopoverVisible(visible ? file.filename_after_parsing : null)}
-                                    >
-
-                                        <p className={`${styles.table__textsForLinks} ${styles.inter__medium}`} style={{ width: '100%' }} >{file.filename_after_parsing}</p>
-                                    </Popover>
-                                    <Popover
-                                        content={afterParsingPopup(file.id, "after_parsing_without_nds", file.filename_after_parsing_without_nds, "withoutNds")}
-                                        open={popoverVisible === file.filename_after_parsing_without_nds}
-                                        onOpenChange={(visible) => setPopoverVisible(visible ? file.filename_after_parsing_without_nds : null)}
-                                    >
-                                        <p className={`${styles.table__textsForLinks} ${styles.inter__medium}`} style={{ width: '100%' }} >{file.filename_after_parsing_without_nds}</p>
-                                    </Popover>
-                                    <Popover
-                                        content={afterParsingPopup(file.id, "after_parsing_with_nds", file.filename_after_parsing_with_nds, "withNds")}
-                                        open={popoverVisible === file.filename_after_parsing_with_nds}
-                                        onOpenChange={(visible) => setPopoverVisible(visible ? file.filename_after_parsing_with_nds : null)}
-                                    >
-                                        <p className={`${styles.table__textsForLinks} ${styles.inter__medium}`} style={{ width: '100%' }} >{file.filename_after_parsing_with_nds}</p>
-                                    </Popover>
-                                </div>
-
-                            ) : <p style={{ width: '25%' }} ></p>}
-                        </div>
-                    ))}
-                </div>
+                <>
+                    <Table<DataType>
+                        columns={columns}
+                        dataSource={files || []}
+                        rowKey="id"
+                        pagination={{ pageSize: 5 }}
+                    />
+                    <Button
+                        type="primary"
+                        danger
+                        disabled={selectedIds.length === 0}
+                        onClick={handleDeleteSelected}
+                    >
+                        Удалить выбранное
+                    </Button>
+                </>
             )}
         </>
     );

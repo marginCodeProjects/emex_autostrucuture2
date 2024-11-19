@@ -6,14 +6,15 @@
 }
 .table__texts {
 	font-size: 15px;
-	width: 25%;
+	width: 20%;
+	align-self: center;
 	white-space: nowrap; /* Запрещает перенос текста на новую строку */
 	overflow: hidden; /* Прячет текст, который выходит за пределы блока */
 	text-overflow: ellipsis; /* Добавляет троеточие, если текст не помещается */
 }
 .table__textsForLinks {
 	font-size: 15px;
-	width: 25%;
+
 	white-space: nowrap; /* Запрещает перенос текста на новую строку */
 	overflow: hidden; /* Прячет текст, который выходит за пределы блока */
 	text-overflow: ellipsis; /* Добавляет троеточие, если текст не помещается */
@@ -40,5 +41,5 @@
 	border-bottom: 1px solid #335ae6;
 	display: flex;
 	justify-content: space-between;
-	padding-top: 15px;
+	padding-top: 10px;
 }
