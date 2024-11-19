@@ -79,6 +79,7 @@ const Filter = () => {
         const filter = filters?.find((value) => value.id === selectedCardId)
 
         if (filter) {
+            console.log(filter)
             setFilterFieldsText({
                 logo: filter.logo,
                 deep_analog: filter.deep_analog ?? 10,
