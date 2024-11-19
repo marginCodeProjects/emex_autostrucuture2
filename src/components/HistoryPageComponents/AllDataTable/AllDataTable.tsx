@@ -75,6 +75,7 @@ const AllDataTable: React.FC<AllDataTableProps> = ({ setFileName, setFileType })
                     filename_after_parsing_with_nds: file.filename_after_parsing_with_nds,
                 }));
                 setFiles(formattedFiles || []);
+                setSelectedIds([])
             }
         }
         messageApi.open({
