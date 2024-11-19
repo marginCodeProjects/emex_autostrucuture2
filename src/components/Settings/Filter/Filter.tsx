@@ -268,7 +268,7 @@ const Filter = () => {
                             }
                             className={`${styles.ProxyActions__input} ${styles.inter__medium} ${styles.FilterFieldsText} ${styles.Card__bottomPart_texts}`}
                         />
-                        <Checkbox className={`${styles.inter__medium} ${styles.FilterFieldsText} ${styles.Card__bottomPart_texts}`} defaultChecked={FilterFieldsText.only_first_logo} onChange={(e) => handleChange('only_first_logo', e.target.checked)}>{settingsTexts[language].only_first_logo}</Checkbox>
+                        <Checkbox className={`${styles.inter__medium} ${styles.FilterFieldsText} ${styles.Card__bottomPart_texts}`} checked={FilterFieldsText.only_first_logo} onChange={(e) => handleChange('only_first_logo', e.target.checked)}>{settingsTexts[language].only_first_logo}</Checkbox>
                     </div>
                     <div className={styles.InputsDiv}>
                         <p
