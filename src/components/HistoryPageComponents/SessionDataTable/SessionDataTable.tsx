@@ -51,6 +51,11 @@ const SessionDataTable: React.FC<SessionDataTableProps> = ({ fileName, fileType 
         { title: historyTexts[language].deliveryTime, dataIndex: 'delivery_time', key: 'deliveryTime' },
         { title: historyTexts[language].newPrice, dataIndex: 'new_price', key: 'newPrice' },
     ], [language, priceFieldKey]); // Зависимость от priceFieldKey
+    useEffect(() => {
+        console.log(priceFieldKey);
+
+
+    }, [columns])
 
     const onShowSizeChange: PaginationProps['onShowSizeChange'] = (current, pageSize) => {
         setLimit(pageSize);
@@ -89,13 +94,13 @@ const SessionDataTable: React.FC<SessionDataTableProps> = ({ fileName, fileType 
         >
             {contextHolder}
             {fileType != null && <div className={styles.TableContainer}>
-                <Table
+                {priceFieldKey != '' && <Table
                     columns={columns}
                     dataSource={tableData}
                     pagination={false}
                     rowKey="key"
                     className={styles.Table}
-                />
+                />}
                 <div className={styles.PaginationContainer}>
                     <Pagination
                         showSizeChanger
