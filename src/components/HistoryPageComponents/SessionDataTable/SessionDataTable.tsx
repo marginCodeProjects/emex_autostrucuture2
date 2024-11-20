@@ -94,13 +94,13 @@ const SessionDataTable: React.FC<SessionDataTableProps> = ({ fileName, fileType 
         >
             {contextHolder}
             {fileType != null && <div className={styles.TableContainer}>
-                {priceFieldKey != '' && <Table
+                 <Table
                     columns={columns}
                     dataSource={tableData}
                     pagination={false}
                     rowKey="key"
                     className={styles.Table}
-                />}
+                />
                 <div className={styles.PaginationContainer}>
                     <Pagination
                         showSizeChanger
