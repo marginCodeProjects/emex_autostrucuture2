@@ -36,6 +36,12 @@ const SessionDataTable: React.FC<SessionDataTableProps> = ({ fileName, fileType 
 
         }
     }, [fileType])
+    useEffect(() => {
+        console.log(priceFieldKey, fileType);
+
+
+
+    }, [priceFieldKey, fileType])
 
     const columns = useMemo(() => [
         { title: historyTexts[language].goods_code, dataIndex: 'good_code', key: 'good_code' },
@@ -53,8 +59,6 @@ const SessionDataTable: React.FC<SessionDataTableProps> = ({ fileName, fileType 
     ], [language, priceFieldKey]); // Зависимость от priceFieldKey
     useEffect(() => {
         console.log(priceFieldKey);
-
-
     }, [columns])
 
     const onShowSizeChange: PaginationProps['onShowSizeChange'] = (current, pageSize) => {
@@ -93,8 +97,8 @@ const SessionDataTable: React.FC<SessionDataTableProps> = ({ fileName, fileType 
             }}
         >
             {contextHolder}
-            {fileType != null && <div className={styles.TableContainer}>
-                 <Table
+            {fileType != null && priceFieldKey && <div className={styles.TableContainer}>
+                <Table
                     columns={columns}
                     dataSource={tableData}
                     pagination={false}
