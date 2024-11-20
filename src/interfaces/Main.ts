@@ -164,7 +164,11 @@ export interface SessionTableAPI {
 }
 export interface SessionDataTableProps {
 	fileName: string | undefined
-	fileType: null | 'filename_after_parsing' | 'filename_after_parsing_without_nds' | 'filename_after_parsing_with_nds'
+	fileType:
+		| null
+		| 'filename_after_parsing'
+		| 'filename_after_parsing_without_nds'
+		| 'filename_after_parsing_with_nds'
 }
 
 export interface IPagePartTitleProps {
@@ -179,6 +183,11 @@ export interface ICardScrollingProps {
 export interface AllDataTableProps {
 	setFileName: React.Dispatch<React.SetStateAction<string | undefined>>
 	setFileType: React.Dispatch<
-		React.SetStateAction<null | 'afterParsing' | 'withoutNds' | 'withNds'>
+		React.SetStateAction<
+			| null
+			| 'filename_after_parsing'
+			| 'filename_after_parsing_without_nds'
+			| 'filename_after_parsing_with_nds'
+		>
 	>
 }

@@ -94,7 +94,7 @@ const AllDataTable: React.FC<AllDataTableProps> = ({ setFileName, setFileType })
         id: number,
         url: string,
         fileName: string,
-        fileType: "afterParsing" | "withoutNds" | "withNds"
+        fileType: 'filename_after_parsing' | 'filename_after_parsing_without_nds' | 'filename_after_parsing_with_nds'
     ) => (
         <div>
             <a
@@ -168,7 +168,7 @@ const AllDataTable: React.FC<AllDataTableProps> = ({ setFileName, setFileType })
                                             record.id,
                                             field.replace("filename_", ""),
                                             record[field as keyof DataType] as string,
-                                            field as "afterParsing" | "withoutNds" | "withNds"
+                                            field as 'filename_after_parsing' | 'filename_after_parsing_without_nds' | 'filename_after_parsing_with_nds'
                                         )}
                                     >
                                         <p className={`${styles.table__textsForLinks}`}>
