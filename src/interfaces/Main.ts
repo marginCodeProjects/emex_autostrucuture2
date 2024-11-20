@@ -164,7 +164,7 @@ export interface SessionTableAPI {
 }
 export interface SessionDataTableProps {
 	fileName: string | undefined
-	fileType: null | 'afterParsing' | 'withoutNds' | 'withNds'
+	fileType: null | 'filename_after_parsing' | 'filename_after_parsing_without_nds' | 'filename_after_parsing_with_nds'
 }
 
 export interface IPagePartTitleProps {

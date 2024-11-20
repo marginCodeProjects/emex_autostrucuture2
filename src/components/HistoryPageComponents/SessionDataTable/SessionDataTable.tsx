@@ -27,11 +27,11 @@ const SessionDataTable: React.FC<SessionDataTableProps> = ({ fileName, fileType 
     useEffect(() => {
 
 
-        if (fileType == "afterParsing") {
+        if (fileType == "filename_after_parsing") {
             setPriceFieldKey('best_price')
-        } else if (fileType == "withoutNds") {
+        } else if (fileType == "filename_after_parsing_without_nds") {
             setPriceFieldKey("best_price_without_nds")
-        } else if (fileType == "withNds") {
+        } else if (fileType == "filename_after_parsing_with_nds") {
             setPriceFieldKey("best_price_with_nds")
 
         }
