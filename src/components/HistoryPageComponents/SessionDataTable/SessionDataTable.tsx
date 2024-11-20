@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useMemo, useState } from 'react';
 import { Table, Pagination, PaginationProps, ConfigProvider, message } from 'antd';
 import { historyTexts } from '../../Other/LanguageProvider/languages';
 import { useLanguage } from '../../Other/LanguageProvider/useLanguage';
@@ -37,8 +37,8 @@ const SessionDataTable: React.FC<SessionDataTableProps> = ({ fileName, fileType 
         }
     }, [fileType])
 
-    const columns = [
-        { title: historyTexts[language].goods_code, dataIndex: 'good_code', key: 'good_code'},
+    const columns = useMemo(() => [
+        { title: historyTexts[language].goods_code, dataIndex: 'good_code', key: 'good_code' },
         { title: historyTexts[language].article, dataIndex: 'article', key: 'article' },
         { title: historyTexts[language].name, dataIndex: 'name', key: 'name' },
         { title: historyTexts[language].brand, dataIndex: 'brand', key: 'brand' },
@@ -46,13 +46,11 @@ const SessionDataTable: React.FC<SessionDataTableProps> = ({ fileName, fileType 
         { title: historyTexts[language].quantity, dataIndex: 'quantity', key: 'quantity' },
         { title: historyTexts[language].price, dataIndex: 'price', key: 'price' },
         { title: historyTexts[language].batch, dataIndex: 'batch', key: 'batch' },
-        { title: historyTexts[language].bestPrice, dataIndex: `${priceFieldKey}`, key: `${priceFieldKey}` },
+        { title: historyTexts[language].bestPrice, dataIndex: priceFieldKey, key: priceFieldKey },
         { title: historyTexts[language].logo, dataIndex: 'logo', key: 'logo' },
         { title: historyTexts[language].deliveryTime, dataIndex: 'delivery_time', key: 'deliveryTime' },
-        { title: historyTexts[language].quantity, dataIndex: 'quantity', key: 'quantity' },
         { title: historyTexts[language].newPrice, dataIndex: 'new_price', key: 'newPrice' },
-       
-    ];
+    ], [language, priceFieldKey]); // Зависимость от priceFieldKey
 
     const onShowSizeChange: PaginationProps['onShowSizeChange'] = (current, pageSize) => {
         setLimit(pageSize);
