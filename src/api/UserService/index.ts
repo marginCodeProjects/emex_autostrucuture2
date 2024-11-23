@@ -34,7 +34,7 @@ export async function UserLogin(
 }> {
 	try {
 		const response = await fetch(
-			'https://api.autostructure.ru/v1/users/login',
+			'https://api-dev.autostructure.ru/v1/users/login',
 			{
 				method: 'POST',
 				body: JSON.stringify({
@@ -120,7 +120,7 @@ export async function UserLogout(
 }> {
 	try {
 		const response = await fetch(
-			'https://api.autostructure.ru/v1/users/logout',
+			'https://api-dev.autostructure.ru/v1/users/logout',
 			{
 				method: 'GET',
 				headers: {
@@ -155,7 +155,7 @@ export async function GetAllUsers(
 ): Promise<User[] | undefined> {
 	try {
 		const response = await fetch(
-			'https://api.autostructure.ru/v1/users/show_all',
+			'https://api-dev.autostructure.ru/v1/users/show_all',
 			{
 				method: 'GET',
 
@@ -184,7 +184,7 @@ export async function DeleteUser(
 	user_id: number
 ): Promise<User[] | undefined> {
 	const response = await fetch(
-		`https://api.autostructure.ru/v1/users/delete/${user_id}`,
+		`https://api-dev.autostructure.ru/v1/users/delete/${user_id}`,
 		{
 			method: 'DELETE',
 
@@ -214,7 +214,7 @@ export async function EditUser(
 }> {
 	try {
 		const response = await fetch(
-			`https://api.autostructure.ru/v1/users/edit/${user_id}`,
+			`https://api-dev.autostructure.ru/v1/users/edit/${user_id}`,
 			{
 				method: 'PATCH',
 				body: JSON.stringify({
@@ -270,7 +270,7 @@ export async function CreateUser(
 }> {
 	try {
 		const response = await fetch(
-			`https://api.autostructure.ru/v1/users/sign_up`,
+			`https://api-dev.autostructure.ru/v1/users/sign_up`,
 			{
 				method: 'POST',
 				body: JSON.stringify({

@@ -5,7 +5,7 @@ export async function DeleteFilter(
 	filter_id: string
 ): Promise<FilterOption[] | undefined> {
 	const response = await fetch(
-		`https://api.autostructure.ru/v1/filters/delete_filter/${filter_id}`,
+		`https://api-dev.autostructure.ru/v1/filters/delete_filter/${filter_id}`,
 		{
 			method: 'DELETE',
 
@@ -36,7 +36,7 @@ export async function EditFilter(
 }> {
 	try {
 		const response = await fetch(
-			`https://api.autostructure.ru/v1/filters/edit_filter/${filter_id}`,
+			`https://api-dev.autostructure.ru/v1/filters/edit_filter/${filter_id}`,
 			{
 				method: 'PATCH',
 				body: JSON.stringify({
@@ -97,7 +97,7 @@ export async function CreateFilter(
 }> {
 	try {
 		const response = await fetch(
-			`https://api.autostructure.ru/v1/filters/create_filter`,
+			`https://api-dev.autostructure.ru/v1/filters/create_filter`,
 			{
 				method: 'POST',
 				body: JSON.stringify({

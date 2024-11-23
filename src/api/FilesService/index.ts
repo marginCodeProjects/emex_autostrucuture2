@@ -10,7 +10,7 @@ export async function GetFiles(
 ): Promise<{ success: boolean; files?: Files[]; message?: string }> {
 	try {
 		const response = await fetch(
-			`https://api.autostructure.ru/v1/files/all_files`,
+			`https://api-dev.autostructure.ru/v1/files/all_files`,
 			{
 				method: 'GET',
 				headers: {
@@ -58,7 +58,7 @@ export async function ApplyVATCalculation(
 ): Promise<{ success: boolean; files?: Files[]; message?: string }> {
 	try {
 		const response = await fetch(
-			`https://api.autostructure.ru/v1/nds/edit/${file_id}`,
+			`https://api-dev.autostructure.ru/v1/nds/edit/${file_id}`,
 			{
 				method: 'GET',
 				headers: {
@@ -129,7 +129,7 @@ export async function GetFileData(
 }> {
 	try {
 		const response = await fetch(
-			`https://api.autostructure.ru/v1/showing/show_data/${fileName}?skip=${skip}&limit=${limit}`,
+			`https://api-dev.autostructure.ru/v1/showing/show_data/${fileName}?skip=${skip}&limit=${limit}`,
 			{
 				method: 'GET',
 				headers: {
@@ -174,7 +174,7 @@ export async function DeleteFiles(
 ): Promise<{ success: boolean; files?: Files[]; message?: string }> {
 	try {
 		const response = await fetch(
-			`https://api.autostructure.ru/v1/files/delete_files`,
+			`https://api-dev.autostructure.ru/v1/files/delete_files`,
 			{
 				method: 'DELETE',
 				headers: {

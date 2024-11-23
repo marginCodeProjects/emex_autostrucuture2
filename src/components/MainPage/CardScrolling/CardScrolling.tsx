@@ -10,7 +10,7 @@ import { ICardScrollingProps } from '../../../interfaces/Main';
 const CardScrolling: React.FC<ICardScrollingProps> = ({ setSelectedCardId, selectedCardId }) => {
     const { language } = useLanguage();
     const { token } = useAuth();
-    const { filters, loading, error } = useFilters('https://api.autostructure.ru/v1/filters/get_filters', token, language);
+    const { filters, loading, error } = useFilters('https://api-dev.autostructure.ru/v1/filters/get_filters', token, language);
     const [messageApi, contextHolder] = message.useMessage();
     const errorMessage = () => {
         messageApi.open({

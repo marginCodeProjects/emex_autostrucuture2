@@ -98,7 +98,7 @@ const AllDataTable: React.FC<AllDataTableProps> = ({ setFileName, setFileType })
     ) => (
         <div>
             <a
-                href={`https://api.autostructure.ru/v1/files/download_file/${url}/${id}`}
+                href={`https://api-dev.autostructure.ru/v1/files/download_file/${url}/${id}`}
                 className={`${styles.table__textsForLinks} ${styles.inter__medium}`}
             >
                 {historyTexts[language].downloadFile}
@@ -146,7 +146,7 @@ const AllDataTable: React.FC<AllDataTableProps> = ({ setFileName, setFileType })
             width: 200,
             render: (text: string, record: DataType) => (
                 <a
-                    href={`https://api.autostructure.ru/v1/files/download_file/before_parsing/${record.id}`}
+                    href={`https://api-dev.autostructure.ru/v1/files/download_file/before_parsing/${record.id}`}
                 >
                     {text}
                 </a>
