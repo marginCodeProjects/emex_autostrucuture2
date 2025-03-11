@@ -200,7 +200,8 @@ const AllDataTable: React.FC<AllDataTableProps> = ({ setFileName, setFileType })
                             pageSize: lineOnPage, // Количество строк на странице по умолчанию
                             showSizeChanger: true, // Позволяет менять количество строк на странице
                             pageSizeOptions: ['5', '10', '20'], // Доступные варианты количества строк на странице
-                            onShowSizeChange: (current) => {
+                            onShowSizeChange: (current,size) => {
+                                console.log(current,size,lineOnPage)
                                 setLineOnPage(current)
                             }
                         }}
