@@ -199,9 +199,9 @@ const AllDataTable: React.FC<AllDataTableProps> = ({ setFileName, setFileType })
                         pagination={{
                             pageSize: lineOnPage, // Количество строк на странице по умолчанию
                             showSizeChanger: true, // Позволяет менять количество строк на странице
-                            pageSizeOptions: ['5', '10', '20'], // Доступные варианты количества строк на странице
-                            onShowSizeChange: (current,size) => {
-                                console.log(current,size,lineOnPage)
+                            pageSizeOptions: ['5', '10', '20','30','40','50'], // Доступные варианты количества строк на странице
+                            onShowSizeChange: (_,size) => {
+                               
                                 setLineOnPage(size)
                             }
                         }}
