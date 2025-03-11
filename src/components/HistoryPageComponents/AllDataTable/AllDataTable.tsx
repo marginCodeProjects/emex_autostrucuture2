@@ -202,7 +202,7 @@ const AllDataTable: React.FC<AllDataTableProps> = ({ setFileName, setFileType })
                             pageSizeOptions: ['5', '10', '20'], // Доступные варианты количества строк на странице
                             onShowSizeChange: (current,size) => {
                                 console.log(current,size,lineOnPage)
-                                setLineOnPage(current)
+                                setLineOnPage(size)
                             }
                         }}
                     />
