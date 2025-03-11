@@ -36,8 +36,8 @@ const AllDataTable: React.FC<AllDataTableProps> = ({ setFileName, setFileType })
             const formattedFiles = files?.map((file: Files) => ({
                 key: file.id,
                 id: file.id,
-                date: file.date.slice(0, 16).replace('T', ' '),
-                finish_date: file.finish_date?.slice(0, 16).replace('T', ' '),  // Форматируем finish_date до минут
+                date: file.date.slice(0, 16).replace('T', ' ').replace(/-/g, '.'),
+                finish_date: file.finish_date?.slice(0, 16).replace('T', ' ').replace(/-/g, '.'), // Форматируем finish_date до минут
                 new_filter_id: file.new_filter_id,
                 before_parsing_filename: file.before_parsing_filename,
                 filename_after_parsing: file.filename_after_parsing,
@@ -70,8 +70,8 @@ const AllDataTable: React.FC<AllDataTableProps> = ({ setFileName, setFileType })
                 const formattedFiles = files?.map((file: Files) => ({
                     key: file.id,
                     id: file.id,
-                    date: file.date.slice(0, 16).replace('T', ' '),
-                    finish_date: file.finish_date?.slice(0, 16).replace('T', ' '), // Форматируем finish_date до минут
+                    date: file.date.slice(0, 16).replace('T', ' ').replace(/-/g, '.'),
+                    finish_date: file.finish_date?.slice(0, 16).replace('T', ' ').replace(/-/g, '.'), // Форматируем finish_date до минут
                     new_filter_id: file.new_filter_id,
                     before_parsing_filename: file.before_parsing_filename,
                     filename_after_parsing: file.filename_after_parsing,
@@ -135,13 +135,13 @@ const AllDataTable: React.FC<AllDataTableProps> = ({ setFileName, setFileType })
             title: "Дата",
             dataIndex: "date",
             key: "date",
-            width: 150, // Фиксированная ширина
+            width: 180, // Фиксированная ширина
         },
         {
             title: "Дата окончания",
             dataIndex: "finish_date",
             key: "finish_date",
-            width: 150, // Фиксированная ширина
+            width: 180, // Фиксированная ширина
         },
         {
             title: "Фильтры",
