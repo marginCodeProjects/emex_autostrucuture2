@@ -11,6 +11,7 @@ interface DataType {
     key: number;
     id: number;
     date: string;
+    finish_date: string | undefined;  // Добавляем новое поле для finish_date
     new_filter_id: number | null;
     before_parsing_filename: string;
     filename_after_parsing: string | null;
@@ -25,7 +26,7 @@ const AllDataTable: React.FC<AllDataTableProps> = ({ setFileName, setFileType })
     const [loading, setLoading] = useState<boolean>(false);
     const [selectedIds, setSelectedIds] = useState<string[]>([]);
     const [messageApi, contextHolder] = message.useMessage();
-    const [lineOnPage, setLineOnPage] = useState<number>(5)
+    const [lineOnPage, setLineOnPage] = useState<number>(5);
 
     const get_files_handler = async () => {
         setLoading(true);
@@ -36,6 +37,7 @@ const AllDataTable: React.FC<AllDataTableProps> = ({ setFileName, setFileType })
                 key: file.id,
                 id: file.id,
                 date: file.date.slice(0, 10),
+                finish_date: file.finish_date?.slice(0, 16),  // Форматируем finish_date до минут
                 new_filter_id: file.new_filter_id,
                 before_parsing_filename: file.before_parsing_filename,
                 filename_after_parsing: file.filename_after_parsing,
@@ -68,7 +70,8 @@ const AllDataTable: React.FC<AllDataTableProps> = ({ setFileName, setFileType })
                 const formattedFiles = files?.map((file: Files) => ({
                     key: file.id,
                     id: file.id,
-                    date: file.date.slice(0, 10),
+                    date: file.date.slice(0, 16),
+                    finish_date: file.finish_date?.slice(0, 16), // Форматируем finish_date до минут
                     new_filter_id: file.new_filter_id,
                     before_parsing_filename: file.before_parsing_filename,
                     filename_after_parsing: file.filename_after_parsing,
@@ -76,7 +79,7 @@ const AllDataTable: React.FC<AllDataTableProps> = ({ setFileName, setFileType })
                     filename_after_parsing_with_nds: file.filename_after_parsing_with_nds,
                 }));
                 setFiles(formattedFiles || []);
-                setSelectedIds([])
+                setSelectedIds([]);
             }
         }
         messageApi.open({
@@ -132,6 +135,12 @@ const AllDataTable: React.FC<AllDataTableProps> = ({ setFileName, setFileType })
             title: "Дата",
             dataIndex: "date",
             key: "date",
+            width: 150, // Фиксированная ширина
+        },
+        {
+            title: "Дата окончания",
+            dataIndex: "finish_date",
+            key: "finish_date",
             width: 150, // Фиксированная ширина
         },
         {
@@ -199,21 +208,22 @@ const AllDataTable: React.FC<AllDataTableProps> = ({ setFileName, setFileType })
                         pagination={{
                             pageSize: lineOnPage, // Количество строк на странице по умолчанию
                             showSizeChanger: true, // Позволяет менять количество строк на странице
-                            pageSizeOptions: ['5', '10', '20','30','40','50'], // Доступные варианты количества строк на странице
-                            onShowSizeChange: (_,size) => {
-                               
-                                setLineOnPage(size)
-                            }
+                            pageSizeOptions: ['5', '10', '20', '30', '40', '50'], // Доступные варианты количества строк на странице
+                            onShowSizeChange: (_, size) => {
+                                setLineOnPage(size);
+                            },
                         }}
                     />
-                    {selectedIds.length > 0 && <Button
-                        type="primary"
-                        danger
-                        style={{ marginBottom: '20px' }}
-                        onClick={handleDeleteSelected}
-                    >
-                        Удалить выбранное
-                    </Button>}
+                    {selectedIds.length > 0 && (
+                        <Button
+                            type="primary"
+                            danger
+                            style={{ marginBottom: "20px" }}
+                            onClick={handleDeleteSelected}
+                        >
+                            Удалить выбранное
+                        </Button>
+                    )}
                 </>
             )}
         </>
