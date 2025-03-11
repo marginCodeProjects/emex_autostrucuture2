@@ -25,6 +25,7 @@ const AllDataTable: React.FC<AllDataTableProps> = ({ setFileName, setFileType })
     const [loading, setLoading] = useState<boolean>(false);
     const [selectedIds, setSelectedIds] = useState<string[]>([]);
     const [messageApi, contextHolder] = message.useMessage();
+    const [lineOnPage, setLineOnPage] = useState<number>(5)
 
     const get_files_handler = async () => {
         setLoading(true);
@@ -196,11 +197,11 @@ const AllDataTable: React.FC<AllDataTableProps> = ({ setFileName, setFileType })
                         dataSource={files || []}
                         rowKey="id"
                         pagination={{
-                            pageSize: 5, // Количество строк на странице по умолчанию
+                            pageSize: lineOnPage, // Количество строк на странице по умолчанию
                             showSizeChanger: true, // Позволяет менять количество строк на странице
                             pageSizeOptions: ['5', '10', '20'], // Доступные варианты количества строк на странице
                             onShowSizeChange: (size) => {
-                                console.log('Size changed to:', size);
+                                setLineOnPage(size)
                             }
                         }}
                     />
