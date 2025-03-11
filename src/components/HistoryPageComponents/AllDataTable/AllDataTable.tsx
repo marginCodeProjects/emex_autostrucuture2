@@ -195,7 +195,14 @@ const AllDataTable: React.FC<AllDataTableProps> = ({ setFileName, setFileType })
                         columns={columns}
                         dataSource={files || []}
                         rowKey="id"
-                        pagination={{ pageSize: 5 }}
+                        pagination={{
+                            pageSize: 5, // Количество строк на странице по умолчанию
+                            showSizeChanger: true, // Позволяет менять количество строк на странице
+                            pageSizeOptions: ['5', '10', '20'], // Доступные варианты количества строк на странице
+                            onShowSizeChange: (current, size) => {
+                                console.log('Size changed to:', size);
+                            }
+                        }}
                     />
                     {selectedIds.length > 0 && <Button
                         type="primary"
