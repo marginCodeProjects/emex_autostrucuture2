@@ -37,13 +37,19 @@ const AllDataTable: React.FC<AllDataTableProps> = ({ setFileName, setFileType })
                 key: file.id,
                 id: file.id,
                 date: file.date.slice(0, 16).replace('T', ' ').replace(/-/g, '.'),
-                finish_date: file.finish_date?.slice(0, 16).replace('T', ' ').replace(/-/g, '.'), // Форматируем finish_date до минут
+                finish_date: file.finish_date?.slice(0, 16).replace('T', ' ').replace(/-/g, '.'),
                 new_filter_id: file.new_filter_id,
                 before_parsing_filename: file.before_parsing_filename,
                 filename_after_parsing: file.filename_after_parsing,
                 filename_after_parsing_without_nds: file.filename_after_parsing_without_nds,
                 filename_after_parsing_with_nds: file.filename_after_parsing_with_nds,
             }));
+
+            // Сортируем данные перед установкой в state
+            formattedFiles?.sort((a, b) =>
+                new Date(b.date).getTime() - new Date(a.date).getTime()
+            );
+
             setFiles(formattedFiles || []);
         } else {
             disclamer(message);
@@ -78,7 +84,12 @@ const AllDataTable: React.FC<AllDataTableProps> = ({ setFileName, setFileType })
                     filename_after_parsing_without_nds: file.filename_after_parsing_without_nds,
                     filename_after_parsing_with_nds: file.filename_after_parsing_with_nds,
                 }));
+                formattedFiles?.sort((a, b) =>
+                    new Date(b.date).getTime() - new Date(a.date).getTime()
+                );
+
                 setFiles(formattedFiles || []);
+
                 setSelectedIds([]);
             }
         }
@@ -137,9 +148,7 @@ const AllDataTable: React.FC<AllDataTableProps> = ({ setFileName, setFileType })
             dataIndex: "date",
             key: "date",
             width: 180,
-            defaultSortOrder: "ascend" as const,
-            sorter: (a: DataType, b: DataType) =>
-                new Date(a.date).getTime() - new Date(b.date).getTime(),
+           
         },
 
         {
