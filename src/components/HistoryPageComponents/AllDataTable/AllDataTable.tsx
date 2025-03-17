@@ -137,7 +137,7 @@ const AllDataTable: React.FC<AllDataTableProps> = ({ setFileName, setFileType })
             dataIndex: "date",
             key: "date",
             width: 180,
-            defaultSortOrder: "descend" as const,
+            defaultSortOrder: "ascend" as const,
             sorter: (a: DataType, b: DataType) =>
                 new Date(a.date).getTime() - new Date(b.date).getTime(),
         },
