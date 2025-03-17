@@ -131,12 +131,17 @@ const AllDataTable: React.FC<AllDataTableProps> = ({ setFileName, setFileType })
                 />
             ),
         },
+
         {
             title: "Дата",
             dataIndex: "date",
             key: "date",
-            width: 180, // Фиксированная ширина
+            width: 180,
+            defaultSortOrder: "descend" as const,
+            sorter: (a: DataType, b: DataType) =>
+                new Date(a.date).getTime() - new Date(b.date).getTime(),
         },
+
         {
             title: "Дата окончания",
             dataIndex: "finish_date",
