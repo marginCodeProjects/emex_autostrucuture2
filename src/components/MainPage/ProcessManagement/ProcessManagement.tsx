@@ -159,33 +159,35 @@ const ProcessManagement: React.FC<IProcessManagementProps> = ({
 			<div>
 				{contextHolder}
 				<div className={styles.ProcessDiv}>
-					<img
-						src={parsingInProcess ? stopIcon : startIcon}
-						onClick={startParserHandler}
-						className={styles.ProcessDiv__StartButton}
-					/>
-					<div className={styles.ProcessDiv__group}>
-						<div className={styles.texts__div}>
-							<p className={`${styles.inter__medium}${styles.texts}`}>
-								{statusMessage()}
-							</p>
-							<p className={`${styles.inter__medium} ${styles.texts__red}`} style={{ height: '35px' }}>
-								{texts[language].Available}
-							</p>
-						</div>
-
-						<Progress
-							style={{ margin: "3px auto 0px", width: '98%' }}
-							percent={inputPercent}
-							percentPosition={{ align: 'start', type: 'outer' }}
-							size="small"
+					<div style={{ display: 'flex', }}>
+						<img
+							src={parsingInProcess ? stopIcon : startIcon}
+							onClick={startParserHandler}
+							className={styles.ProcessDiv__StartButton}
 						/>
+						<div className={styles.ProcessDiv__group}>
+							<div className={styles.texts__div}>
+								<p className={`${styles.inter__medium}${styles.texts}`}>
+									{statusMessage()}
+								</p>
+								<p className={`${styles.inter__medium} ${styles.texts__red}`} style={{ height: '35px' }}>
+									{texts[language].Available}
+								</p>
+							</div>
+
+							<Progress
+								style={{ margin: "3px auto 0px", width: '98%' }}
+								percent={inputPercent}
+								percentPosition={{ align: 'start', type: 'outer' }}
+								size="small"
+							/>
+						</div>
+						<p className={`${styles.inter__medium} ${styles.texts__red}`} style={{ fontSize: "15px" }}>{ProxyTrafficAvalibale}</p>
 					</div>
-					<p className={`${styles.inter__medium} ${styles.texts__red}`} style={{ fontSize: "15px" }}>{ProxyTrafficAvalibale}</p>
 					<div>
 						<p>Используется brightdata</p>
 						<p>Фильтр LOGO FOR BIG PARSING</p>
-						
+
 					</div>
 				</div>
 			</div>
