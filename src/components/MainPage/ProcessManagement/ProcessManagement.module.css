@@ -77,3 +77,10 @@
 	margin-top: 3px;
 	margin-right: 7px;
 }
+
+.text_minify {
+	width: fit-content;
+}
+.text_minify:first-child {
+	margin-bottom: 7px;
+}

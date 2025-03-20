@@ -176,7 +176,7 @@ const ProcessManagement: React.FC<IProcessManagementProps> = ({
 							</div>
 
 							<Progress
-								style={{ margin: "3px auto 0px", width: '98%' }}
+								style={{ margin: "-8px auto 0px", width: '98%' }}
 								percent={inputPercent}
 								percentPosition={{ align: 'start', type: 'outer' }}
 								size="small"
@@ -184,10 +184,9 @@ const ProcessManagement: React.FC<IProcessManagementProps> = ({
 						</div>
 						<p className={`${styles.inter__medium} ${styles.texts__red}`} style={{ fontSize: "15px" }}>{ProxyTrafficAvalibale}</p>
 					</div>
-					<div>
-						<p>Используется brightdata</p>
-						<p>Фильтр LOGO FOR BIG PARSING</p>
-
+					<div style={{display:'flex',flexDirection:'column',padding:'12px 0px'}}>
+						<p className={`${styles.inter__medium} ${styles.texts} ${styles.text_minify}`}>Используется brightdata</p>
+						<p className={`${styles.inter__medium} ${styles.texts} ${styles.text_minify}`}>Фильтр LOGO FOR BIG PARSING</p>
 					</div>
 				</div>
 			</div>
