@@ -35,12 +35,7 @@ const ProcessManagement: React.FC<IProcessManagementProps> = ({
 	}, [])
 
 
-	useEffect(() => {
-
-		console.log(proxySource);
-
-
-	}, [proxySource])
+	
 
 	useEffect(() => {
 		if (
