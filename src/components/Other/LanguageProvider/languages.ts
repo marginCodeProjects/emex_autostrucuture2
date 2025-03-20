@@ -18,6 +18,8 @@ export const texts = {
 		processManagement: 'УПРАВЛЕНИЕ ПРОЦЕССОМ',
 		Available: 'Доступно',
 		logoIsNotUsed: 'не используется',
+		proxyInUse:'Используемые прокси',
+		currentFilter:"Используемый фильтр"
 	},
 	EN: {
 		home: 'Home',
@@ -39,6 +41,8 @@ export const texts = {
 		processManagement: 'PROCESS MANAGEMENT',
 		Available: 'Available',
 		logoIsNotUsed: 'is not used',
+		proxyInUse:'Proxy in use',
+		currentFilter:"Current filter"
 	},
 }
 
