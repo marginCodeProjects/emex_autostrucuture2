@@ -106,6 +106,8 @@ const ProcessManagement: React.FC<IProcessManagementProps> = ({
 			} else if (data.success) {
 				setParsingInProcess(true)
 				localStorage.setItem('parsingInProcess', 'true')
+				if (filterId) { localStorage.setItem('selectedFilterId', filterId); }
+				localStorage.setItem('selectedProxySource', proxySource);
 				successMessage(data.message)
 			}
 		}
