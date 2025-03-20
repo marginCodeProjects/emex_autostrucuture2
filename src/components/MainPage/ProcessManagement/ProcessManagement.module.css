@@ -18,12 +18,12 @@
 }
 .ProcessDiv {
 	width: 100%;
-	padding: 0px 12px 7px 12px;
+	padding: 12px 12px 7px 12px;
 	height: 120px;
 	display: flex;
 	border-radius: 10px;
 	border: 1px solid #335ae6;
-	align-items: center;
+	
 }
 .ProcessDiv__StartButton {
 	width: 42px;

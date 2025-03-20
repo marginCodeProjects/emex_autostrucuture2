@@ -169,7 +169,7 @@ const ProcessManagement: React.FC<IProcessManagementProps> = ({
 							<p className={`${styles.inter__medium}${styles.texts}`}>
 								{statusMessage()}
 							</p>
-							<p className={`${styles.inter__medium} ${styles.texts__red}`}>
+							<p className={`${styles.inter__medium} ${styles.texts__red}`} style={{height:'35px'}}>
 								{texts[language].Available}
 							</p>
 						</div>
