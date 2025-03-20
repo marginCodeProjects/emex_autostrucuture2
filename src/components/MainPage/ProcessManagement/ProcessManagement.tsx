@@ -35,7 +35,7 @@ const ProcessManagement: React.FC<IProcessManagementProps> = ({
 	}, [])
 
 
-	
+
 
 	useEffect(() => {
 		if (
@@ -169,7 +169,7 @@ const ProcessManagement: React.FC<IProcessManagementProps> = ({
 							<p className={`${styles.inter__medium}${styles.texts}`}>
 								{statusMessage()}
 							</p>
-							<p className={`${styles.inter__medium} ${styles.texts__red}`} style={{height:'35px'}}>
+							<p className={`${styles.inter__medium} ${styles.texts__red}`} style={{ height: '35px' }}>
 								{texts[language].Available}
 							</p>
 						</div>
@@ -182,6 +182,11 @@ const ProcessManagement: React.FC<IProcessManagementProps> = ({
 						/>
 					</div>
 					<p className={`${styles.inter__medium} ${styles.texts__red}`} style={{ fontSize: "15px" }}>{ProxyTrafficAvalibale}</p>
+					<div>
+						<p>Используется brightdata</p>
+						<p>Фильтр LOGO FOR BIG PARSING</p>
+						
+					</div>
 				</div>
 			</div>
 		</ConfigProvider>
