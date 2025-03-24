@@ -4,7 +4,7 @@ import stopIcon from '../../../assets/stopButtonIcon.svg'
 import { IProcessManagementProps } from '../../../interfaces/Main'
 import useWebSocket from '../../../hooks/UserHooks/socketHooks'
 import { useEffect, useState } from 'react'
-import { GetBrightProxyTrafficAvalibale, GetMangoProxyTrafficAvalibale, ParserStart, ParserStop } from '../../../api/ParserService'
+import { GetBrightProxyTrafficAvailable, GetMangoProxyTrafficAvailable, ParserStart, ParserStop } from '../../../api/ParserService'
 import { useLanguage } from '../../Other/LanguageProvider/useLanguage'
 import { texts, statusMessages } from '../../Other/LanguageProvider/languages'
 import { useAuth } from '../../Other/authContext/useAuth'
@@ -129,19 +129,19 @@ const ProcessManagement: React.FC<IProcessManagementProps> = ({
 
 		if (proxySource === "MANGO") {
 			console.log("Я сработал манго");
-			const data = await GetMangoProxyTrafficAvalibale(language)
-			if (data?.AvailableTraffick) {
-				const availableTrafficGB = (data.AvailableTraffick / 1024).toFixed(1)
+			const data = await GetMangoProxyTrafficAvailable(language)
+			if (data?.availableTraffic) {
+				const availableTrafficGB = (data.availableTraffic / 1024).toFixed(1)
 				const suffix = language === "RU" ? ' ГБ' : ' GB'
 				setProxyTrafficAvalibale(availableTrafficGB + suffix)
 			}
 
 		} else if (proxySource === "BRIGHTDATA") {
 			console.log("Я сработал брайт");
-			const data = await GetBrightProxyTrafficAvalibale(language)
+			const data = await GetBrightProxyTrafficAvailable(language)
 			console.log(data);
-			if (data.balance && data.pending_costs) {
-				const availableTrafficGB = ((data.balance - data.pending_costs) / 0.6).toFixed(1)
+			if (data.balance && data.pendingCosts) {
+				const availableTrafficGB = ((data.balance - data.pendingCosts) / 0.6).toFixed(1)
 				const suffix = language === "RU" ? ' ГБ' : ' GB'
 				setProxyTrafficAvalibale(availableTrafficGB + suffix)
 			}

@@ -4,49 +4,48 @@ import {
 	SessionTableRowData,
 } from '../../interfaces/Main'
 
+const API_URL = 'https://api.autostructure.ru/v1'
+
+async function fetchAPI<T>(
+	path: string,
+	method: 'GET' | 'POST' | 'PATCH' | 'DELETE',
+	token: string | null,
+	body?: object
+): Promise<T> {
+	try {
+		const response = await fetch(`${API_URL}${path}`, {
+			method,
+			headers: {
+				'Content-Type': 'application/json',
+				'access-token': token || '',
+			},
+			body: body ? JSON.stringify(body) : undefined,
+		})
+
+		const data = await response.json()
+		if (!response.ok) throw new Error(data?.message || 'Ошибка запроса')
+
+		return data
+	} catch (error) {
+		console.error(`Ошибка в запросе ${method} ${path}:`, error)
+		throw error
+	}
+}
+
 export async function GetFiles(
 	token: string | null,
 	language: 'EN' | 'RU'
 ): Promise<{ success: boolean; files?: Files[]; message?: string }> {
 	try {
-		const response = await fetch(
-			`https://api.autostructure.ru/v1/files/all_files`,
-			{
-				method: 'GET',
-				headers: {
-					'Content-Type': 'application/json',
-					'access-token': `${token}`,
-				},
-			}
-		)
-
-		if (response.ok) {
-			// Парсим JSON только если запрос успешен
-			const files: Files[] = await response.json()
-			return { success: true, files }
-		} else if (response.status == 404) {
-			return {
-				success: false,
-				message:
-					language === 'RU'
-						? 'Вы ещё не загружали файлы'
-						: "You haven't uploaded any files yet",
-			}
-		} else
-			return {
-				success: false,
-				message:
-					language === 'RU'
-						? 'Ошибка сети или сервера'
-						: 'Network or server error',
-			}
+		const files = await fetchAPI<Files[]>('/files/all_files', 'GET', token)
+		return { success: true, files }
 	} catch (error) {
 		return {
 			success: false,
 			message:
 				language === 'RU'
-					? 'Ошибка сети или сервера'
-					: 'Network or server error',
+					? 'Ошибка загрузки файлов'
+					: 'File loading error',
 		}
 	}
 }
@@ -57,60 +56,32 @@ export async function ApplyVATCalculation(
 	file_id: number
 ): Promise<{ success: boolean; files?: Files[]; message?: string }> {
 	try {
-		const response = await fetch(
-			`https://api.autostructure.ru/v1/nds/edit/${file_id}`,
-			{
-				method: 'GET',
-				headers: {
-					'Content-Type': 'application/json',
-					'access-token': `${token}`,
-				},
-			}
+		const files = await fetchAPI<Files[]>(
+			`/nds/edit/${file_id}`,
+			'GET',
+			token
 		)
+		return { success: true, files }
+	} catch (error: any) {
+		const messageMap: Record<number, string> = {
+			404:
+				language === 'RU'
+					? 'Вы ещё не загружали файлы'
+					: "You haven't uploaded any files yet",
+			405:
+				language === 'RU'
+					? 'Файл не может быть сохранён'
+					: 'The file cannot be saved',
+			409:
+				language === 'RU'
+					? 'К файлу уже был применён расчёт НДС'
+					: 'VAT calculation has already been applied',
+		}
 
-		if (response.ok) {
-			// Парсим JSON только если запрос успешен
-			const files: Files[] = await response.json()
-			return { success: true, files }
-		} else if (response.status == 404) {
-			return {
-				success: false,
-				message:
-					language === 'RU'
-						? 'Вы ещё не загружали файлы'
-						: "You haven't uploaded any files yet",
-			}
-		} else if (response.status == 405) {
-			return {
-				success: false,
-				message:
-					language === 'RU'
-						? 'Файл не может быть сохранён'
-						: 'The file cannot be saved',
-			}
-		} else if (response.status == 409) {
-			return {
-				success: false,
-				message:
-					language === 'RU'
-						? 'К файлу уже был применён расчёт НДС'
-						: 'VAT calculation has already been applied to the file',
-			}
-		} else
-			return {
-				success: false,
-				message:
-					language === 'RU'
-						? 'Ошибка сети или сервера'
-						: 'Network or server error',
-			}
-	} catch (error) {
+		const status = (error as { status?: number })?.status ?? 0
 		return {
 			success: false,
-			message:
-				language === 'RU'
-					? 'Ошибка сети или сервера'
-					: 'Network or server error',
+			message: messageMap[status] || 'Ошибка сети или сервера',
 		}
 	}
 }
@@ -127,40 +98,31 @@ export async function GetFileData(
 	totalRows: number
 	message?: string
 }> {
-	try {
-		const response = await fetch(
-			`https://api.autostructure.ru/v1/showing/show_data/${fileName}?skip=${skip}&limit=${limit}`,
-			{
-				method: 'GET',
-				headers: {
-					'Content-Type': 'application/json',
-					'access-token': `${token}`,
-				},
-			}
-		)
-
-		if (response.ok) {
-			// Парсим JSON только если запрос успешен
-			const data: SessionTableAPI = await response.json()
-			return { success: true, rows: data.rows, totalRows: data.total }
-		} else {
-			return {
-				success: false,
-				message:
-					language === 'RU'
-						? 'Ошибка загрузки таблицы'
-						: 'Table loading error',
-				rows: [],
-				totalRows: 0,
-			}
+	if (!fileName) {
+		return {
+			success: false,
+			message:
+				language === 'RU'
+					? 'Некорректное имя файла'
+					: 'Invalid file name',
+			rows: [],
+			totalRows: 0,
 		}
+	}
+	try {
+		const data = await fetchAPI<SessionTableAPI>(
+			`/showing/show_data/${fileName}?skip=${skip}&limit=${limit}`,
+			'GET',
+			token
+		)
+		return { success: true, rows: data.rows, totalRows: data.total }
 	} catch (error) {
 		return {
 			success: false,
 			message:
 				language === 'RU'
-					? 'Ошибка сети или сервера'
-					: 'Network or server error',
+					? 'Ошибка загрузки таблицы'
+					: 'Table loading error',
 			rows: [],
 			totalRows: 0,
 		}
@@ -173,45 +135,20 @@ export async function DeleteFiles(
 	language: 'EN' | 'RU'
 ): Promise<{ success: boolean; files?: Files[]; message?: string }> {
 	try {
-		const response = await fetch(
-			`https://api.autostructure.ru/v1/files/delete_files`,
-			{
-				method: 'DELETE',
-				headers: {
-					'Content-Type': 'application/json',
-					'access-token': `${token}`,
-				},
-				body: JSON.stringify(ids),
-			}
+		const files = await fetchAPI<Files[]>(
+			'/files/delete_files',
+			'DELETE',
+			token,
+			ids
 		)
-
-		if (response.ok) {
-			// Парсим JSON только если запрос успешен
-			const files = await response.json()
-			return { success: true, files }
-		} else if (response.status == 404) {
-			return {
-				success: false,
-				message:
-					language === 'RU'
-						? 'Не удалось удалить файлы'
-						: 'Failed to delete files',
-			}
-		} else
-			return {
-				success: false,
-				message:
-					language === 'RU'
-						? 'Ошибка сети или сервера'
-						: 'Network or server error',
-			}
+		return { success: true, files }
 	} catch (error) {
 		return {
 			success: false,
 			message:
 				language === 'RU'
-					? 'Ошибка сети или сервера'
-					: 'Network or server error',
+					? 'Ошибка удаления файлов'
+					: 'File deletion error',
 		}
 	}
 }
