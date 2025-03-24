@@ -10,6 +10,7 @@ import { texts, statusMessages } from '../../Other/LanguageProvider/languages'
 import { useAuth } from '../../Other/authContext/useAuth'
 import { ConfigProvider, message, Progress } from 'antd'
 import { useProxySource } from '../../ProxySourceProvider/ProxySourceProvider'
+import { GetFilterByID } from '../../../api/FilterService'
 
 const ProcessManagement: React.FC<IProcessManagementProps> = ({
 	file,
@@ -24,6 +25,7 @@ const ProcessManagement: React.FC<IProcessManagementProps> = ({
 	const { proxySource } = useProxySource()
 	const [ProxyTrafficAvalibale, setProxyTrafficAvalibale] = useState<string>()
 	const [isLoading, setIsLoading] = useState(true)
+	const [filterName, setFilterName] = useState<string | null>(null)
 	useEffect(() => {
 		const parsingStatus = localStorage.getItem('parsingInProcess')
 
@@ -36,6 +38,14 @@ const ProcessManagement: React.FC<IProcessManagementProps> = ({
 
 
 
+	useEffect(() => {
+		const fetchFilter = async () => {
+			const response = await GetFilterByID(token, localStorage.getItem("selectedFilterId"), language)
+			setFilterName(response.Filter?.title ?? "Неизвестный фильтр")
+		}
+
+		fetchFilter()
+	}, [parsingInProcess])
 
 	useEffect(() => {
 		if (
@@ -187,8 +197,8 @@ const ProcessManagement: React.FC<IProcessManagementProps> = ({
 						<p className={`${styles.inter__medium} ${styles.texts__red}`} style={{ fontSize: "15px" }}>{ProxyTrafficAvalibale}</p>
 					</div>
 					<div style={{ display: 'flex', flexDirection: 'column', padding: '12px 0px' }}>
-						<p className={`${styles.inter__medium} ${styles.texts} ${styles.text_minify}`}>{texts[language].proxyInUse} brightdata</p>
-						<p className={`${styles.inter__medium} ${styles.texts} ${styles.text_minify}`}>{texts[language].currentFilter} LOGO FOR BIG PARSING</p>
+						<p className={`${styles.inter__medium} ${styles.texts} ${styles.text_minify}`}>{texts[language].proxyInUse} {localStorage.getItem("selectedProxySource")}</p>
+						<p className={`${styles.inter__medium} ${styles.texts} ${styles.text_minify}`}>{texts[language].currentFilter} {filterName}</p>
 					</div>
 				</div>
 			</div>
