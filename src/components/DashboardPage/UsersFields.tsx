@@ -75,7 +75,7 @@ const UsersFields: React.FC<IUsersProps> = ({ setEditingCardId, editingCardId, u
         }
 
         if (typeof editingCardId === 'number') {
-            const { status, Message, users } = await EditUser(token, editingCardId, formValues, language);
+            const { status, Message, users } = await EditUser(token, editingCardId, formValues,language);
             if (status) {
                 if (Message == "Данные успешно изменены" || Message == "Data successfully changed") {
                     success()
