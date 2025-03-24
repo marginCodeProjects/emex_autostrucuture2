@@ -1,135 +1,69 @@
 import { ProxyFormValues, Proxys } from '../../interfaces/Main'
 
-export async function ExtendProxy(
-	token: string | null,
-	formValues: ProxyFormValues,
-	language: 'RU' | 'EN'
-): Promise<{
+interface ProxyResponse {
 	status: boolean
-	proxys?: Proxys[]
+	proxies?: Proxys[]
 	message?: string
-}> {
-	try {
-		const response = await fetch(
-			`https://api.autostructure.ru/v1/proxies/prolong_proxy?date=${formValues.date}&count=${formValues.count}&duration=${formValues.duration}`,
-			{
-				method: 'GET',
-				headers: {
-					'Content-Type': 'application/json',
-					'access-token': `${token}`,
-				},
-			}
-		)
+}
 
-		if (response.status === 200) {
-			const proxys = await response.json()
-			return {
-				status: true,
-				proxys,
-			}
-		} else if (response.status === 422) {
+async function fetchProxies(
+	url: string,
+	token: string | null,
+	language: 'RU' | 'EN'
+): Promise<ProxyResponse> {
+	try {
+		const response = await fetch(url, {
+			method: 'GET',
+			headers: {
+				'Content-Type': 'application/json',
+				'access-token': token || '',
+			},
+		})
+
+		const data = await response.json()
+
+		if (response.ok) {
+			return { status: true, proxies: data }
+		}
+
+		if (response.status === 422) {
 			return {
 				status: false,
-				message:
-					language === 'RU'
-						? 'Пожалуйста заполните все поля'
-						: 'Please fill in all fields',
+				message: language === 'RU' ? 'Пожалуйста, заполните все поля' : 'Please fill in all fields',
 			}
-		} else {
-			const proxys = await response.json()
-			return {
-				status: false,
-				message: proxys.detail,
-			}
+		}
+
+		return {
+			status: false,
+			message: data.detail || (language === 'RU' ? 'Произошла ошибка' : 'An error occurred'),
 		}
 	} catch (error) {
 		return {
 			status: false,
+			message: language === 'RU' ? 'Ошибка сети или сервера' : 'Network or server error',
 		}
 	}
+}
+
+export async function ExtendProxy(
+	token: string | null,
+	formValues: ProxyFormValues,
+	language: 'RU' | 'EN'
+): Promise<ProxyResponse> {
+	const url = `https://api.autostructure.ru/v1/proxies/prolong_proxy?date=${formValues.date}&count=${formValues.count}&duration=${formValues.duration}`
+	return fetchProxies(url, token, language)
 }
 
 export async function BuyProxy(
 	token: string | null,
 	formValues: ProxyFormValues,
 	language: 'RU' | 'EN'
-): Promise<{
-	status: boolean
-	proxys?: Proxys[]
-	message?: string
-}> {
-	try {
-		const response = await fetch(
-			`https://api.autostructure.ru/v1/proxies/buy_proxy?count=${formValues.count}&duration=${formValues.duration}`,
-			{
-				method: 'GET',
-				headers: {
-					'Content-Type': 'application/json',
-					'access-token': `${token}`,
-				},
-			}
-		)
-
-		if (response.status === 200) {
-			const proxys = await response.json()
-			return {
-				status: true,
-				proxys,
-			}
-		} else if (response.status === 422) {
-			return {
-				status: false,
-				message:
-					language === 'RU'
-						? 'Пожалуйста заполните все поля'
-						: 'Please fill in all fields',
-			}
-		} else {
-			const proxys = await response.json()
-			return {
-				status: false,
-				message: proxys.detail,
-			}
-		}
-	} catch (error) {
-		return {
-			status: false,
-		}
-	}
+): Promise<ProxyResponse> {
+	const url = `https://api.autostructure.ru/v1/proxies/buy_proxy?count=${formValues.count}&duration=${formValues.duration}`
+	return fetchProxies(url, token, language)
 }
-export async function GetProxy(token: string | null): Promise<{
-	status: boolean
-	proxys?: Proxys[]
-	message?: string
-}> {
-	try {
-		const response = await fetch(
-			`https://api.autostructure.ru/v1/proxies/get_proxy_group`,
-			{
-				method: 'GET',
-				headers: {
-					'Content-Type': 'application/json',
-					'access-token': `${token}`,
-				},
-			}
-		)
 
-		if (response.ok) {
-			const proxys = await response.json()
-			return {
-				status: true,
-				proxys,
-			}
-		} else {
-			const proxys = await response.json()
-			return {
-				status: false,
-				message: proxys.detail,
-			}
-		}
-	} catch (error) {
-		return {
-			status: false,
-		}
-	}
+export async function GetProxy(token: string | null): Promise<ProxyResponse> {
+	const url = `https://api.autostructure.ru/v1/proxies/get_proxy_group`
+	return fetchProxies(url, token, 'RU') // Язык не критичен, можно менять по необходимости
 }
