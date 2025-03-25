@@ -26,6 +26,7 @@ const ProcessManagement: React.FC<IProcessManagementProps> = ({
 	const [ProxyTrafficAvalibale, setProxyTrafficAvalibale] = useState<string>()
 	const [isLoading, setIsLoading] = useState(true)
 	const [filterName, setFilterName] = useState<string | null>(null)
+	const [selectedProxySource, setSelectedProxySource] = useState<string | null>(localStorage.getItem("selectedProxySource"));
 	useEffect(() => {
 		const parsingStatus = localStorage.getItem('parsingInProcess')
 
@@ -100,28 +101,35 @@ const ProcessManagement: React.FC<IProcessManagementProps> = ({
 	}
 	const startParserHandler = async () => {
 		if (parsingInProcess) {
-			const data = await ParserStop(token, language)
+			const data = await ParserStop(token, language);
 			if (data.success === false) {
-				errorMessage(data.message)
+				errorMessage(data.message);
 			} else if (data.success) {
-				setParsingInProcess(false)
-				localStorage.setItem('parsingInProcess', 'false')
-				successMessage(data.message)
+				setParsingInProcess(false);
+				localStorage.setItem('parsingInProcess', 'false');
+				successMessage(data.message);
 			}
 		} else {
-			const data = await ParserStart(filterId, token, proxySource, language)
-
+			const data = await ParserStart(filterId, token, proxySource, language);
 			if (data.success === false) {
-				errorMessage(data.message)
+				errorMessage(data.message);
 			} else if (data.success) {
-				setParsingInProcess(true)
-				localStorage.setItem('parsingInProcess', 'true')
-				if (filterId) { localStorage.setItem('selectedFilterId', filterId); }
+				setParsingInProcess(true);
+				localStorage.setItem('parsingInProcess', 'true');
+
+				if (filterId) {
+					localStorage.setItem('selectedFilterId', filterId);
+				}
 				localStorage.setItem('selectedProxySource', proxySource);
-				successMessage(data.message)
+				setSelectedProxySource(proxySource); // Обновляем состояние
+				successMessage(data.message);
+
+				// Обновляем фильтр сразу после старта парсинга
+				const response = await GetFilterByID(token, filterId, language);
+				setFilterName(response.Filter?.title ?? "Неизвестный фильтр");
 			}
 		}
-	}
+	};
 
 
 	const fetchTraffic = async () => {
@@ -196,10 +204,16 @@ const ProcessManagement: React.FC<IProcessManagementProps> = ({
 						</div>
 						<p className={`${styles.inter__medium} ${styles.texts__red}`} style={{ fontSize: "15px" }}>{ProxyTrafficAvalibale}</p>
 					</div>
-					<div style={{ display: 'flex', flexDirection: 'column', padding: '12px 0px' }}>
-						<p className={`${styles.inter__medium} ${styles.texts} ${styles.text_minify}`}>{texts[language].proxyInUse} {localStorage.getItem("selectedProxySource")}</p>
-						<p className={`${styles.inter__medium} ${styles.texts} ${styles.text_minify}`}>{texts[language].currentFilter} {filterName}</p>
-					</div>
+					{parsingInProcess && (
+						<div style={{ display: 'flex', flexDirection: 'column', padding: '12px 0px' }}>
+							<p className={`${styles.inter__medium} ${styles.texts} ${styles.text_minify}`}>
+								{texts[language].proxyInUse} {selectedProxySource}
+							</p>
+							<p className={`${styles.inter__medium} ${styles.texts} ${styles.text_minify}`}>
+								{texts[language].currentFilter} {filterName}
+							</p>
+						</div>
+					)}
 				</div>
 			</div>
 		</ConfigProvider>
@@ -207,3 +221,9 @@ const ProcessManagement: React.FC<IProcessManagementProps> = ({
 }
 
 export default ProcessManagement
+
+
+
+
+
+
