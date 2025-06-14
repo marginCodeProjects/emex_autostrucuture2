@@ -217,7 +217,7 @@ const ProcessManagement: React.FC<IProcessManagementProps> = ({
 						<div>
 						<div>
 							<p className={`${styles.inter__medium} ${styles.texts} ${styles.text_minify}`}>
-
+					Грузия
 							</p>
 						</div>
 					</div>
