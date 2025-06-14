@@ -214,6 +214,13 @@ const ProcessManagement: React.FC<IProcessManagementProps> = ({
 							</p>
 						</div>
 					)}
+						<div>
+						<div>
+							<p className={`${styles.inter__medium} ${styles.texts} ${styles.text_minify}`}>
+
+							</p>
+						</div>
+					</div>
 				</div>
 			</div>
 		</ConfigProvider>
