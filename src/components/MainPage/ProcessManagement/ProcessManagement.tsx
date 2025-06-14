@@ -179,7 +179,7 @@ const ProcessManagement: React.FC<IProcessManagementProps> = ({
 			<div>
 				{contextHolder}
 				<div className={styles.ProcessDiv}>
-					<div style={{ display: 'flex', }}>
+					<div style={{ display: 'flex', marginBottom: "12px" }}>
 						<img
 							src={parsingInProcess ? stopIcon : startIcon}
 							onClick={startParserHandler}
@@ -214,10 +214,70 @@ const ProcessManagement: React.FC<IProcessManagementProps> = ({
 							</p>
 						</div>
 					)}
-						<div>
-						<div>
+					<div style={{ height: "100%", display: "flex", alignItems: 'center', alignContent: "center" }}>
+						<div style={{ display: 'flex', alignItems: 'center', width: '120px', height: "50px", borderRadius: "10px", border: "1px solid #335ae6", justifyContent: 'center' }}>
 							<p className={`${styles.inter__medium} ${styles.texts} ${styles.text_minify}`}>
-					Грузия
+								Грузия
+							</p>
+						</div>
+						<div style={{ display: 'flex', alignItems: 'center', width: '120px', height: "50px", borderRadius: "10px", border: "1px solid #335ae6", justifyContent: 'center' }}>
+							<p className={`${styles.inter__medium} ${styles.texts} ${styles.text_minify}`}>
+								Евпатория
+							</p>
+						</div>
+						<div style={{ display: 'flex', alignItems: 'center', width: '120px', height: "50px", borderRadius: "10px", border: "1px solid #335ae6", justifyContent: 'center' }}>
+							<p className={`${styles.inter__medium} ${styles.texts} ${styles.text_minify}`}>
+								Грузия
+							</p>
+						</div>
+						<div style={{ display: 'flex', alignItems: 'center', width: '120px', height: "50px", borderRadius: "10px", border: "1px solid #335ae6", justifyContent: 'center' }}>
+							<p className={`${styles.inter__medium} ${styles.texts} ${styles.text_minify}`}>
+								Грузия
+							</p>
+						</div>
+						<div style={{ display: 'flex', alignItems: 'center', width: '120px', height: "50px", borderRadius: "10px", border: "1px solid #335ae6", justifyContent: 'center' }}>
+							<p className={`${styles.inter__medium} ${styles.texts} ${styles.text_minify}`}>
+								Грузия
+							</p>
+						</div>
+						<div style={{ display: 'flex', alignItems: 'center', width: '120px', height: "50px", borderRadius: "10px", border: "1px solid #335ae6", justifyContent: 'center' }}>
+							<p className={`${styles.inter__medium} ${styles.texts} ${styles.text_minify}`}>
+								Грузия
+							</p>
+						</div>
+						<div style={{ display: 'flex', alignItems: 'center', width: '120px', height: "50px", borderRadius: "10px", border: "1px solid #335ae6", justifyContent: 'center' }}>
+							<p className={`${styles.inter__medium} ${styles.texts} ${styles.text_minify}`}>
+								Грузия
+							</p>
+						</div>
+						<div style={{ display: 'flex', alignItems: 'center', width: '120px', height: "50px", borderRadius: "10px", border: "1px solid #335ae6", justifyContent: 'center' }}>
+							<p className={`${styles.inter__medium} ${styles.texts} ${styles.text_minify}`}>
+								Грузия
+							</p>
+						</div>
+						<div style={{ display: 'flex', alignItems: 'center', width: '120px', height: "50px", borderRadius: "10px", border: "1px solid #335ae6", justifyContent: 'center' }}>
+							<p className={`${styles.inter__medium} ${styles.texts} ${styles.text_minify}`}>
+								Грузия
+							</p>
+						</div>
+						<div style={{ display: 'flex', alignItems: 'center', width: '120px', height: "50px", borderRadius: "10px", border: "1px solid #335ae6", justifyContent: 'center' }}>
+							<p className={`${styles.inter__medium} ${styles.texts} ${styles.text_minify}`}>
+								Грузия
+							</p>
+						</div>
+						<div style={{ display: 'flex', alignItems: 'center', width: '120px', height: "50px", borderRadius: "10px", border: "1px solid #335ae6", justifyContent: 'center' }}>
+							<p className={`${styles.inter__medium} ${styles.texts} ${styles.text_minify}`}>
+								Грузия
+							</p>
+						</div>
+						<div style={{ display: 'flex', alignItems: 'center', width: '120px', height: "50px", borderRadius: "10px", border: "1px solid #335ae6", justifyContent: 'center' }}>
+							<p className={`${styles.inter__medium} ${styles.texts} ${styles.text_minify}`}>
+								Грузия
+							</p>
+						</div>
+						<div style={{ display: 'flex', alignItems: 'center', width: '120px', height: "50px", borderRadius: "10px", border: "1px solid #335ae6", justifyContent: 'center' }}>
+							<p className={`${styles.inter__medium} ${styles.texts} ${styles.text_minify}`}>
+								Грузия
 							</p>
 						</div>
 					</div>
