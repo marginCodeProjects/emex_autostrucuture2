@@ -220,7 +220,7 @@ const ProcessManagement: React.FC<IProcessManagementProps> = ({
 								Грузия
 							</p>
 						</div>
-						<div style={{ display: 'flex', alignItems: 'center', width: '120px', height: "50px", borderRadius: "10px", border: "1px solid #335ae6", justifyContent: 'center' }}>
+						<div style={{ display: 'flex', alignItems: 'center', minWidth: '120px', height: "50px", borderRadius: "10px", border: "1px solid #335ae6", justifyContent: 'center' }}>
 							<p className={`${styles.inter__medium} ${styles.texts} ${styles.text_minify}`}>
 								Евпатория
 							</p>
