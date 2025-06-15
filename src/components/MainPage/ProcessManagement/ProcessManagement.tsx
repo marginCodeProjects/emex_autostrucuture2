@@ -166,7 +166,7 @@ const ProcessManagement: React.FC<IProcessManagementProps> = ({
 				setAvailibleBrightDataProxies(allAvailableProxy)
 			}
 		}
-	}, [selectedProxySource])
+	}, [proxySource])
 	useEffect(() => {
 		fetchTraffic()
 		const interval = parsingInProcess ? setInterval(fetchTraffic, 30000) : null
