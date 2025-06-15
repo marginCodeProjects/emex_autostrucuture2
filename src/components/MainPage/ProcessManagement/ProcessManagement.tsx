@@ -266,11 +266,11 @@ const ProcessManagement: React.FC<IProcessManagementProps> = ({
 										minWidth: "120px",
 										height: "50px",
 										borderRadius: "10px",
-										border: isSelected ? "2px solid green" : "1px solid #335ae6",
+										border: isSelected ? "3px solid #335ae6" : "1px solid #335ae6",
 										justifyContent: "center",
 										marginRight: "12px",
 										cursor: "pointer",
-										backgroundColor: isSelected ? "#e6f7ff" : "transparent",
+
 									}}
 								>
 									<p className={`${styles.inter__medium} ${styles.texts} ${styles.text_minify}`}>
