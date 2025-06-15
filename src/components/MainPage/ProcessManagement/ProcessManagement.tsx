@@ -161,6 +161,7 @@ const ProcessManagement: React.FC<IProcessManagementProps> = ({
 	useEffect(() => {
 		if (selectedProxySource == "BRIGHTDATA") {
 			async () => {
+console.log("Сработал");
 
 				const allAvailableProxy = await GetAllAvailableProxy(language)
 				setAvailibleBrightDataProxies(allAvailableProxy)
