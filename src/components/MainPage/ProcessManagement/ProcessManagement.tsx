@@ -160,14 +160,15 @@ const ProcessManagement: React.FC<IProcessManagementProps> = ({
 	}
 	useEffect(() => {
 		if (proxySource === "BRIGHTDATA") {
-			async () => {
+			const setProxies = async () => {
 				console.log("Сработал");
 
 				const allAvailableProxy = await GetAllAvailableProxy(language)
 				setAvailibleBrightDataProxies(allAvailableProxy)
 			}
+			setProxies()
 		}
-	}, [proxySource])
+	}, [parsingInProcess, language, isLoading, proxySource])
 	useEffect(() => {
 		fetchTraffic()
 		const interval = parsingInProcess ? setInterval(fetchTraffic, 30000) : null
