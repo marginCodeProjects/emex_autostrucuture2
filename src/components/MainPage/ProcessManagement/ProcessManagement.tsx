@@ -119,7 +119,7 @@ const ProcessManagement: React.FC<IProcessManagementProps> = ({
 				successMessage(data.message);
 			}
 		} else {
-			const data = await ParserStart(filterId, token, proxySource, language);
+			const data = await ParserStart(filterId, token, selectedProxyIds, proxySource, language);
 			if (data.success === false) {
 				errorMessage(data.message);
 			} else if (data.success) {
