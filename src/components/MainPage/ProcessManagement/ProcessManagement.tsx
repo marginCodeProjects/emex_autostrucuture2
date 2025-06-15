@@ -11,6 +11,7 @@ import { useAuth } from '../../Other/authContext/useAuth'
 import { ConfigProvider, message, Progress } from 'antd'
 import { useProxySource } from '../../ProxySourceProvider/ProxySourceProvider'
 import { GetFilterByID } from '../../../api/FilterService'
+import { GetAllAvailableProxy } from '../../../api/ProxyService'
 
 const ProcessManagement: React.FC<IProcessManagementProps> = ({
 	file,
@@ -27,6 +28,7 @@ const ProcessManagement: React.FC<IProcessManagementProps> = ({
 	const [isLoading, setIsLoading] = useState(true)
 	const [filterName, setFilterName] = useState<string | null>(null)
 	const [selectedProxySource, setSelectedProxySource] = useState<string | null>(localStorage.getItem("selectedProxySource"));
+	const [availibleBrightDataProxies, setAvailibleBrightDataProxies] = useState<GetAllAvailableProxy | null>(null)
 	useEffect(() => {
 		const parsingStatus = localStorage.getItem('parsingInProcess')
 
@@ -156,7 +158,15 @@ const ProcessManagement: React.FC<IProcessManagementProps> = ({
 		}
 
 	}
+	useEffect(() => {
+		if (selectedProxySource == "BRIGHTDATA") {
+			async () => {
 
+				const allAvailableProxy = await GetAllAvailableProxy(language)
+				setAvailibleBrightDataProxies(allAvailableProxy)
+			}
+		}
+	}, [selectedProxySource])
 	useEffect(() => {
 		fetchTraffic()
 		const interval = parsingInProcess ? setInterval(fetchTraffic, 30000) : null
@@ -214,73 +224,34 @@ const ProcessManagement: React.FC<IProcessManagementProps> = ({
 							</p>
 						</div>
 					)}
-					<div style={{ height: "100%", display: "flex", alignItems: 'center', overflowX: 'scroll' }}>
-						<div style={{ display: 'flex', alignItems: 'center', minWidth: "120px", height: "50px", borderRadius: "10px", border: "1px solid #335ae6", justifyContent: 'center', marginRight: "12px" }}>
-							<p className={`${styles.inter__medium} ${styles.texts} ${styles.text_minify}`}>
-								Грузия
-							</p>
+					{availibleBrightDataProxies?.proxies?.map((proxy) => (
+						<div
+							key={proxy.name} // <-- важно для map
+							style={{
+								height: "100%",
+								display: "flex",
+								alignItems: "center",
+								overflowX: "scroll",
+							}}
+						>
+							<div
+								style={{
+									display: "flex",
+									alignItems: "center",
+									minWidth: "120px",
+									height: "50px",
+									borderRadius: "10px",
+									border: "1px solid #335ae6",
+									justifyContent: "center",
+									marginRight: "12px",
+								}}
+							>
+								<p className={`${styles.inter__medium} ${styles.texts} ${styles.text_minify}`}>
+									{proxy.name}
+								</p>
+							</div>
 						</div>
-						<div style={{ display: 'flex', alignItems: 'center', minWidth: '120px', height: "50px", borderRadius: "10px", border: "1px solid #335ae6", justifyContent: 'center', marginRight: "12px" }}>
-							<p className={`${styles.inter__medium} ${styles.texts} ${styles.text_minify}`}>
-								Евпатория
-							</p>
-						</div>
-						<div style={{ display: 'flex', alignItems: 'center', minWidth: "120px", height: "50px", borderRadius: "10px", border: "1px solid #335ae6", justifyContent: 'center', marginRight: "12px" }}>
-							<p className={`${styles.inter__medium} ${styles.texts} ${styles.text_minify}`}>
-								Грузия
-							</p>
-						</div>
-						<div style={{ display: 'flex', alignItems: 'center', minWidth: "120px", height: "50px", borderRadius: "10px", border: "1px solid #335ae6", justifyContent: 'center', marginRight: "12px" }}>
-							<p className={`${styles.inter__medium} ${styles.texts} ${styles.text_minify}`}>
-								Грузия
-							</p>
-						</div>
-						<div style={{ display: 'flex', alignItems: 'center', minWidth: "120px", height: "50px", borderRadius: "10px", border: "1px solid #335ae6", justifyContent: 'center', marginRight: "12px" }}>
-							<p className={`${styles.inter__medium} ${styles.texts} ${styles.text_minify}`}>
-								Грузия
-							</p>
-						</div>
-						<div style={{ display: 'flex', alignItems: 'center', minWidth: "120px", height: "50px", borderRadius: "10px", border: "1px solid #335ae6", justifyContent: 'center', marginRight: "12px" }}>
-							<p className={`${styles.inter__medium} ${styles.texts} ${styles.text_minify}`}>
-								Грузия
-							</p>
-						</div>
-						<div style={{ display: 'flex', alignItems: 'center', minWidth: "120px", height: "50px", borderRadius: "10px", border: "1px solid #335ae6", justifyContent: 'center', marginRight: "12px" }}>
-							<p className={`${styles.inter__medium} ${styles.texts} ${styles.text_minify}`}>
-								Грузия
-							</p>
-						</div>
-						<div style={{ display: 'flex', alignItems: 'center', minWidth: "120px", height: "50px", borderRadius: "10px", border: "1px solid #335ae6", justifyContent: 'center', marginRight: "12px" }}>
-							<p className={`${styles.inter__medium} ${styles.texts} ${styles.text_minify}`}>
-								Грузия
-							</p>
-						</div>
-						<div style={{ display: 'flex', alignItems: 'center', minWidth: "120px", height: "50px", borderRadius: "10px", border: "1px solid #335ae6", justifyContent: 'center', marginRight: "12px" }}>
-							<p className={`${styles.inter__medium} ${styles.texts} ${styles.text_minify}`}>
-								Грузия
-							</p>
-						</div>
-						<div style={{ display: 'flex', alignItems: 'center', minWidth: "120px", height: "50px", borderRadius: "10px", border: "1px solid #335ae6", justifyContent: 'center', marginRight: "12px" }}>
-							<p className={`${styles.inter__medium} ${styles.texts} ${styles.text_minify}`}>
-								Грузия
-							</p>
-						</div>
-						<div style={{ display: 'flex', alignItems: 'center', minWidth: "120px", height: "50px", borderRadius: "10px", border: "1px solid #335ae6", justifyContent: 'center', marginRight: "12px" }}>
-							<p className={`${styles.inter__medium} ${styles.texts} ${styles.text_minify}`}>
-								Грузия
-							</p>
-						</div>
-						<div style={{ display: 'flex', alignItems: 'center', minWidth: "120px", height: "50px", borderRadius: "10px", border: "1px solid #335ae6", justifyContent: 'center', marginRight: "12px" }}>
-							<p className={`${styles.inter__medium} ${styles.texts} ${styles.text_minify}`}>
-								Грузия
-							</p>
-						</div>
-						<div style={{ display: 'flex', alignItems: 'center', minWidth: "120px", height: "50px", borderRadius: "10px", border: "1px solid #335ae6", justifyContent: 'center', marginRight: "12px" }}>
-							<p className={`${styles.inter__medium} ${styles.texts} ${styles.text_minify}`}>
-								Грузия
-							</p>
-						</div>
-					</div>
+					))}
 				</div>
 			</div>
 		</ConfigProvider>
