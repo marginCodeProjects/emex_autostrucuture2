@@ -29,6 +29,7 @@ const ProcessManagement: React.FC<IProcessManagementProps> = ({
 	const [filterName, setFilterName] = useState<string | null>(null)
 	const [selectedProxySource, setSelectedProxySource] = useState<string | null>(localStorage.getItem("selectedProxySource"));
 	const [availibleBrightDataProxies, setAvailibleBrightDataProxies] = useState<GetAllAvailableProxy | null>(null)
+	const [selectedProxyIds, setSelectedProxyIds] = useState<number[]>([])
 	useEffect(() => {
 		const parsingStatus = localStorage.getItem('parsingInProcess')
 
@@ -66,6 +67,12 @@ const ProcessManagement: React.FC<IProcessManagementProps> = ({
 			setFile(fileName)
 		}
 	}, [status])
+	useEffect(() => {
+		console.log(selectedProxyIds);
+
+
+
+	}, [selectedProxyIds])
 
 	const statusMessage = () => {
 		const normalizedStatus = status.trim()
@@ -235,25 +242,43 @@ const ProcessManagement: React.FC<IProcessManagementProps> = ({
 							overflowX: "scroll",
 						}}
 					>
-						{availibleBrightDataProxies?.proxies?.map((proxy) => (
-							<div
-								key={proxy.name} // <-- важно для map
-								style={{
-									display: "flex",
-									alignItems: "center",
-									minWidth: "120px",
-									height: "50px",
-									borderRadius: "10px",
-									border: "1px solid #335ae6",
-									justifyContent: "center",
-									marginRight: "12px",
-								}}
-							>
-								<p className={`${styles.inter__medium} ${styles.texts} ${styles.text_minify}`}>
-									{proxy.name}
-								</p>
-							</div>
-						))}
+						{availibleBrightDataProxies?.proxies?.map((proxy) => {
+							const isSelected = selectedProxyIds.includes(proxy.id)
+							const toggleProxySelection = () => {
+								setSelectedProxyIds((prev) => {
+									if (prev.includes(proxy.id)) {
+										// Удаляем из массива
+										return prev.filter((id) => id !== proxy.id)
+									} else {
+										// Добавляем в массив
+										return [...prev, proxy.id]
+									}
+								})
+							}
+
+							return (
+								<div
+									key={proxy.name}
+									onClick={toggleProxySelection}
+									style={{
+										display: "flex",
+										alignItems: "center",
+										minWidth: "120px",
+										height: "50px",
+										borderRadius: "10px",
+										border: isSelected ? "2px solid green" : "1px solid #335ae6",
+										justifyContent: "center",
+										marginRight: "12px",
+										cursor: "pointer",
+										backgroundColor: isSelected ? "#e6f7ff" : "transparent",
+									}}
+								>
+									<p className={`${styles.inter__medium} ${styles.texts} ${styles.text_minify}`}>
+										{proxy.name}
+									</p>
+								</div>
+							)
+						})}
 					</div>
 				</div>
 			</div>
