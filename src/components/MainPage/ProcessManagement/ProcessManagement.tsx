@@ -226,17 +226,18 @@ const ProcessManagement: React.FC<IProcessManagementProps> = ({
 							</p>
 						</div>
 					)}
-					{availibleBrightDataProxies?.proxies?.map((proxy) => (
-						<div
-							key={proxy.name} // <-- важно для map
-							style={{
-								height: "100%",
-								display: "flex",
-								alignItems: "center",
-								overflowX: "scroll",
-							}}
-						>
+					<div
+
+						style={{
+							height: "100%",
+							display: "flex",
+							alignItems: "center",
+							overflowX: "scroll",
+						}}
+					>
+						{availibleBrightDataProxies?.proxies?.map((proxy) => (
 							<div
+								key={proxy.name} // <-- важно для map
 								style={{
 									display: "flex",
 									alignItems: "center",
@@ -252,8 +253,8 @@ const ProcessManagement: React.FC<IProcessManagementProps> = ({
 									{proxy.name}
 								</p>
 							</div>
-						</div>
-					))}
+						))}
+					</div>
 				</div>
 			</div>
 		</ConfigProvider>
