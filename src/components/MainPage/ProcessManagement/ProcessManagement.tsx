@@ -159,7 +159,7 @@ const ProcessManagement: React.FC<IProcessManagementProps> = ({
 
 	}
 	useEffect(() => {
-		if (selectedProxySource == "BRIGHTDATA") {
+		if (proxySource === "BRIGHTDATA") {
 			async () => {
 				console.log("Сработал");
 
