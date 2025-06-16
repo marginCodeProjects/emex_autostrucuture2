@@ -25,7 +25,7 @@
 }
 .OutlineDiv {
 	max-width: 1110px;
-	height: 154px;
+	height: 105px;
 	border: 1px #335ae6 solid;
 	border-radius: 10px;
 	padding: 22px 0px 19px 20px;
@@ -46,13 +46,15 @@
 	flex-direction: column;
 }
 .Card {
-	min-width: 207px;
-	min-height: 113px;
+	min-width: 150px;
+	height: 57px;
 	margin-right: 20px;
 	border: 1px solid #335ae6;
 	border-radius: 4px;
 	display: flex;
 	flex-direction: column;
+	justify-content: center;
+	align-items: center;
 }
 .Card__topPart {
 	width: 205px;
