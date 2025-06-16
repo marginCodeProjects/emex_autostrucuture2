@@ -1,13 +1,13 @@
 import { useState } from 'react'
 import { useAuth } from '../../Other/authContext/useAuth'
 import styles from './Proxy.module.css'
-import { message, Button } from 'antd'
+import { message } from 'antd'
 import useCountries from '../../../hooks/UserHooks/useCountries'
 
 const Proxy = () => {
     const { token } = useAuth()
     const [selectedCountryKey, setSelectedCountryKey] = useState<string | undefined>(undefined)
-    const [loading, setLoading] = useState(false)
+    const [_, setLoading] = useState(false)
     const [msgApi, contextHolder] = message.useMessage()
 
     const { countries, loading: loadingCountries } = useCountries(
