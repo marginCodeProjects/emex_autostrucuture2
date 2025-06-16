@@ -21,6 +21,7 @@
 	height: 100%;
 	border: 1px solid #335ae6;
 	border-radius: 10px;
+	margin-bottom: 18px;
 }
 .OutlineDiv {
 	max-width: 1110px;
@@ -113,8 +114,8 @@
 .ProxyActions__Button:hover {
 	cursor: pointer;
 	color: #4096ff;
-    border-color: #4096ff;
-    background: #ffffff;
+	border-color: #4096ff;
+	background: #ffffff;
 }
 .InputsDiv {
 	display: flex;
