@@ -16,7 +16,7 @@ const Settings = () => {
 			<Filter />
 			<PagePartTitle
 				num='2.'
-				label={settingsTexts[language].FILTERS}
+				label={settingsTexts[language].PROXY}
 			/>{' '}
 		</div>
 	)
