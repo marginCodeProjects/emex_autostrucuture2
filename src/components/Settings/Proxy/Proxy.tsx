@@ -82,15 +82,10 @@ const Proxy = () => {
                         </div>
                     ))}
             </div>
-            <Button
-                type="primary"
-                onClick={handleAddProxy}
-                disabled={!selectedCountryKey}
-                loading={loading}
-                style={{ marginTop: 16 }}
-            >
-                Добавить прокси
-            </Button>
+           <div
+                        onClick={() => handleAddProxy()}
+                        className={`${styles.ProxyActions__Button} ${styles.inter__medium} ${styles.Card__bottomPart_texts}`}
+                    >Добавить прокси</div>
         </div>
     )
 }
