@@ -8,10 +8,20 @@
 	font-size: 14px;
 	color: #000000;
 }
-.Proxy__container {
+.Card__topPart_title {
+	font-size: 16px;
+	text-align: left;
+}
+.Card__bottomPart_texts {
+	font-size: 15px;
+	text-align: left;
+}
+.Filters__container {
 	width: 100%;
-	height: auto;
-	margin-bottom: 40px;
+	height: 100%;
+	border: 1px solid #335ae6;
+	border-radius: 10px;
+	margin-bottom: 18px;
 }
 .OutlineDiv {
 	max-width: 1110px;
@@ -23,11 +33,17 @@
 	overflow-x: scroll;
 	overflow-y: hidden;
 	scrollbar-width: none;
-	margin-bottom: 20px;
 }
 
 .OutlineDiv::-webkit-scrollbar {
 	display: none;
+}
+.SecondInnerDiv {
+	padding: 30px 0px 18px 21px;
+	width: 73%;
+	height: 100%;
+	display: flex;
+	flex-direction: column;
 }
 .Card {
 	min-width: 207px;
@@ -45,25 +61,17 @@
 	padding: 10px 0px 0px 12px;
 	border-bottom: #335ae6 1px solid;
 }
-.Card__topPart_title {
-	font-size: 16px;
-	text-align: left;
-}
 .Cart_bottomPart {
 	height: 75px;
 	padding: 10px 12px;
 	width: 205px;
-}
-.Card__bottomPart_texts {
-	font-size: 15px;
-	text-align: left;
 }
 .Card__active {
 	border: 3px solid #335ae6;
 }
 .ProxyActions__inputsDiv {
 	width: 479px;
-	height: auto;
+	height: 139px;
 	border: 1px solid #335ae6;
 	border-radius: 10px;
 	display: flex;
@@ -74,32 +82,26 @@
 	border: 1px #335ae6 solid;
 	border-radius: 10px;
 	height: 31px;
-	margin-bottom: 10px;
+
+	width: 281px;
+	margin-right: 20px;
 }
 .ProxyActions__input:nth-child(2) {
 	border: 1px #335ae6 solid;
 	border-radius: 7px;
 	height: 31px;
-	margin-bottom: 10px;
+
 	text-align: left;
 }
 
 .ProxyActions__buttonsDiv {
 	display: flex;
-	justify-content: space-between;
-	margin-bottom: 10px;
+	flex-direction: column;
+	padding: 30px 20px 0px 21px;
+	width: 100%;
 }
 .ProxyActions__Button {
-	width: 207px;
-	height: 31px;
-	border: 1px solid #335ae6;
-	border-radius: 10px;
-	display: flex;
-	align-items: center;
-	justify-content: center;
-	font-size: 15px;
-}
-.ProxyActions__AddProxy {
+	max-width: 268px;
 	width: 100%;
 	height: 31px;
 	border: 1px solid #335ae6;
@@ -107,20 +109,22 @@
 	display: flex;
 	align-items: center;
 	justify-content: center;
-	font-size: 15px;
+	margin-bottom: 12px;
 }
 .ProxyActions__Button:hover {
 	cursor: pointer;
 	color: #4096ff;
-    border-color: #4096ff;
-    background: #ffffff;
+	border-color: #4096ff;
+	background: #ffffff;
 }
-.downloadProxyTemplate {
-	font-size: 16px;
-	text-align: left;
-	display: block;
-	text-decoration: underline;
-	color: #335ae6;
-
+.InputsDiv {
+	display: flex;
+	width: 100%;
+	align-items: center;
+	height: 32px;
+	margin-bottom: 20px;
 }
-
+.InputsLineText {
+	width: 135px;
+	margin-right: 7px;
+}

@@ -3,7 +3,7 @@ import useFilters from '../../../hooks/UserHooks/filtersHooks'
 import { useAuth } from '../../Other/authContext/useAuth'
 import { texts } from '../../Other/LanguageProvider/languages'
 import { useLanguage } from '../../Other/LanguageProvider/useLanguage'
-import styles from './Filter.module.css'
+import styles from './Proxy.module.css'
 import { message } from 'antd'
 
 const Proxy = () => {
