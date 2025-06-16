@@ -47,7 +47,7 @@ const Proxy = () => {
                 headers: {
                     'accept': 'application/json',
                     'Content-Type': 'application/json',
-                    'Authorization': `Bearer ${token}`
+                    'access-token': `${token}`
                 },
                 body: JSON.stringify(payload)
             })
