@@ -14,6 +14,10 @@ const Settings = () => {
 				label={settingsTexts[language].FILTERS}
 			/>{' '}
 			<Filter />
+			<PagePartTitle
+				num='2.'
+				label={settingsTexts[language].FILTERS}
+			/>{' '}
 		</div>
 	)
 }

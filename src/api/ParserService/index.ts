@@ -41,7 +41,7 @@ export async function ParserStart(
 
 	try {
 		await fetchAPI(
-			`/new_parser/start/${filterId}?proxies_id=${selectedProxyIds}?using_proxy=${currentProxySource}`,
+			`/new_parser/start/${filterId}?proxies_id=${selectedProxyIds}&using_proxy=${currentProxySource}`,
 			'GET',
 			token
 		)
