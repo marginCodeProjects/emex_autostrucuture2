@@ -10,7 +10,7 @@ const Proxy = () => {
     const { language } = useLanguage()
     const { token } = useAuth()
     const [selectedCardId, setSelectedCardId] = useState<string | undefined>('')
-    const [messageApi, contextHolder] = message.useMessage()
+    const [_, contextHolder] = message.useMessage()
 
     const { filters, loading } = useFilters(
         'https://api.autostructure.ru/v1/filters/get_filters',
