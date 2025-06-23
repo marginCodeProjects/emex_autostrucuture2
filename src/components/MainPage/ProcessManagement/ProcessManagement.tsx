@@ -239,7 +239,7 @@ const ProcessManagement: React.FC<IProcessManagementProps> = ({
 							height: "100%",
 							display: "flex",
 							alignItems: "center",
-							overflowX: "scroll",
+							overflowX: "scroll", overflowY: 'hidden'
 						}}
 					>
 						{availibleBrightDataProxies?.proxies?.map((proxy) => {
