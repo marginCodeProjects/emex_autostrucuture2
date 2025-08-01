@@ -177,6 +177,11 @@ const ProcessManagement: React.FC<IProcessManagementProps> = ({
 		}
 	}, [parsingInProcess, language, isLoading, proxySource])
 	useEffect(() => {
+	if (!parsingInProcess) {
+		fetchTraffic()
+	}
+}, [proxySource])
+	useEffect(() => {
 		fetchTraffic()
 		const interval = parsingInProcess ? setInterval(fetchTraffic, 30000) : null
 		return () => {
