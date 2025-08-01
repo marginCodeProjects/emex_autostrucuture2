@@ -142,22 +142,23 @@ const ProcessManagement: React.FC<IProcessManagementProps> = ({
 
 
 	const fetchTraffic = async () => {
-
+		console.log("proxySource inside fetchTraffic:", proxySource)
 
 		if (proxySource === "MANGO") {
-			console.log("Я сработал манго");
+			console.log("Я сработал манго")
 			const data = await GetMangoProxyTrafficAvailable(language)
 			if (data?.availableTraffic) {
 				const availableTrafficGB = (data.availableTraffic / 1024).toFixed(1)
 				const suffix = language === "RU" ? ' ГБ' : ' GB'
 				setProxyTrafficAvalibale(availableTrafficGB + suffix)
 			}
+		}
 
-		} else if (proxySource === "BRIGHTDATA") {
-			console.log("Я сработал брайт");
+		if (proxySource === "BRIGHTDATA") {
+			console.log("Я сработал брайт")
 			const data = await GetBrightProxyTrafficAvailable(language)
-			console.log(data);
-			if (data.balance && data.pendingCosts) {
+			console.log(data)
+			if (data.balance != null && data.pendingCosts != null) {
 				const availableTrafficGB = ((data.balance - data.pendingCosts) / 0.6).toFixed(1)
 				const suffix = language === "RU" ? ' ГБ' : ' GB'
 				setProxyTrafficAvalibale(availableTrafficGB + suffix)
@@ -177,10 +178,10 @@ const ProcessManagement: React.FC<IProcessManagementProps> = ({
 		}
 	}, [parsingInProcess, language, isLoading, proxySource])
 	useEffect(() => {
-	if (!parsingInProcess) {
-		fetchTraffic()
-	}
-}, [proxySource])
+		if (!parsingInProcess) {
+			fetchTraffic()
+		}
+	}, [proxySource])
 	useEffect(() => {
 		fetchTraffic()
 		const interval = parsingInProcess ? setInterval(fetchTraffic, 30000) : null
